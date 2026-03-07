@@ -10,8 +10,6 @@ import { type Adapter } from "next-auth/adapters";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { eq } from "drizzle-orm";
-
-import { env } from "~/env";
 import { db } from "~/server/db";
 import { LoginSchema } from "~/server/actions/auth/schemas";
 import {
@@ -91,7 +89,7 @@ export const authOptions: NextAuthOptions = {
           where: eq(users.email, parsed.data.email),
         });
 
-        if (!user || !user.password) return null;
+        if (!user?.password) return null;
 
         const isValid = await bcrypt.compare(
           parsed.data.password,

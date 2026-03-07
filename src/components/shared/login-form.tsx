@@ -50,7 +50,13 @@ export function LoginForm() {
     }
 
     toast.success("Welcome back!");
-    router.push("/courses");
+    const res = await fetch("/api/auth/session");
+    const session = (await res.json()) as { user?: { role?: string } } | null;
+    if (session?.user?.role === "admin") {
+      router.push("/admin");
+    } else {
+      router.push("/courses");
+    }
     router.refresh();
   };
 
