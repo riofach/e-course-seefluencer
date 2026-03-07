@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: seefluencer-pg
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: hiring_seefluencer
+    ports:
+      - "5432:5432"
+    volumes:
+      - seefluencer_db_data:/var/lib/postgresql/data
+
+volumes:
+  seefluencer_db_data:

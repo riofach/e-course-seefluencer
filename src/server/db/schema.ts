@@ -25,6 +25,7 @@ export const users = pgTable("user", {
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
   role: varchar("role", { length: 20 }).default("student").notNull(),
+  password: varchar("password", { length: 255 }), // nullable — allows OAuth-only users in future
 });
 
 export const accounts = pgTable(

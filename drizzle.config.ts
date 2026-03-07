@@ -8,5 +8,4 @@ export default {
   dbCredentials: {
     url: env.DATABASE_URL,
   },
-  tablesFilter: ["project-e-course_*"],
 } satisfies Config;
