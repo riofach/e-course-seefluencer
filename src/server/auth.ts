@@ -7,8 +7,13 @@ import {
 } from "next-auth";
 import { type Adapter } from "next-auth/adapters";
 
+import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcryptjs";
+import { eq } from "drizzle-orm";
+
 import { env } from "~/env";
 import { db } from "~/server/db";
+import { LoginSchema } from "~/server/actions/auth/schemas";
 import {
   accounts,
   sessions,
@@ -44,13 +49,24 @@ declare module "next-auth" {
  * @see https://next-auth.js.org/configuration/options
  */
 export const authOptions: NextAuthOptions = {
+  session: { strategy: "jwt" },
+  pages: {
+    signIn: "/login",
+  },
   callbacks: {
-    session: ({ session, user }) => ({
+    jwt: ({ token, user }) => {
+      if (user) {
+        token.id = user.id;
+        token.role = user.role;
+      }
+      return token;
+    },
+    session: ({ session, token }) => ({
       ...session,
       user: {
         ...session.user,
-        id: user.id,
-        role: user.role,
+        id: token.id as string,
+        role: token.role as "student" | "admin",
       },
     }),
   },
@@ -61,8 +77,36 @@ export const authOptions: NextAuthOptions = {
     verificationTokensTable: verificationTokens,
   }) as Adapter,
   providers: [
-    // Configure one or more authentication providers here
-    // e.g., Credentials, Google, Discord, etc.
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials) {
+        const parsed = LoginSchema.safeParse(credentials);
+        if (!parsed.success) return null;
+
+        const user = await db.query.users.findFirst({
+          where: eq(users.email, parsed.data.email),
+        });
+
+        if (!user || !user.password) return null;
+
+        const isValid = await bcrypt.compare(
+          parsed.data.password,
+          user.password,
+        );
+        if (!isValid) return null;
+
+        return {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role as "student" | "admin",
+        };
+      },
+    }),
   ],
 };
 
