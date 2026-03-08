@@ -1,0 +1,15 @@
+
+> project-e-course@0.1.0 lint
+> next lint
+
+`next lint` is deprecated and will be removed in Next.js 16.
+For new projects, use create-next-app to choose your preferred linter.
+For existing projects, migrate to the ESLint CLI:
+npx @next/codemod@canary next-lint-to-eslint-cli .
+
+
+./src/server/courses/published-course-catalog-cache.ts
+13:51  Error: Unsafe argument of type `any` assigned to a parameter of type `number`.  @typescript-eslint/no-unsafe-argument
+13:58  Error: Unsafe argument of type `any` assigned to a parameter of type `number`.  @typescript-eslint/no-unsafe-argument
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules

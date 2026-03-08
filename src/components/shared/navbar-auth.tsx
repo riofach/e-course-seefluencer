@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { getServerAuthSession } from "~/server/auth";
-import { db } from "~/server/db";
-import { users } from "~/server/db/schema";
-import { eq } from "drizzle-orm";
+import { getUserProfileData } from "~/server/users/queries";
 import { LogoutButton } from "./logout-button";
 import { Button } from "~/components/ui/button";
 import {
@@ -14,16 +12,13 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
-import { User, LogOut } from "lucide-react";
+import { User } from "lucide-react";
 
 export async function NavbarAuth() {
   const session = await getServerAuthSession();
 
   if (session?.user) {
-    const user = await db.query.users.findFirst({
-      where: eq(users.id, session.user.id),
-      columns: { name: true, image: true },
-    });
+    const user = await getUserProfileData(session.user.id);
 
     const displayName = user?.name ?? session.user.name ?? "User";
     const initials = displayName.substring(0, 2).toUpperCase();
