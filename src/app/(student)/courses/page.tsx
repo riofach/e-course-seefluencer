@@ -1,7 +1,12 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
+import { unstable_noStore as noStore } from "next/cache";
 
 import { CourseCatalog } from "~/components/student/course-catalog";
+import { CourseSearchInput } from "~/components/student/course-search-input";
+import { normalizeCourseSearchTerm } from "~/components/student/course-search-input.helpers";
 import { getPublishedCourseCatalog } from "~/server/courses/published-course-catalog-cache";
+import { searchPublishedCourses } from "~/server/courses/search-published-courses";
 
 export const metadata: Metadata = {
   title: "Katalog Kursus",
@@ -11,15 +16,21 @@ export const metadata: Metadata = {
 export const revalidate = 300;
 
 type SearchParamProps = {
-  searchParams: Promise<{ limit?: string; offset?: string }>;
+  searchParams: Promise<{ limit?: string; offset?: string; q?: string }>;
 };
 
 export default async function CoursesPage(props: SearchParamProps) {
   const searchParams = await props.searchParams;
   const limit = parseInt(searchParams.limit ?? "20");
   const offset = parseInt(searchParams.offset ?? "0");
+  const query = normalizeCourseSearchTerm(searchParams.q);
 
-  const courses = await getPublishedCourseCatalog(limit, offset);
+  const courses = query
+    ? await (async () => {
+        noStore();
+        return searchPublishedCourses(query, limit, offset);
+      })()
+    : await getPublishedCourseCatalog(limit, offset);
 
   return (
     <section className="bg-background text-foreground">
@@ -40,7 +51,15 @@ export default async function CoursesPage(props: SearchParamProps) {
           </div>
         </div>
 
-        <CourseCatalog courses={courses} />
+        <Suspense
+          fallback={
+            <div className="bg-card/50 min-h-[56px] w-full rounded-2xl border" />
+          }
+        >
+          <CourseSearchInput defaultValue={query} />
+        </Suspense>
+
+        <CourseCatalog courses={courses} searchQuery={query} />
       </div>
     </section>
   );

@@ -14,11 +14,12 @@ import type { PublishedCourseCatalogItem } from "~/server/courses/published-cour
 
 type CourseCatalogProps = {
   courses: PublishedCourseCatalogItem[];
+  searchQuery?: string;
 };
 
-export function CourseCatalog({ courses }: CourseCatalogProps) {
+export function CourseCatalog({ courses, searchQuery }: CourseCatalogProps) {
   if (courses.length === 0) {
-    return <CourseCatalogEmptyState />;
+    return <CourseCatalogEmptyState searchQuery={searchQuery} />;
   }
 
   return (
@@ -87,7 +88,7 @@ function CourseCatalogCard({ course }: { course: PublishedCourseCatalogItem }) {
   );
 }
 
-function CourseCatalogEmptyState() {
+function CourseCatalogEmptyState({ searchQuery }: { searchQuery?: string }) {
   return (
     <Card className="border-border/70 from-card via-card to-primary/5 relative mx-auto w-full max-w-3xl overflow-hidden border-dashed bg-gradient-to-br shadow-sm">
       <div
@@ -107,25 +108,44 @@ function CourseCatalogEmptyState() {
 
         <div className="space-y-3">
           <CardTitle className="text-2xl tracking-tight sm:text-3xl">
-            Belum ada kursus publik
+            {searchQuery ? "Kursus tidak ditemukan" : "Belum ada kursus publik"}
           </CardTitle>
           <CardDescription className="text-muted-foreground mx-auto max-w-md text-center text-sm leading-7 sm:text-base">
-            Kursus yang sudah dipublikasikan akan muncul di sini.
-            <br className="hidden sm:block" />
-            Sementara itu, kamu bisa kembali ke beranda untuk melihat update
-            terbaru.
+            {searchQuery ? (
+              <>
+                Tidak ada kursus publik yang cocok dengan pencarian &quot;
+                <strong>{searchQuery}</strong>&quot;.
+                <br className="hidden sm:block" />
+                Coba gunakan kata kunci lain.
+              </>
+            ) : (
+              <>
+                Kursus yang sudah dipublikasikan akan muncul di sini.
+                <br className="hidden sm:block" />
+                Sementara itu, kamu bisa kembali ke beranda untuk melihat update
+                terbaru.
+              </>
+            )}
           </CardDescription>
         </div>
       </CardHeader>
 
       <CardContent className="relative flex justify-center px-6 pb-10 sm:px-10">
         <div className="flex flex-col items-center gap-3">
-          <Button asChild variant="outline" className="min-h-11 px-5">
-            <Link href="/">Jelajahi beranda</Link>
-          </Button>
-          <p className="text-muted-foreground text-center text-sm leading-6">
-            Jangan khawatir — materi baru akan tampil otomatis setelah live.
-          </p>
+          {searchQuery ? (
+            <Button asChild variant="outline" className="min-h-11 px-5">
+              <Link href="/courses">Lihat semua kursus</Link>
+            </Button>
+          ) : (
+            <>
+              <Button asChild variant="outline" className="min-h-11 px-5">
+                <Link href="/">Jelajahi beranda</Link>
+              </Button>
+              <p className="text-muted-foreground text-center text-sm leading-6">
+                Jangan khawatir — materi baru akan tampil otomatis setelah live.
+              </p>
+            </>
+          )}
         </div>
       </CardContent>
     </Card>
