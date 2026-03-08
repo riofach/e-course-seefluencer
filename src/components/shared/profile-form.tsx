@@ -12,6 +12,7 @@ import {
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
+import { cn } from "~/lib/utils";
 import type { ActionResponse } from "~/types";
 
 interface ProfileFormProps {
@@ -28,6 +29,8 @@ export function ProfileForm({ initialName, email }: ProfileFormProps) {
   const {
     register,
     handleSubmit,
+    reset,
+    watch,
     formState: { errors },
   } = useForm<ProfileInput>({
     resolver: zodResolver(ProfileSchema),
@@ -39,10 +42,15 @@ export function ProfileForm({ initialName, email }: ProfileFormProps) {
   useEffect(() => {
     if (state?.success === true) {
       toast.success("Profile updated successfully.");
+      reset({ name: watch("name") });
     } else if (state?.success === false) {
       toast.error(state.error);
     }
-  }, [state]);
+  }, [reset, state, watch]);
+
+  const currentName = watch("name");
+  const hasNameChanged = currentName !== initialName;
+  const isSubmitDisabled = isPending || !hasNameChanged;
 
   const onSubmit = handleSubmit((data) => {
     const formData = new FormData();
@@ -61,6 +69,9 @@ export function ProfileForm({ initialName, email }: ProfileFormProps) {
           {...register("name")}
           disabled={isPending}
           autoComplete="name"
+          className={cn(
+            errors.name && "border-destructive focus-visible:ring-destructive",
+          )}
         />
         {errors.name && (
           <p className="text-destructive text-sm font-medium">
@@ -84,7 +95,7 @@ export function ProfileForm({ initialName, email }: ProfileFormProps) {
       </div>
       <Button
         type="submit"
-        disabled={isPending}
+        disabled={isSubmitDisabled}
         className="min-h-[44px] w-full"
       >
         {isPending ? "Saving..." : "Save Changes"}
