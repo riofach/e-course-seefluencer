@@ -1,6 +1,6 @@
 
-> project-e-course@0.1.0 lint
-> next lint
+> project-e-course@0.1.0 check
+> next lint && tsc --noEmit
 
 `next lint` is deprecated and will be removed in Next.js 16.
 For new projects, use create-next-app to choose your preferred linter.
@@ -8,12 +8,30 @@ For existing projects, migrate to the ESLint CLI:
 npx @next/codemod@canary next-lint-to-eslint-cli .
 
 
-./src/server/courses/published-course-catalog-cache.ts
-12:10  Error: Type number trivially inferred from a number literal, remove type annotation.  @typescript-eslint/no-inferrable-types
-12:30  Error: Type number trivially inferred from a number literal, remove type annotation.  @typescript-eslint/no-inferrable-types
+./src/app/(student)/courses/[slug]/lessons/[lessonId]/page.integration.test.tsx
+64:42  Error: Unsafe argument of type `any` assigned to a parameter of type `LessonPageProps`.  @typescript-eslint/no-unsafe-argument
+64:54  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
 
-./src/server/courses/published-course-catalog.ts
-60:3  Error: Type number trivially inferred from a number literal, remove type annotation.  @typescript-eslint/no-inferrable-types
-61:3  Error: Type number trivially inferred from a number literal, remove type annotation.  @typescript-eslint/no-inferrable-types
+./src/app/(student)/courses/[slug]/lessons/[lessonId]/page.test.tsx
+64:42  Error: Unsafe argument of type `any` assigned to a parameter of type `LessonPageProps`.  @typescript-eslint/no-unsafe-argument
+64:54  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./src/components/student/quiz-result-display.test.tsx
+12:23  Error: Unexpected empty arrow function.  @typescript-eslint/no-empty-function
+55:23  Error: Unexpected empty arrow function.  @typescript-eslint/no-empty-function
+
+./src/server/actions/progress/submit-quiz.ts
+74:17  Error: Unsafe argument of type `any` assigned to a parameter of type `{ userId: string | SQL<unknown> | Placeholder<string, any>; lessonId: number | SQL<unknown> | Placeholder<string, any>; id?: number | SQL<unknown> | Placeholder<string, any> | undefined; completedAt?: Date | ... 2 more ... | undefined; }`.  @typescript-eslint/no-unsafe-argument
+74:57  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./src/setup-tests.ts
+1:38  Error: Unsafe assignment of an error typed value.  @typescript-eslint/no-unsafe-assignment
+1:44  Error: Unsafe construction of a type that could not be resolved.  @typescript-eslint/no-unsafe-call
+1:100  Error: Unsafe assignment of an error typed value.  @typescript-eslint/no-unsafe-assignment
+1:120  Error: Unsafe member access .window on a type that cannot be resolved.  @typescript-eslint/no-unsafe-member-access
+1:128  Error: Unsafe assignment of an error typed value.  @typescript-eslint/no-unsafe-assignment
+1:150  Error: Unsafe member access .window on a type that cannot be resolved.  @typescript-eslint/no-unsafe-member-access
+1:167  Error: Unsafe assignment of an error typed value.  @typescript-eslint/no-unsafe-assignment
+1:190  Error: Unsafe member access .window on a type that cannot be resolved.  @typescript-eslint/no-unsafe-member-access
 
 info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules

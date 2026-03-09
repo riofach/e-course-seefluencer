@@ -54,6 +54,7 @@ function renderLessonContent(
   lesson: LessonDetail,
   quizQuestions: ClientQuizQuestion[],
   courseSlug: string,
+  nextLessonId?: number,
 ) {
   switch (lesson.type.toLowerCase()) {
     case "video":
@@ -68,10 +69,10 @@ function renderLessonContent(
     case "quiz":
       return (
         <QuizEngine
-          key={lesson.id}
           questions={quizQuestions}
           lessonId={lesson.id}
           courseSlug={courseSlug}
+          nextLessonId={nextLessonId}
         />
       );
     default:
@@ -107,7 +108,12 @@ export default async function LessonPage({ params }: LessonPageProps) {
     sidebarData?.completedCount ?? 0,
     sidebarData?.totalLessons ?? 0,
   );
-  const lessonContent = renderLessonContent(lesson, quizQuestions, slug);
+  const lessonContent = renderLessonContent(
+    lesson,
+    quizQuestions,
+    slug,
+    adjacentLessons.nextLesson?.id,
+  );
 
   return (
     <LessonLayout
@@ -180,7 +186,6 @@ export default async function LessonPage({ params }: LessonPageProps) {
         )}
 
         <AutoNavCountdown
-          key={lesson.id}
           nextLesson={adjacentLessons.nextLesson}
           courseSlug={slug}
           currentLessonType={lesson.type}

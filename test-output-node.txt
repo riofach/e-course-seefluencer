@@ -1,0 +1,520 @@
+
+> project-e-course@0.1.0 test
+> node --import tsx --test "src/**/*.test.ts" "src/**/*.test.tsx"
+
+TAP version 13
+# Subtest: requireAuthenticatedUserId redirects unauthenticated users to login
+ok 1 - requireAuthenticatedUserId redirects unauthenticated users to login
+  ---
+  duration_ms: 1.8509
+  type: 'test'
+  ...
+# Subtest: resolveLessonPageData calls notFound when lesson query returns null
+ok 2 - resolveLessonPageData calls notFound when lesson query returns null
+  ---
+  duration_ms: 0.3404
+  type: 'test'
+  ...
+# Subtest: shouldShowPaywallOverlay returns true only for premium lessons without an active subscription
+ok 3 - shouldShowPaywallOverlay returns true only for premium lessons without an active subscription
+  ---
+  duration_ms: 0.1859
+  type: 'test'
+  ...
+# node:internal/modules/run_main:123
+#     triggerUncaughtException(
+#     ^
+# Error [ERR_PACKAGE_PATH_NOT_EXPORTED]: Package subpath './adapters' is not defined by "exports" in D:\\RioRaditya\\Ngoding\\hiring-seefluencer\\project-e-course\\node_modules\\next-auth\\package.json imported from D:\\RioRaditya\\Ngoding\\hiring-seefluencer\\project-e-course\\src\\server\\auth.ts
+#     at exportsNotFound (node:internal/modules/esm/resolve:313:10)
+#     at packageExportsResolve (node:internal/modules/esm/resolve:603:13)
+#     at packageResolve (node:internal/modules/esm/resolve:773:12)
+#     at moduleResolve (node:internal/modules/esm/resolve:853:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:983:11)
+#     at nextResolve (node:internal/modules/esm/hooks:748:28)
+#     at resolveBase (file:///D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/node_modules/tsx/dist/esm/index.mjs?1773044206181:2:3744)
+#     at resolveDirectory (file:///D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/node_modules/tsx/dist/esm/index.mjs?1773044206181:2:4243)
+#     at resolveTsPaths (file:///D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/node_modules/tsx/dist/esm/index.mjs?1773044206181:2:4984)
+#     at async resolve (file:///D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/node_modules/tsx/dist/esm/index.mjs?1773044206181:2:5355) {
+#   code: 'ERR_PACKAGE_PATH_NOT_EXPORTED'
+# }
+# Node.js v22.18.0
+# Subtest: src\\app\\(student)\\courses\\[slug]\\lessons\\[lessonId]\\page.integration.test.tsx
+not ok 2 - src\\app\\(student)\\courses\\[slug]\\lessons\\[lessonId]\\page.integration.test.tsx
+  ---
+  duration_ms: 642.2265
+  type: 'test'
+  location: 'D:\\RioRaditya\\Ngoding\\hiring-seefluencer\\project-e-course\\src\\app\\(student)\\courses\\[slug]\\lessons\\[lessonId]\\page.integration.test.tsx:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# node:internal/modules/run_main:123
+#     triggerUncaughtException(
+#     ^
+# Error [ERR_PACKAGE_PATH_NOT_EXPORTED]: Package subpath './adapters' is not defined by "exports" in D:\\RioRaditya\\Ngoding\\hiring-seefluencer\\project-e-course\\node_modules\\next-auth\\package.json imported from D:\\RioRaditya\\Ngoding\\hiring-seefluencer\\project-e-course\\src\\server\\auth.ts
+#     at exportsNotFound (node:internal/modules/esm/resolve:313:10)
+#     at packageExportsResolve (node:internal/modules/esm/resolve:603:13)
+#     at packageResolve (node:internal/modules/esm/resolve:773:12)
+#     at moduleResolve (node:internal/modules/esm/resolve:853:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:983:11)
+#     at nextResolve (node:internal/modules/esm/hooks:748:28)
+#     at resolveBase (file:///D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/node_modules/tsx/dist/esm/index.mjs?1773044206187:2:3744)
+#     at resolveDirectory (file:///D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/node_modules/tsx/dist/esm/index.mjs?1773044206187:2:4243)
+#     at resolveTsPaths (file:///D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/node_modules/tsx/dist/esm/index.mjs?1773044206187:2:4984)
+#     at async resolve (file:///D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/node_modules/tsx/dist/esm/index.mjs?1773044206187:2:5355) {
+#   code: 'ERR_PACKAGE_PATH_NOT_EXPORTED'
+# }
+# Node.js v22.18.0
+# Subtest: src\\app\\(student)\\courses\\[slug]\\lessons\\[lessonId]\\page.test.tsx
+not ok 3 - src\\app\\(student)\\courses\\[slug]\\lessons\\[lessonId]\\page.test.tsx
+  ---
+  duration_ms: 608.3915
+  type: 'test'
+  location: 'D:\\RioRaditya\\Ngoding\\hiring-seefluencer\\project-e-course\\src\\app\\(student)\\courses\\[slug]\\lessons\\[lessonId]\\page.test.tsx:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: resolveCoursePageData returns course detail when slug exists
+ok 6 - resolveCoursePageData returns course detail when slug exists
+  ---
+  duration_ms: 5.8868
+  type: 'test'
+  ...
+# Subtest: resolveCoursePageData calls notFound when slug is missing
+ok 7 - resolveCoursePageData calls notFound when slug is missing
+  ---
+  duration_ms: 1.726
+  type: 'test'
+  ...
+# Subtest: resolveCourseStaticParams maps published slugs for ISR
+ok 8 - resolveCourseStaticParams maps published slugs for ISR
+  ---
+  duration_ms: 1.5507
+  type: 'test'
+  ...
+# Subtest: course detail loading route renders the detail skeleton component
+ok 9 - course detail loading route renders the detail skeleton component
+  ---
+  duration_ms: 1.9498
+  type: 'test'
+  ...
+# Subtest: normalizeCourseSearchTerm trims whitespace and caps length
+ok 10 - normalizeCourseSearchTerm trims whitespace and caps length
+  ---
+  duration_ms: 1.2941
+  type: 'test'
+  ...
+# Subtest: normalizeCourseSearchTerm returns undefined for blank values
+ok 11 - normalizeCourseSearchTerm returns undefined for blank values
+  ---
+  duration_ms: 0.2998
+  type: 'test'
+  ...
+# Subtest: buildCourseSearchHref sets q while preserving unrelated params
+ok 12 - buildCourseSearchHref sets q while preserving unrelated params
+  ---
+  duration_ms: 0.3186
+  type: 'test'
+  ...
+# Subtest: buildCourseSearchHref removes q when query becomes empty
+ok 13 - buildCourseSearchHref removes q when query becomes empty
+  ---
+  duration_ms: 0.2462
+  type: 'test'
+  ...
+# Subtest: course syllabus links each lesson row to the lesson viewer route
+ok 14 - course syllabus links each lesson row to the lesson viewer route
+  ---
+  duration_ms: 1.5848
+  type: 'test'
+  ...
+# Subtest: lesson view skeleton mirrors the lesson layout using shadcn skeleton blocks
+ok 15 - lesson view skeleton mirrors the lesson layout using shadcn skeleton blocks
+  ---
+  duration_ms: 1.3178
+  type: 'test'
+  ...
+# Subtest: mark complete button hides itself for quiz lessons and uses optimistic transitions
+ok 16 - mark complete button hides itself for quiz lessons and uses optimistic transitions
+  ---
+  duration_ms: 1.5678
+  type: 'test'
+  ...
+# Subtest: mark complete button renders loading and completed states with sonner toasts
+ok 17 - mark complete button renders loading and completed states with sonner toasts
+  ---
+  duration_ms: 0.3848
+  type: 'test'
+  ...
+# Subtest: paywall teaser overlay keeps lesson content on the same route behind an overlay
+ok 18 - paywall teaser overlay keeps lesson content on the same route behind an overlay
+  ---
+  duration_ms: 1.6408
+  type: 'test'
+  ...
+# node:internal/modules/run_main:123
+#     triggerUncaughtException(
+#     ^
+# Error [ERR_PACKAGE_PATH_NOT_EXPORTED]: Package subpath './adapters' is not defined by "exports" in D:\\RioRaditya\\Ngoding\\hiring-seefluencer\\project-e-course\\node_modules\\next-auth\\package.json imported from D:\\RioRaditya\\Ngoding\\hiring-seefluencer\\project-e-course\\src\\server\\auth.ts
+#     at exportsNotFound (node:internal/modules/esm/resolve:313:10)
+#     at packageExportsResolve (node:internal/modules/esm/resolve:603:13)
+#     at packageResolve (node:internal/modules/esm/resolve:773:12)
+#     at moduleResolve (node:internal/modules/esm/resolve:853:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:983:11)
+#     at nextResolve (node:internal/modules/esm/hooks:748:28)
+#     at resolveBase (file:///D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/node_modules/tsx/dist/esm/index.mjs?1773044206334:2:3744)
+#     at resolveDirectory (file:///D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/node_modules/tsx/dist/esm/index.mjs?1773044206334:2:4243)
+#     at resolveTsPaths (file:///D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/node_modules/tsx/dist/esm/index.mjs?1773044206334:2:4984)
+#     at async resolve (file:///D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/node_modules/tsx/dist/esm/index.mjs?1773044206334:2:5355) {
+#   code: 'ERR_PACKAGE_PATH_NOT_EXPORTED'
+# }
+# Node.js v22.18.0
+# Subtest: src\\components\\student\\quiz-engine.test.tsx
+not ok 11 - src\\components\\student\\quiz-engine.test.tsx
+  ---
+  duration_ms: 1041.9363
+  type: 'test'
+  location: 'D:\\RioRaditya\\Ngoding\\hiring-seefluencer\\project-e-course\\src\\components\\student\\quiz-engine.test.tsx:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# file:///D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/node_modules/@vitest/runner/dist/index.js:683
+# \\t\\tthrow new Error(`Vitest failed to find ${message}. One of the following is possible:` + "\\n- \\"vitest\\" is imported directly without running \\"vitest\\" command" + "\\n- \\"vitest\\" is imported inside \\"globalSetup\\" (to fix this, use \\"setupFiles\\" instead, because \\"globalSetup\\" runs in a different context)" + "\\n- \\"vitest\\" is imported inside Vite / Vitest config file" + "\\n- Otherwise, it might be a Vitest bug. Please report it to https://github.com/vitest-dev/vitest/issues\\n");
+# \\t\\t      ^
+# Error: Vitest failed to find the current suite. One of the following is possible:
+# - "vitest" is imported directly without running "vitest" command
+# - "vitest" is imported inside "globalSetup" (to fix this, use "setupFiles" instead, because "globalSetup" runs in a different context)
+# - "vitest" is imported inside Vite / Vitest config file
+# - Otherwise, it might be a Vitest bug. Please report it to https://github.com/vitest-dev/vitest/issues
+#     at assert (file:///D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/node_modules/@vitest/runner/dist/index.js:683:9)
+#     at getCurrentSuite (file:///D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/node_modules/@vitest/runner/dist/index.js:714:2)
+#     at Object.<anonymous> (file:///D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/node_modules/@vitest/runner/dist/index.js:615:2)
+#     at chain (file:///D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/node_modules/@vitest/runner/dist/chunk-tasks.js:9:14)
+#     at <anonymous> (D:\\RioRaditya\\Ngoding\\hiring-seefluencer\\project-e-course\\src\\components\\student\\quiz-result-display.test.tsx:6:1)
+#     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+#     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:647:26)
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+# Node.js v22.18.0
+# Subtest: src\\components\\student\\quiz-result-display.test.tsx
+not ok 12 - src\\components\\student\\quiz-result-display.test.tsx
+  ---
+  duration_ms: 1902.7123
+  type: 'test'
+  location: 'D:\\RioRaditya\\Ngoding\\hiring-seefluencer\\project-e-course\\src\\components\\student\\quiz-result-display.test.tsx:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: normalizeYouTubeUrl converts standard watch URLs into embed URLs
+ok 21 - normalizeYouTubeUrl converts standard watch URLs into embed URLs
+  ---
+  duration_ms: 1.3602
+  type: 'test'
+  ...
+# Subtest: normalizeYouTubeUrl preserves existing embed URLs
+ok 22 - normalizeYouTubeUrl preserves existing embed URLs
+  ---
+  duration_ms: 0.1935
+  type: 'test'
+  ...
+# Subtest: normalizeYouTubeUrl supports youtube-nocookie.com domains
+ok 23 - normalizeYouTubeUrl supports youtube-nocookie.com domains
+  ---
+  duration_ms: 0.2155
+  type: 'test'
+  ...
+# Subtest: video player wrapper renders a lazy iframe inside an aspect-video container
+ok 24 - video player wrapper renders a lazy iframe inside an aspect-video container
+  ---
+  duration_ms: 0.5164
+  type: 'test'
+  ...
+# Subtest: markLessonComplete returns unauthorized when no session exists
+ok 25 - markLessonComplete returns unauthorized when no session exists
+  ---
+  duration_ms: 2.6884
+  type: 'test'
+  ...
+# Subtest: markLessonComplete rejects non-positive lesson ids
+ok 26 - markLessonComplete rejects non-positive lesson ids
+  ---
+  duration_ms: 4.115
+  type: 'test'
+  ...
+# Subtest: markLessonComplete returns forbidden if access denied
+ok 27 - markLessonComplete returns forbidden if access denied
+  ---
+  duration_ms: 1.3785
+  type: 'test'
+  ...
+# Failed to submit quiz Error: db down
+#     at Object.getQuizData (D:\\RioRaditya\\Ngoding\\hiring-seefluencer\\project-e-course\\src\\server\\actions\\progress\\submit-quiz.test.ts:241:15)
+#     at submitQuizWithDependencies (D:\\RioRaditya\\Ngoding\\hiring-seefluencer\\project-e-course\\src\\server\\actions\\progress\\submit-quiz.shared.ts:104:41)
+#     at async TestContext.<anonymous> (D:\\RioRaditya\\Ngoding\\hiring-seefluencer\\project-e-course\\src\\server\\actions\\progress\\submit-quiz.test.ts:235:18)
+#     at async Test.run (node:internal/test_runner/test:1054:7)
+#     at async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+# Subtest: submitQuiz rejects unauthenticated users
+ok 28 - submitQuiz rejects unauthenticated users
+  ---
+  duration_ms: 8.5639
+  type: 'test'
+  ...
+# Subtest: submitQuiz rejects invalid answers payload
+ok 29 - submitQuiz rejects invalid answers payload
+  ---
+  duration_ms: 3.2247
+  type: 'test'
+  ...
+# Subtest: submitQuiz rejects unauthorized lesson access
+ok 30 - submitQuiz rejects unauthorized lesson access
+  ---
+  duration_ms: 0.7387
+  type: 'test'
+  ...
+# Subtest: calculateScore returns full score for all correct answers
+ok 31 - calculateScore returns full score for all correct answers
+  ---
+  duration_ms: 1.5093
+  type: 'test'
+  ...
+# Subtest: calculateScore returns zero score when all answers are wrong
+ok 32 - calculateScore returns zero score when all answers are wrong
+  ---
+  duration_ms: 0.1972
+  type: 'test'
+  ...
+# Subtest: submitQuiz passes at the exact 70% threshold
+ok 33 - submitQuiz passes at the exact 70% threshold
+  ---
+  duration_ms: 0.6866
+  type: 'test'
+  ...
+# Subtest: submitQuiz fails below the 70% threshold
+ok 34 - submitQuiz fails below the 70% threshold
+  ---
+  duration_ms: 0.5311
+  type: 'test'
+  ...
+# Subtest: calculateScore returns zero totals for empty quiz data
+ok 35 - calculateScore returns zero totals for empty quiz data
+  ---
+  duration_ms: 0.1619
+  type: 'test'
+  ...
+# Subtest: submitQuiz records attempts and inserts progress only on first pass
+ok 36 - submitQuiz records attempts and inserts progress only on first pass
+  ---
+  duration_ms: 1.1143
+  type: 'test'
+  ...
+# Subtest: submitQuiz records retake attempts without duplicating progress
+ok 37 - submitQuiz records retake attempts without duplicating progress
+  ---
+  duration_ms: 1.0811
+  type: 'test'
+  ...
+# Subtest: submitQuiz does not insert progress for failed attempts
+ok 38 - submitQuiz does not insert progress for failed attempts
+  ---
+  duration_ms: 4.6117
+  type: 'test'
+  ...
+# Subtest: submitQuiz returns grading error when dependencies fail
+ok 39 - submitQuiz returns grading error when dependencies fail
+  ---
+  duration_ms: 5.8027
+  type: 'test'
+  ...
+# Subtest: toCourseDetailItem applies fallback description for blank values
+ok 40 - toCourseDetailItem applies fallback description for blank values
+  ---
+  duration_ms: 1.5329
+  type: 'test'
+  ...
+# Subtest: mapCourseDetailRows properly maps flat join rows into structured nested course data
+ok 41 - mapCourseDetailRows properly maps flat join rows into structured nested course data
+  ---
+  duration_ms: 0.392
+  type: 'test'
+  ...
+# Subtest: mapCourseDetailRows returns null when rows are empty
+ok 42 - mapCourseDetailRows returns null when rows are empty
+  ---
+  duration_ms: 0.1847
+  type: 'test'
+  ...
+# Subtest: fetchCourseDetailBySlug returns published ordered course detail
+ok 43 - fetchCourseDetailBySlug returns published ordered course detail
+  ---
+  duration_ms: 0.6577
+  type: 'test'
+  ...
+# Subtest: fetchCourseDetailBySlug returns null for missing course
+ok 44 - fetchCourseDetailBySlug returns null for missing course
+  ---
+  duration_ms: 0.2023
+  type: 'test'
+  ...
+# Subtest: fetchPublishedCourseSlugs returns only published slugs
+ok 45 - fetchPublishedCourseSlugs returns only published slugs
+  ---
+  duration_ms: 0.2357
+  type: 'test'
+  ...
+# Subtest: parseLessonId returns null for invalid lesson id values
+ok 46 - parseLessonId returns null for invalid lesson id values
+  ---
+  duration_ms: 1.3397
+  type: 'test'
+  ...
+# Subtest: mapLessonDetailRows maps a video lesson into the shared LessonDetail contract
+ok 47 - mapLessonDetailRows maps a video lesson into the shared LessonDetail contract
+  ---
+  duration_ms: 1.2675
+  type: 'test'
+  ...
+# Subtest: fetchLessonById returns null when lesson does not belong to the requested course slug
+ok 48 - fetchLessonById returns null when lesson does not belong to the requested course slug
+  ---
+  duration_ms: 0.2525
+  type: 'test'
+  ...
+# Subtest: fetchLessonById returns null for a non-existent lesson id
+ok 49 - fetchLessonById returns null for a non-existent lesson id
+  ---
+  duration_ms: 0.3143
+  type: 'test'
+  ...
+# Subtest: fetchLessonById returns null when the parent course is not published
+ok 50 - fetchLessonById returns null when the parent course is not published
+  ---
+  duration_ms: 0.2296
+  type: 'test'
+  ...
+# Subtest: fetchHasActiveSubscription returns true when an active subscription exists
+ok 51 - fetchHasActiveSubscription returns true when an active subscription exists
+  ---
+  duration_ms: 0.2971
+  type: 'test'
+  ...
+# Subtest: fetchHasActiveSubscription returns false when no active subscription exists
+ok 52 - fetchHasActiveSubscription returns false when no active subscription exists
+  ---
+  duration_ms: 0.2802
+  type: 'test'
+  ...
+# Subtest: getAdjacentLessonsFromSortedList returns previous and next lessons for a middle lesson
+ok 53 - getAdjacentLessonsFromSortedList returns previous and next lessons for a middle lesson
+  ---
+  duration_ms: 2.3817
+  type: 'test'
+  ...
+# Subtest: getAdjacentLessonsFromSortedList returns null prev for the first lesson
+ok 54 - getAdjacentLessonsFromSortedList returns null prev for the first lesson
+  ---
+  duration_ms: 0.2017
+  type: 'test'
+  ...
+# Subtest: getAdjacentLessonsFromSortedList returns null next for the last lesson
+ok 55 - getAdjacentLessonsFromSortedList returns null next for the last lesson
+  ---
+  duration_ms: 0.2585
+  type: 'test'
+  ...
+# Subtest: getAdjacentLessonsFromSortedList returns null on both sides for a single lesson
+ok 56 - getAdjacentLessonsFromSortedList returns null on both sides for a single lesson
+  ---
+  duration_ms: 0.2317
+  type: 'test'
+  ...
+# Subtest: getAdjacentLessonsFromSortedList returns null on both sides for an empty list
+ok 57 - getAdjacentLessonsFromSortedList returns null on both sides for an empty list
+  ---
+  duration_ms: 0.2488
+  type: 'test'
+  ...
+# Subtest: mapProgressToCompletedIds returns a set of completed lesson ids
+ok 58 - mapProgressToCompletedIds returns a set of completed lesson ids
+  ---
+  duration_ms: 0.2067
+  type: 'test'
+  ...
+# Subtest: mapProgressToCompletedIds returns an empty set for empty rows
+ok 59 - mapProgressToCompletedIds returns an empty set for empty rows
+  ---
+  duration_ms: 0.1976
+  type: 'test'
+  ...
+# Subtest: calculateProgressPercent returns the expected rounded percentage
+ok 60 - calculateProgressPercent returns the expected rounded percentage
+  ---
+  duration_ms: 0.1682
+  type: 'test'
+  ...
+# Subtest: calculateProgressPercent returns zero when total lessons is zero
+ok 61 - calculateProgressPercent returns zero when total lessons is zero
+  ---
+  duration_ms: 0.3644
+  type: 'test'
+  ...
+# Subtest: toPublishedCourseCatalogItem normalizes free published courses
+ok 62 - toPublishedCourseCatalogItem normalizes free published courses
+  ---
+  duration_ms: 1.4264
+  type: 'test'
+  ...
+# Subtest: toPublishedCourseCatalogItem adds fallback description for blank values
+ok 63 - toPublishedCourseCatalogItem adds fallback description for blank values
+  ---
+  duration_ms: 0.1528
+  type: 'test'
+  ...
+# Subtest: fetchPublishedCourseCatalog requests only the published catalog fields
+ok 64 - fetchPublishedCourseCatalog requests only the published catalog fields
+  ---
+  duration_ms: 0.4981
+  type: 'test'
+  ...
+# Subtest: sanitizeQuizQuestions returns an empty array when no questions exist
+ok 65 - sanitizeQuizQuestions returns an empty array when no questions exist
+  ---
+  duration_ms: 1.6389
+  type: 'test'
+  ...
+# Subtest: sanitizeQuizQuestions removes sensitive grading fields like correctAnswer and points
+ok 66 - sanitizeQuizQuestions removes sensitive grading fields like correctAnswer and points
+  ---
+  duration_ms: 0.3306
+  type: 'test'
+  ...
+# Subtest: fetchSearchPublishedCourses requests published title matches only
+ok 67 - fetchSearchPublishedCourses requests published title matches only
+  ---
+  duration_ms: 2.948
+  type: 'test'
+  ...
+# Subtest: fetchSearchPublishedCourses preserves mapper fallback description
+ok 68 - fetchSearchPublishedCourses preserves mapper fallback description
+  ---
+  duration_ms: 0.319
+  type: 'test'
+  ...
+1..68
+# tests 68
+# suites 0
+# pass 64
+# fail 4
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2350.6087

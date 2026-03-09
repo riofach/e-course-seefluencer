@@ -1,0 +1,11 @@
+changed_files.txt
+src/components/student/quiz-result-display.test.ts
+src/components/student/quiz-result-display.tsx
+src/app/(student)/courses/[slug]/lessons/[lessonId]/page.integration.test.ts
+src/app/(student)/courses/[slug]/lessons/[lessonId]/page.test.ts
+src/app/(student)/courses/[slug]/lessons/[lessonId]/page.tsx
+src/components/student/quiz-engine.test.ts
+src/components/student/quiz-engine.tsx
+src/server/actions/progress/submit-quiz.shared.ts
+src/server/actions/progress/submit-quiz.test.ts
+src/server/actions/progress/submit-quiz.ts

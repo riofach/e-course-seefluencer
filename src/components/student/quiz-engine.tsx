@@ -2,7 +2,9 @@
 
 import { HelpCircle, Loader2 } from "lucide-react";
 import { useState, useTransition } from "react";
+import { toast } from "sonner";
 
+import { QuizResultDisplay } from "~/components/student/quiz-result-display";
 import { Button } from "~/components/ui/button";
 import { cn } from "~/lib/utils";
 import { submitQuiz } from "~/server/actions/progress/submit-quiz";
@@ -12,15 +14,22 @@ type QuizEngineProps = {
   questions: ClientQuizQuestion[];
   lessonId: number;
   courseSlug: string;
+  nextLessonId?: number;
 };
 
 export function QuizEngine({
   questions,
   lessonId,
   courseSlug,
+  nextLessonId,
 }: QuizEngineProps) {
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [isPending, startTransition] = useTransition();
+  const [result, setResult] = useState<{
+    score: number;
+    totalPoints: number;
+    passed: boolean;
+  } | null>(null);
 
   if (questions.length === 0) {
     return (
@@ -31,11 +40,40 @@ export function QuizEngine({
     );
   }
 
+  if (result !== null) {
+    return (
+      <QuizResultDisplay
+        score={result.score}
+        totalPoints={result.totalPoints}
+        passed={result.passed}
+        onRetake={() => {
+          setAnswers({});
+          setResult(null);
+        }}
+        courseSlug={courseSlug}
+        nextLessonId={nextLessonId}
+      />
+    );
+  }
+
   const allAnswered = Object.keys(answers).length === questions.length;
 
   const handleSubmit = () => {
     startTransition(async () => {
-      await submitQuiz(lessonId, courseSlug, answers);
+      const response = await submitQuiz(lessonId, courseSlug, answers);
+
+      if (!response.success) {
+        toast.error(response.error ?? "Something went wrong.");
+        return;
+      }
+
+      if (response.data.passed) {
+        toast.success("Quiz Passed! 🎉");
+      } else {
+        toast.error("Quiz Failed. Try again.");
+      }
+
+      setResult(response.data);
     });
   };
 
@@ -55,13 +93,14 @@ export function QuizEngine({
               <label
                 key={option}
                 className={cn(
-                  "flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-colors hover:bg-muted/50",
+                  "hover:bg-muted/50 flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-colors",
                   isSelected &&
                     "border-primary bg-primary/5 ring-primary/20 ring-1",
                 )}
               >
                 <input
                   type="radio"
+                  className="sr-only"
                   name={`question-${quiz.id}`}
                   value={option}
                   checked={answers[quiz.id] === option}
