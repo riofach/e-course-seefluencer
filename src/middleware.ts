@@ -9,7 +9,7 @@ export default withAuth(
     // Admin route protection
     if (pathname.startsWith("/admin")) {
       if (token?.role !== "admin") {
-        return NextResponse.redirect(new URL("/courses", req.url));
+        return NextResponse.redirect(new URL("/", req.url));
       }
     }
 

@@ -17,6 +17,7 @@ const geist = Geist({
 
 import { ThemeProvider } from "~/components/shared/theme-provider";
 import { Toaster } from "~/components/ui/sonner";
+import { GlobalHeader } from "~/components/shared/global-header";
 import { NavbarAuth } from "~/components/shared/navbar-auth";
 import { env } from "~/env";
 
@@ -33,11 +34,9 @@ export default function RootLayout({
         />
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="flex min-h-screen flex-col">
-            <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
-              <div className="container flex h-14 items-center justify-end px-4">
-                <NavbarAuth />
-              </div>
-            </header>
+            <GlobalHeader>
+              <NavbarAuth />
+            </GlobalHeader>
             <main className="flex-1">{children}</main>
           </div>
           <Toaster position="bottom-right" />
