@@ -1,8 +1,17 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { CourseDetailHero } from "~/components/student/course-detail-hero";
 import { CourseSyllabus } from "~/components/student/course-syllabus";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "~/components/ui/breadcrumb";
 import {
   getCourseDetailBySlug,
   getPublishedCourseSlugs,
@@ -35,6 +44,20 @@ export default async function CourseDetailPage({ params }: CourseDetailPageProps
   return (
     <section className="bg-background text-foreground">
       <div className="container mx-auto flex min-h-[calc(100vh-3.5rem)] flex-col gap-8 px-4 py-8 sm:py-10 lg:py-14">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="/courses">Courses</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>{course.title}</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+
         <CourseDetailHero course={course} />
         <CourseSyllabus courseSlug={course.slug} chapters={course.chapters} />
       </div>
