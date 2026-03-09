@@ -3,6 +3,7 @@ import { notFound, redirect } from "next/navigation";
 
 import { AutoNavCountdown } from "~/components/student/auto-nav-countdown";
 import { LessonLayout } from "~/components/student/lesson-layout";
+import { MarkCompleteButton } from "~/components/student/mark-complete-button";
 import { PaywallTeaserOverlay } from "~/components/student/paywall-teaser-overlay";
 import { TextLessonContent } from "~/components/student/text-lesson-content";
 import { VideoPlayerWrapper } from "~/components/student/video-player-wrapper";
@@ -85,6 +86,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
   const sidebarData = await getCourseSidebarData(slug, userId);
   const adjacentLessons = await getAdjacentLessons(lesson.id, slug);
   const completedLessonIds = sidebarData?.completedLessonIds ?? [];
+  const isAlreadyCompleted = completedLessonIds.includes(lesson.id);
   const progressPercent = calculateProgressPercent(
     sidebarData?.completedCount ?? 0,
     sidebarData?.totalLessons ?? 0,
@@ -148,6 +150,17 @@ export default async function LessonPage({ params }: LessonPageProps) {
           <PaywallTeaserOverlay>{lessonContent}</PaywallTeaserOverlay>
         ) : (
           lessonContent
+        )}
+
+        {lesson.type !== "quiz" && (
+          <div className="bg-background/80 border-border sticky bottom-0 border-t py-4 backdrop-blur-sm">
+            <MarkCompleteButton
+              lessonId={lesson.id}
+              courseSlug={slug}
+              lessonType={lesson.type}
+              isAlreadyCompleted={isAlreadyCompleted}
+            />
+          </div>
         )}
 
         <AutoNavCountdown

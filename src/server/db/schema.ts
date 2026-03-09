@@ -6,6 +6,7 @@ import {
   serial,
   text,
   timestamp,
+  unique,
   varchar,
 } from "drizzle-orm/pg-core";
 
@@ -108,16 +109,25 @@ export const lessons = pgTable("lessons", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
-export const userProgress = pgTable("user_progress", {
-  id: serial("id").primaryKey(),
-  userId: text("user_id")
-    .references(() => users.id, { onDelete: "cascade" })
-    .notNull(),
-  lessonId: integer("lesson_id")
-    .references(() => lessons.id, { onDelete: "cascade" })
-    .notNull(),
-  completedAt: timestamp("completed_at").defaultNow().notNull(),
-});
+export const userProgress = pgTable(
+  "user_progress",
+  {
+    id: serial("id").primaryKey(),
+    userId: text("user_id")
+      .references(() => users.id, { onDelete: "cascade" })
+      .notNull(),
+    lessonId: integer("lesson_id")
+      .references(() => lessons.id, { onDelete: "cascade" })
+      .notNull(),
+    completedAt: timestamp("completed_at").defaultNow().notNull(),
+  },
+  (table) => [
+    unique("user_progress_user_id_lesson_id_unique").on(
+      table.userId,
+      table.lessonId,
+    ),
+  ],
+);
 
 export const quizzes = pgTable("quizzes", {
   id: serial("id").primaryKey(),

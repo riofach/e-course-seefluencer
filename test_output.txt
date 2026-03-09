@@ -1,0 +1,694 @@
+
+> project-e-course@0.1.0 test
+> node --test
+
+TAP version 13
+# Subtest: requireAuthenticatedUserId redirects unauthenticated users to login
+ok 1 - requireAuthenticatedUserId redirects unauthenticated users to login
+  ---
+  duration_ms: 1.7788
+  type: 'test'
+  ...
+# Subtest: resolveLessonPageData calls notFound when lesson query returns null
+ok 2 - resolveLessonPageData calls notFound when lesson query returns null
+  ---
+  duration_ms: 0.4216
+  type: 'test'
+  ...
+# Subtest: shouldShowPaywallOverlay returns true only for premium lessons without an active subscription
+ok 3 - shouldShowPaywallOverlay returns true only for premium lessons without an active subscription
+  ---
+  duration_ms: 0.1852
+  type: 'test'
+  ...
+# Subtest: lesson page derives completion state and renders the mark complete button before auto-nav
+not ok 4 - lesson page derives completion state and renders the mark complete button before auto-nav
+  ---
+  duration_ms: 4.1128
+  type: 'test'
+  location: 'D:\\RioRaditya\\Ngoding\\hiring-seefluencer\\project-e-course\\src\\app\\(student)\\courses\\[slug]\\lessons\\[lessonId]\\page.integration.test.ts:6:6'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /<div className="sticky bottom-0 py-4 bg-background\/80 backdrop-blur-sm border-t border-border">[\s\S]*<MarkCompleteButton/. Input:
+    
+    'import Link from "next/link";\n' +
+      'import { notFound, redirect } from "next/navigation";\n' +
+      '\n' +
+      'import { AutoNavCountdown } from "~/components/student/auto-nav-countdown";\n' +
+      'import { LessonLayout } from "~/components/student/lesson-layout";\n' +
+      'import { MarkCompleteButton } from "~/components/student/mark-complete-button";\n' +
+      'import { PaywallTeaserOverlay } from "~/components/student/paywall-teaser-overlay";\n' +
+      'import { TextLessonContent } from "~/components/student/text-lesson-content";\n' +
+      'import { VideoPlayerWrapper } from "~/components/student/video-player-wrapper";\n' +
+      'import { Badge } from "~/components/ui/badge";\n' +
+      'import {\n' +
+      '  Breadcrumb,\n' +
+      '  BreadcrumbItem,\n' +
+      '  BreadcrumbLink,\n' +
+      '  BreadcrumbList,\n' +
+      '  BreadcrumbPage,\n' +
+      '  BreadcrumbSeparator,\n' +
+      '} from "~/components/ui/breadcrumb";\n' +
+      'import { getServerAuthSession } from "~/server/auth";\n' +
+      'import {\n' +
+      '  getLessonById,\n' +
+      '  hasActiveSubscription,\n' +
+      '  type LessonDetail,\n' +
+      '} from "~/server/courses/lesson-detail";\n' +
+      'import {\n' +
+      '  calculateProgressPercent,\n' +
+      '  toLessonTypeLabel,\n' +
+      '} from "~/server/courses/lesson-navigation.shared";\n' +
+      'import {\n' +
+      '  getAdjacentLessons,\n' +
+      '  getCourseSidebarData,\n' +
+      '} from "~/server/courses/lesson-navigation";\n' +
+      '\n' +
+      'import {\n' +
+      '  requireAuthenticatedUserId,\n' +
+      '  resolveLessonPageData,\n' +
+      '  shouldShowPaywallOverlay,\n' +
+      '} from "./page.helpers";\n' +
+      '\n' +
+      'type LessonPageProps = {\n' +
+      '  params: Promise<{\n' +
+      '    slug: string;\n' +
+      '    lessonId: string;\n' +
+      '  }>;\n' +
+      '  searchParams: Promise<Record<string, string | string[] | undefined>>;\n' +
+      '};\n' +
+      '\n' +
+      'function renderLessonContent(lesson: LessonDetail) {\n' +
+      '  switch (lesson.type.toLowerCase()) {\n' +
+      '    case "video":\n' +
+      '      return (\n' +
+      '        <VideoPlayerWrapper\n' +
+      '          videoUrl={lesson.videoUrl ?? ""}\n' +
+      '          title={lesson.title}\n' +
+      '        />\n' +
+      '      );\n' +
+      '    case "text":\n' +
+      '      return <TextLessonContent content={lesson.content ?? ""} />;\n' +
+      '    case "quiz":\n' +
+      '      return (\n' +
+      '        <div className="border-border/70 bg-card mx-auto w-full max-w-3xl rounded-2xl border px-6 py-12 text-center shadow-sm">\n' +
+      '          Quiz content coming soon\n' +
+      '        </div>\n' +
+      '      );\n' +
+      '    default:\n' +
+      '      return <TextLessonContent content={lesson.content ?? ""} />;\n' +
+      '  }\n' +
+      '}\n' +
+      '\n' +
+      'export default async function LessonPage({ params }: LessonPageProps) {\n' +
+      '  const { slug, lessonId } = await params;\n' +
+      '  const session = await getServerAuthSession();\n' +
+      '  const userId = requireAuthenticatedUserId(session, redirect);\n' +
+      '  const lesson = resolveLessonPageData(\n' +
+      '    await getLessonById(lessonId, slug),\n' +
+      '    notFound,\n' +
+      '  );\n' +
+      '\n' +
+      '  const activeSubscription = lesson.isFree\n' +
+      '    ? false\n' +
+      '    : await hasActiveSubscription(userId);\n' +
+      '  const showPaywallOverlay = shouldShowPaywallOverlay(\n' +
+      '    lesson,\n' +
+      '    activeSubscription,\n' +
+      '  );\n' +
+      '  const sidebarData = await getCourseSidebarData(slug, userId);\n' +
+      '  const adjacentLessons = await getAdjacentLessons(lesson.id, slug);\n' +
+      '  const completedLessonIds = sidebarData?.completedLessonIds ?? [];\n' +
+      '  const isAlreadyCompleted = completedLessonIds.includes(lesson.id);\n' +
+      '  const progressPercent = calculateProgressPercent(\n' +
+      '    sidebarData?.completedCount ?? 0,\n' +
+      '    sidebarData?.totalLessons ?? 0,\n' +
+      '  );\n' +
+      '  const lessonContent = renderLessonContent(lesson);\n' +
+      '\n' +
+      '  return (\n' +
+      '    <LessonLayout\n' +
+      '      courseSlug={slug}\n' +
+      '      chapters={sidebarData?.chapters ?? []}\n' +
+      '      activeLessonId={lesson.id}\n' +
+      '      completedLessonIds={completedLessonIds}\n' +
+      '      progressPercent={progressPercent}\n' +
+      '    >\n' +
+      '      <div className="space-y-6">\n' +
+      '        <Breadcrumb>\n' +
+      '          <BreadcrumbList>\n' +
+      '            <BreadcrumbItem>\n' +
+      '              <BreadcrumbLink asChild>\n' +
+      '                <Link href="/courses">Courses</Link>\n' +
+      '              </BreadcrumbLink>\n' +
+      '            </BreadcrumbItem>\n' +
+      '            <BreadcrumbSeparator />\n' +
+      '            <BreadcrumbItem>\n' +
+      '              <BreadcrumbLink asChild>\n' +
+      '                <Link href={`/courses/${lesson.course.slug}`}>\n' +
+      '                  {lesson.course.title}\n' +
+      '                </Link>\n' +
+      '              </BreadcrumbLink>\n' +
+      '            </BreadcrumbItem>\n' +
+      '            <BreadcrumbSeparator />\n' +
+      '            <BreadcrumbItem>\n' +
+      '              <BreadcrumbPage>{lesson.chapter.title}</BreadcrumbPage>\n' +
+      '            </BreadcrumbItem>\n' +
+      '            <BreadcrumbSeparator />\n' +
+      '            <BreadcrumbItem>\n' +
+      '              <BreadcrumbPage>{lesson.title}</BreadcrumbPage>\n' +
+      '            </BreadcrumbItem>\n' +
+      '          </BreadcrumbList>\n' +
+      '        </Breadcrumb>\n' +
+      '\n' +
+      '        <div className="space-y-4">\n' +
+      '          <div className="flex flex-wrap items-center gap-3">\n' +
+      '            <Badge variant="outline">{toLessonTypeLabel(lesson.type)}</Badge>\n' +
+      '            <Badge variant={lesson.isFree ? "secondary" : "default"}>\n' +
+      '              {lesson.isFree ? "Free" : "Premium"}\n' +
+      '            </Badge>\n' +
+      '          </div>\n' +
+      '\n' +
+      '          <div className="space-y-2">\n' +
+      '            <p className="text-muted-foreground text-sm font-medium">\n' +
+      '              Chapter {lesson.chapter.order} ΓÇó Lesson {lesson.order}\n' +
+      '            </p>\n' +
+      '            <h1 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">\n' +
+      '              {lesson.title}\n' +
+      '            </h1>\n' +
+      '          </div>\n' +
+      '        </div>\n' +
+      '\n' +
+      '        {showPaywallOverlay ? (\n' +
+      '          <PaywallTeaserOverlay>{lessonContent}</PaywallTeaserOverlay>\n' +
+      '        ) : (\n' +
+      '          lessonContent\n' +
+      '        )}\n' +
+      '\n' +
+      '        {lesson.type !== "quiz" && (\n' +
+      '          <div className="bg-background/80 border-border sticky bottom-0 border-t py-4 backdrop-blur-sm">\n' +
+      '            <MarkCompleteButton\n' +
+      '              lessonId={lesson.id}\n' +
+      '              courseSlug={slug}\n' +
+      '              lessonType={lesson.type}\n' +
+      '              isAlreadyCompleted={isAlreadyCompleted}\n' +
+      '            />\n' +
+      '          </div>\n' +
+      '        )}\n' +
+      '\n' +
+      '        <AutoNavCountdown\n' +
+      '          key={lesson.id}\n' +
+      '          nextLesson={adjacentLessons.nextLesson}\n' +
+      '          courseSlug={slug}\n' +
+      '          currentLessonType={lesson.type}\n' +
+      '        />\n' +
+      '      </div>\n' +
+      '    </LessonLayout>\n' +
+      '  );\n' +
+      '}\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: |-
+    import Link from "next/link";
+    import { notFound, redirect } from "next/navigation";
+    
+    import { AutoNavCountdown } from "~/components/student/auto-nav-countdown";
+    import { LessonLayout } from "~/components/student/lesson-layout";
+    import { MarkCompleteButton } from "~/components/student/mark-complete-button";
+    import { PaywallTeaserOverlay } from "~/components/student/paywall-teaser-overlay";
+    import { TextLessonContent } from "~/components/student/text-lesson-content";
+    import { VideoPlayerWrapper } from "~/components/student/video-player-wrapper";
+    import { Badge } from "~/components/ui/badge";
+    import {
+      Breadcrumb,
+      BreadcrumbItem,
+      BreadcrumbLink,
+      BreadcrumbList,
+      BreadcrumbPage,
+      BreadcrumbSeparator,
+    } from "~/components/ui/breadcrumb";
+    import { getServerAuthSession } from "~/server/auth";
+    import {
+      getLessonById,
+      hasActiveSubscription,
+      type LessonDetail,
+    } from "~/server/courses/lesson-detail";
+    import {
+      calculateProgressPercent,
+      toLessonTypeLabel,
+    } from "~/server/courses/lesson-navigation.shared";
+    import {
+      getAdjacentLessons,
+      getCourseSidebarData,
+    } from "~/server/courses/lesson-navigation";
+    
+    import {
+      requireAuthenticatedUserId,
+      resolveLessonPageData,
+      shouldShowPaywallOverlay,
+    } from "./page.helpers";
+    
+    type LessonPageProps = {
+      params: Promise<{
+        slug: string;
+        lessonId: string;
+      }>;
+      searchParams: Promise<Record<string, string | string[] | undefined>>;
+    };
+    
+    function renderLessonContent(lesson: LessonDetail) {
+      switch (lesson.type.toLowerCase()) {
+        case "video":
+          return (
+            <VideoPlayerWrapper
+              videoUrl={lesson.videoUrl ?? ""}
+              title={lesson.title}
+            />
+          );
+        case "text":
+          return <TextLessonContent content={lesson.content ?? ""} />;
+        case "quiz":
+          return (
+            <div className="border-border/70 bg-card mx-auto w-full max-w-3xl rounded-2xl border px-6 py-12 text-center shadow-sm">
+              Quiz content coming soon
+            </div>
+          );
+        default:
+          return <TextLessonContent content={lesson.content ?? ""} />;
+      }
+    }
+    
+    export default async function LessonPage({ params }: LessonPageProps) {
+      const { slug, lessonId } = await params;
+      const session = await getServerAuthSession();
+      const userId = requireAuthenticatedUserId(session, redirect);
+      const lesson = resolveLessonPageData(
+        await getLessonById(lessonId, slug),
+        notFound,
+      );
+    
+      const activeSubscription = lesson.isFree
+        ? false
+        : await hasActiveSubscription(userId);
+      const showPaywallOverlay = shouldShowPaywallOverlay(
+        lesson,
+        activeSubscription,
+      );
+      const sidebarData = await getCourseSidebarData(slug, userId);
+      const adjacentLessons = await getAdjacentLessons(lesson.id, slug);
+      const completedLessonIds = sidebarData?.completedLessonIds ?? [];
+      const isAlreadyCompleted = completedLessonIds.includes(lesson.id);
+      const progressPercent = calculateProgressPercent(
+        sidebarData?.completedCount ?? 0,
+        sidebarData?.totalLessons ?? 0,
+      );
+      const lessonContent = renderLessonContent(lesson);
+    
+      return (
+        <LessonLayout
+          courseSlug={slug}
+          chapters={sidebarData?.chapters ?? []}
+          activeLessonId={lesson.id}
+          completedLessonIds={completedLessonIds}
+          progressPercent={progressPercent}
+        >
+          <div className="space-y-6">
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link href="/courses">Courses</Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link href={`/courses/${lesson.course.slug}`}>
+                      {lesson.course.title}
+                    </Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>{lesson.chapter.title}</BreadcrumbPage>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>{lesson.title}</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+    
+            <div className="space-y-4">
+              <div className="flex flex-wrap items-center gap-3">
+                <Badge variant="outline">{toLessonTypeLabel(lesson.type)}</Badge>
+                <Badge variant={lesson.isFree ? "secondary" : "default"}>
+                  {lesson.isFree ? "Free" : "Premium"}
+                </Badge>
+              </div>
+    
+              <div className="space-y-2">
+                <p className="text-muted-foreground text-sm font-medium">
+                  Chapter {lesson.chapter.order} ΓÇó Lesson {lesson.order}
+                </p>
+                <h1 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+                  {lesson.title}
+                </h1>
+              </div>
+            </div>
+    
+            {showPaywallOverlay ? (
+              <PaywallTeaserOverlay>{lessonContent}</PaywallTeaserOverlay>
+            ) : (
+              lessonContent
+            )}
+    
+            {lesson.type !== "quiz" && (
+              <div className="bg-background/80 border-border sticky bottom-0 border-t py-4 backdrop-blur-sm">
+                <MarkCompleteButton
+                  lessonId={lesson.id}
+                  courseSlug={slug}
+                  lessonType={lesson.type}
+                  isAlreadyCompleted={isAlreadyCompleted}
+                />
+              </div>
+            )}
+    
+            <AutoNavCountdown
+              key={lesson.id}
+              nextLesson={adjacentLessons.nextLesson}
+              courseSlug={slug}
+              currentLessonType={lesson.type}
+            />
+          </div>
+        </LessonLayout>
+      );
+    }
+    
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (file:///D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/src/app/(student)/courses/%5Bslug%5D/lessons/%5BlessonId%5D/page.integration.test.ts:15:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: lesson page awaits async params and composes the lesson viewer components
+ok 5 - lesson page awaits async params and composes the lesson viewer components
+  ---
+  duration_ms: 1.4037
+  type: 'test'
+  ...
+# Subtest: resolveCoursePageData returns course detail when slug exists
+ok 6 - resolveCoursePageData returns course detail when slug exists
+  ---
+  duration_ms: 1.3056
+  type: 'test'
+  ...
+# Subtest: resolveCoursePageData calls notFound when slug is missing
+ok 7 - resolveCoursePageData calls notFound when slug is missing
+  ---
+  duration_ms: 0.7331
+  type: 'test'
+  ...
+# Subtest: resolveCourseStaticParams maps published slugs for ISR
+ok 8 - resolveCourseStaticParams maps published slugs for ISR
+  ---
+  duration_ms: 1.2445
+  type: 'test'
+  ...
+# Subtest: course detail loading route renders the detail skeleton component
+ok 9 - course detail loading route renders the detail skeleton component
+  ---
+  duration_ms: 1.8598
+  type: 'test'
+  ...
+# Subtest: normalizeCourseSearchTerm trims whitespace and caps length
+ok 10 - normalizeCourseSearchTerm trims whitespace and caps length
+  ---
+  duration_ms: 1.3392
+  type: 'test'
+  ...
+# Subtest: normalizeCourseSearchTerm returns undefined for blank values
+ok 11 - normalizeCourseSearchTerm returns undefined for blank values
+  ---
+  duration_ms: 0.251
+  type: 'test'
+  ...
+# Subtest: buildCourseSearchHref sets q while preserving unrelated params
+ok 12 - buildCourseSearchHref sets q while preserving unrelated params
+  ---
+  duration_ms: 0.4121
+  type: 'test'
+  ...
+# Subtest: buildCourseSearchHref removes q when query becomes empty
+ok 13 - buildCourseSearchHref removes q when query becomes empty
+  ---
+  duration_ms: 0.2092
+  type: 'test'
+  ...
+# Subtest: course syllabus links each lesson row to the lesson viewer route
+ok 14 - course syllabus links each lesson row to the lesson viewer route
+  ---
+  duration_ms: 1.5218
+  type: 'test'
+  ...
+# Subtest: lesson view skeleton mirrors the lesson layout using shadcn skeleton blocks
+ok 15 - lesson view skeleton mirrors the lesson layout using shadcn skeleton blocks
+  ---
+  duration_ms: 1.6892
+  type: 'test'
+  ...
+# Subtest: mark complete button hides itself for quiz lessons and uses optimistic transitions
+ok 16 - mark complete button hides itself for quiz lessons and uses optimistic transitions
+  ---
+  duration_ms: 2.1825
+  type: 'test'
+  ...
+# Subtest: mark complete button renders loading and completed states with sonner toasts
+ok 17 - mark complete button renders loading and completed states with sonner toasts
+  ---
+  duration_ms: 0.8673
+  type: 'test'
+  ...
+# Subtest: paywall teaser overlay keeps lesson content on the same route behind an overlay
+ok 18 - paywall teaser overlay keeps lesson content on the same route behind an overlay
+  ---
+  duration_ms: 1.4992
+  type: 'test'
+  ...
+# Subtest: normalizeYouTubeUrl converts standard watch URLs into embed URLs
+ok 19 - normalizeYouTubeUrl converts standard watch URLs into embed URLs
+  ---
+  duration_ms: 1.3441
+  type: 'test'
+  ...
+# Subtest: normalizeYouTubeUrl preserves existing embed URLs
+ok 20 - normalizeYouTubeUrl preserves existing embed URLs
+  ---
+  duration_ms: 0.2056
+  type: 'test'
+  ...
+# Subtest: normalizeYouTubeUrl supports youtube-nocookie.com domains
+ok 21 - normalizeYouTubeUrl supports youtube-nocookie.com domains
+  ---
+  duration_ms: 0.2413
+  type: 'test'
+  ...
+# Subtest: video player wrapper renders a lazy iframe inside an aspect-video container
+ok 22 - video player wrapper renders a lazy iframe inside an aspect-video container
+  ---
+  duration_ms: 0.6578
+  type: 'test'
+  ...
+# Subtest: markLessonComplete returns unauthorized when no session exists
+ok 23 - markLessonComplete returns unauthorized when no session exists
+  ---
+  duration_ms: 2.0887
+  type: 'test'
+  ...
+# Subtest: markLessonComplete rejects non-positive lesson ids
+ok 24 - markLessonComplete rejects non-positive lesson ids
+  ---
+  duration_ms: 3.929
+  type: 'test'
+  ...
+# Subtest: markLessonComplete returns forbidden if access denied
+ok 25 - markLessonComplete returns forbidden if access denied
+  ---
+  duration_ms: 0.4968
+  type: 'test'
+  ...
+# Subtest: toCourseDetailItem applies fallback description for blank values
+ok 26 - toCourseDetailItem applies fallback description for blank values
+  ---
+  duration_ms: 1.7615
+  type: 'test'
+  ...
+# Subtest: mapCourseDetailRows properly maps flat join rows into structured nested course data
+ok 27 - mapCourseDetailRows properly maps flat join rows into structured nested course data
+  ---
+  duration_ms: 0.4822
+  type: 'test'
+  ...
+# Subtest: mapCourseDetailRows returns null when rows are empty
+ok 28 - mapCourseDetailRows returns null when rows are empty
+  ---
+  duration_ms: 0.2017
+  type: 'test'
+  ...
+# Subtest: fetchCourseDetailBySlug returns published ordered course detail
+ok 29 - fetchCourseDetailBySlug returns published ordered course detail
+  ---
+  duration_ms: 0.6661
+  type: 'test'
+  ...
+# Subtest: fetchCourseDetailBySlug returns null for missing course
+ok 30 - fetchCourseDetailBySlug returns null for missing course
+  ---
+  duration_ms: 0.1936
+  type: 'test'
+  ...
+# Subtest: fetchPublishedCourseSlugs returns only published slugs
+ok 31 - fetchPublishedCourseSlugs returns only published slugs
+  ---
+  duration_ms: 0.2302
+  type: 'test'
+  ...
+# Subtest: parseLessonId returns null for invalid lesson id values
+ok 32 - parseLessonId returns null for invalid lesson id values
+  ---
+  duration_ms: 1.3863
+  type: 'test'
+  ...
+# Subtest: mapLessonDetailRows maps a video lesson into the shared LessonDetail contract
+ok 33 - mapLessonDetailRows maps a video lesson into the shared LessonDetail contract
+  ---
+  duration_ms: 1.4013
+  type: 'test'
+  ...
+# Subtest: fetchLessonById returns null when lesson does not belong to the requested course slug
+ok 34 - fetchLessonById returns null when lesson does not belong to the requested course slug
+  ---
+  duration_ms: 0.7687
+  type: 'test'
+  ...
+# Subtest: fetchLessonById returns null for a non-existent lesson id
+ok 35 - fetchLessonById returns null for a non-existent lesson id
+  ---
+  duration_ms: 0.2149
+  type: 'test'
+  ...
+# Subtest: fetchLessonById returns null when the parent course is not published
+ok 36 - fetchLessonById returns null when the parent course is not published
+  ---
+  duration_ms: 0.2405
+  type: 'test'
+  ...
+# Subtest: fetchHasActiveSubscription returns true when an active subscription exists
+ok 37 - fetchHasActiveSubscription returns true when an active subscription exists
+  ---
+  duration_ms: 0.2673
+  type: 'test'
+  ...
+# Subtest: fetchHasActiveSubscription returns false when no active subscription exists
+ok 38 - fetchHasActiveSubscription returns false when no active subscription exists
+  ---
+  duration_ms: 0.3101
+  type: 'test'
+  ...
+# Subtest: getAdjacentLessonsFromSortedList returns previous and next lessons for a middle lesson
+ok 39 - getAdjacentLessonsFromSortedList returns previous and next lessons for a middle lesson
+  ---
+  duration_ms: 4.4339
+  type: 'test'
+  ...
+# Subtest: getAdjacentLessonsFromSortedList returns null prev for the first lesson
+ok 40 - getAdjacentLessonsFromSortedList returns null prev for the first lesson
+  ---
+  duration_ms: 0.2345
+  type: 'test'
+  ...
+# Subtest: getAdjacentLessonsFromSortedList returns null next for the last lesson
+ok 41 - getAdjacentLessonsFromSortedList returns null next for the last lesson
+  ---
+  duration_ms: 0.2848
+  type: 'test'
+  ...
+# Subtest: getAdjacentLessonsFromSortedList returns null on both sides for a single lesson
+ok 42 - getAdjacentLessonsFromSortedList returns null on both sides for a single lesson
+  ---
+  duration_ms: 0.1994
+  type: 'test'
+  ...
+# Subtest: getAdjacentLessonsFromSortedList returns null on both sides for an empty list
+ok 43 - getAdjacentLessonsFromSortedList returns null on both sides for an empty list
+  ---
+  duration_ms: 0.5317
+  type: 'test'
+  ...
+# Subtest: mapProgressToCompletedIds returns a set of completed lesson ids
+ok 44 - mapProgressToCompletedIds returns a set of completed lesson ids
+  ---
+  duration_ms: 0.2939
+  type: 'test'
+  ...
+# Subtest: mapProgressToCompletedIds returns an empty set for empty rows
+ok 45 - mapProgressToCompletedIds returns an empty set for empty rows
+  ---
+  duration_ms: 0.3056
+  type: 'test'
+  ...
+# Subtest: calculateProgressPercent returns the expected rounded percentage
+ok 46 - calculateProgressPercent returns the expected rounded percentage
+  ---
+  duration_ms: 0.2312
+  type: 'test'
+  ...
+# Subtest: calculateProgressPercent returns zero when total lessons is zero
+ok 47 - calculateProgressPercent returns zero when total lessons is zero
+  ---
+  duration_ms: 0.5539
+  type: 'test'
+  ...
+# Subtest: toPublishedCourseCatalogItem normalizes free published courses
+ok 48 - toPublishedCourseCatalogItem normalizes free published courses
+  ---
+  duration_ms: 1.4103
+  type: 'test'
+  ...
+# Subtest: toPublishedCourseCatalogItem adds fallback description for blank values
+ok 49 - toPublishedCourseCatalogItem adds fallback description for blank values
+  ---
+  duration_ms: 0.1541
+  type: 'test'
+  ...
+# Subtest: fetchPublishedCourseCatalog requests only the published catalog fields
+ok 50 - fetchPublishedCourseCatalog requests only the published catalog fields
+  ---
+  duration_ms: 0.5681
+  type: 'test'
+  ...
+# Subtest: fetchSearchPublishedCourses requests published title matches only
+ok 51 - fetchSearchPublishedCourses requests published title matches only
+  ---
+  duration_ms: 1.9406
+  type: 'test'
+  ...
+# Subtest: fetchSearchPublishedCourses preserves mapper fallback description
+ok 52 - fetchSearchPublishedCourses preserves mapper fallback description
+  ---
+  duration_ms: 0.2196
+  type: 'test'
+  ...
+1..52
+# tests 52
+# suites 0
+# pass 51
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1052.9303

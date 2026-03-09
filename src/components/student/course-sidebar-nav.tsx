@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { CheckCircle2, CirclePlay, FileText, HelpCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -59,6 +59,18 @@ export function CourseSidebarNav({
     [completedLessonIds],
   );
 
+  const prevProgressRef = useRef(progressPercent);
+  const [glow, setGlow] = useState(false);
+
+  useEffect(() => {
+    if (progressPercent > prevProgressRef.current) {
+      setGlow(true);
+      const timer = setTimeout(() => setGlow(false), 2000);
+      return () => clearTimeout(timer);
+    }
+    prevProgressRef.current = progressPercent;
+  }, [progressPercent]);
+
   useEffect(() => {
     activeLessonRef.current?.scrollIntoView({
       behavior: "smooth",
@@ -78,10 +90,18 @@ export function CourseSidebarNav({
             {progressPercent}% complete
           </span>
         </div>
-        <Progress
-          value={progressPercent}
-          aria-label={`${progressPercent}% complete`}
-        />
+        <div
+          className={cn(
+            "rounded-full transition-all duration-500",
+            glow &&
+              "ring-offset-background shadow-[0_0_15px_rgba(79,70,229,0.5)] ring-2 ring-indigo-500/50 ring-offset-1",
+          )}
+        >
+          <Progress
+            value={progressPercent}
+            aria-label={`${progressPercent}% complete`}
+          />
+        </div>
       </div>
 
       <div className="min-h-0 flex-1 overflow-y-auto px-3 py-3">
