@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 
+import { AutoNavCountdown } from "~/components/student/auto-nav-countdown";
+import { LessonLayout } from "~/components/student/lesson-layout";
 import { PaywallTeaserOverlay } from "~/components/student/paywall-teaser-overlay";
 import { TextLessonContent } from "~/components/student/text-lesson-content";
 import { VideoPlayerWrapper } from "~/components/student/video-player-wrapper";
@@ -19,6 +21,14 @@ import {
   hasActiveSubscription,
   type LessonDetail,
 } from "~/server/courses/lesson-detail";
+import {
+  calculateProgressPercent,
+  toLessonTypeLabel,
+} from "~/server/courses/lesson-navigation.shared";
+import {
+  getAdjacentLessons,
+  getCourseSidebarData,
+} from "~/server/courses/lesson-navigation";
 
 import {
   requireAuthenticatedUserId,
@@ -33,19 +43,6 @@ type LessonPageProps = {
   }>;
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
-
-function toLessonTypeLabel(type: string) {
-  switch (type.toLowerCase()) {
-    case "video":
-      return "Video";
-    case "text":
-      return "Text";
-    case "quiz":
-      return "Quiz";
-    default:
-      return type;
-  }
-}
 
 function renderLessonContent(lesson: LessonDetail) {
   switch (lesson.type.toLowerCase()) {
@@ -85,11 +82,24 @@ export default async function LessonPage({ params }: LessonPageProps) {
     lesson,
     activeSubscription,
   );
+  const sidebarData = await getCourseSidebarData(slug, userId);
+  const adjacentLessons = await getAdjacentLessons(lesson.id, slug);
+  const completedLessonIds = sidebarData?.completedLessonIds ?? [];
+  const progressPercent = calculateProgressPercent(
+    sidebarData?.completedCount ?? 0,
+    sidebarData?.totalLessons ?? 0,
+  );
   const lessonContent = renderLessonContent(lesson);
 
   return (
-    <section className="bg-background text-foreground">
-      <div className="container mx-auto flex min-h-[calc(100vh-3.5rem)] flex-col gap-6 px-4 py-8 sm:py-10 lg:py-14">
+    <LessonLayout
+      courseSlug={slug}
+      chapters={sidebarData?.chapters ?? []}
+      activeLessonId={lesson.id}
+      completedLessonIds={completedLessonIds}
+      progressPercent={progressPercent}
+    >
+      <div className="space-y-6">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -139,7 +149,14 @@ export default async function LessonPage({ params }: LessonPageProps) {
         ) : (
           lessonContent
         )}
+
+        <AutoNavCountdown
+          key={lesson.id}
+          nextLesson={adjacentLessons.nextLesson}
+          courseSlug={slug}
+          currentLessonType={lesson.type}
+        />
       </div>
-    </section>
+    </LessonLayout>
   );
 }
