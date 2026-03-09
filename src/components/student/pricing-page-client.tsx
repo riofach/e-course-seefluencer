@@ -58,7 +58,6 @@ export function PricingPageClient({
         return;
       }
 
-      toast.success("Midtrans checkout opened!");
       window.snap.pay(result.data.snap_token, {
         onClose: () => {
           setPendingPlanId(null);
@@ -68,9 +67,11 @@ export function PricingPageClient({
           setPendingPlanId(null);
         },
         onPending: () => {
+          toast("Pembayaran sedang diproses...");
           setPendingPlanId(null);
         },
         onSuccess: () => {
+          toast.success("Pembayaran berhasil! Sedang mengaktifkan langgananmu…");
           setPendingPlanId(null);
         },
       });

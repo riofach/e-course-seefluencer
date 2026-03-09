@@ -18,6 +18,7 @@ const geist = Geist({
 import { ThemeProvider } from "~/components/shared/theme-provider";
 import { Toaster } from "~/components/ui/sonner";
 import { NavbarAuth } from "~/components/shared/navbar-auth";
+import { env } from "~/env";
 
 export default function RootLayout({
   children,
@@ -27,7 +28,7 @@ export default function RootLayout({
       <body>
         <Script
           src="https://app.sandbox.midtrans.com/snap/snap.js"
-          data-client-key={process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY}
+          data-client-key={env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY}
           strategy="beforeInteractive"
         />
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
