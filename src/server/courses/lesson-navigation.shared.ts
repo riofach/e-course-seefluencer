@@ -2,7 +2,7 @@ import type { chapters, lessons } from "../db/schema.ts";
 
 type SidebarLessonRecord = Pick<
   typeof lessons.$inferSelect,
-  "id" | "title" | "type" | "order"
+  "id" | "title" | "type" | "order" | "isFree"
 >;
 
 type SidebarChapterRecord = Pick<

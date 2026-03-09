@@ -27,3 +27,14 @@ You can check out the [create-t3-app GitHub repository](https://github.com/t3-os
 ## How do I deploy this?
 
 Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+
+## Midtrans Sandbox Setup
+
+For local pricing and checkout testing, add these variables to `.env`:
+
+```bash
+MIDTRANS_SERVER_KEY="SB-Mid-server-xxxx"
+NEXT_PUBLIC_MIDTRANS_CLIENT_KEY="SB-Mid-client-xxxx"
+```
+
+Reviewers should create their own free Midtrans Sandbox account and use their sandbox keys, or use placeholder values if they only need to review the UI flow. Real payment confirmation is handled later via the webhook story.

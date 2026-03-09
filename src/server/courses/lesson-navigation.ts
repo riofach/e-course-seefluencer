@@ -13,7 +13,7 @@ import {
 
 type CourseLessonRow = {
   chapter: Pick<typeof chapters.$inferSelect, "id" | "title" | "order">;
-  lesson: Pick<typeof lessons.$inferSelect, "id" | "title" | "type" | "order">;
+  lesson: Pick<typeof lessons.$inferSelect, "id" | "title" | "type" | "order" | "isFree">;
 };
 
 async function loadCourseLessonRows(courseSlug: string): Promise<CourseLessonRow[]> {
@@ -29,6 +29,7 @@ async function loadCourseLessonRows(courseSlug: string): Promise<CourseLessonRow
         title: lessons.title,
         type: lessons.type,
         order: lessons.order,
+        isFree: lessons.isFree,
       },
     })
     .from(courses)

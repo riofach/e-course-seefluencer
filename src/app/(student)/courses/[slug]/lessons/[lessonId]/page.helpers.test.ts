@@ -42,3 +42,7 @@ void test("shouldShowPaywallOverlay returns true only for premium lessons withou
   assert.equal(shouldShowPaywallOverlay({ isFree: false }, true), false);
   assert.equal(shouldShowPaywallOverlay({ isFree: true }, false), false);
 });
+
+void test("shouldShowPaywallOverlay keeps free lessons accessible even when subscription is missing", () => {
+  assert.equal(shouldShowPaywallOverlay({ isFree: true }, true), false);
+});

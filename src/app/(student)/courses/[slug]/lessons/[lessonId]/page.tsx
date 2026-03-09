@@ -20,13 +20,13 @@ import {
 import { getServerAuthSession } from "~/server/auth";
 import {
   getLessonById,
-  hasActiveSubscription,
   type LessonDetail,
 } from "~/server/courses/lesson-detail";
 import {
   calculateProgressPercent,
   toLessonTypeLabel,
 } from "~/server/courses/lesson-navigation.shared";
+import { getUserActiveSubscription } from "~/server/queries/subscriptions";
 import {
   getQuizQuestions,
   type ClientQuizQuestion,
@@ -90,12 +90,18 @@ export default async function LessonPage({ params }: LessonPageProps) {
   );
 
   const activeSubscription = lesson.isFree
-    ? false
-    : await hasActiveSubscription(userId);
+    ? null
+    : await getUserActiveSubscription(userId);
   const showPaywallOverlay = shouldShowPaywallOverlay(
     lesson,
-    activeSubscription,
+    activeSubscription !== null,
   );
+
+  if (showPaywallOverlay) {
+    lesson.content = null;
+    lesson.videoUrl = null;
+  }
+
   const quizQuestions =
     !showPaywallOverlay && lesson.type === "quiz"
       ? await getQuizQuestions(lesson.id)
@@ -168,13 +174,9 @@ export default async function LessonPage({ params }: LessonPageProps) {
           </div>
         </div>
 
-        {showPaywallOverlay ? (
-          <PaywallTeaserOverlay>{lessonContent}</PaywallTeaserOverlay>
-        ) : (
-          lessonContent
-        )}
+        {showPaywallOverlay ? <PaywallTeaserOverlay /> : lessonContent}
 
-        {lesson.type !== "quiz" && (
+        {!showPaywallOverlay && lesson.type !== "quiz" && (
           <div className="bg-background/80 border-border sticky bottom-0 border-t py-4 backdrop-blur-sm">
             <MarkCompleteButton
               lessonId={lesson.id}

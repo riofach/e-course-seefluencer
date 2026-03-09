@@ -62,6 +62,53 @@ void test("mapLessonDetailRows maps a video lesson into the shared LessonDetail 
   } satisfies LessonDetail);
 });
 
+void test("mapLessonDetailRows preserves null content when premium payload is gated", () => {
+  const result = mapLessonDetailRows([
+    {
+      lesson: {
+        id: 15,
+        title: "Premium Video",
+        type: "video",
+        content: null,
+        isFree: false,
+        order: 4,
+      },
+      chapter: {
+        id: 6,
+        title: "Monetization",
+        order: 2,
+      },
+      course: {
+        id: 4,
+        title: "Creator Economy",
+        slug: "creator-economy",
+        isFree: false,
+      },
+    },
+  ]);
+
+  assert.deepEqual(result, {
+    id: 15,
+    title: "Premium Video",
+    type: "video",
+    content: null,
+    videoUrl: null,
+    isFree: false,
+    order: 4,
+    chapter: {
+      id: 6,
+      title: "Monetization",
+      order: 2,
+    },
+    course: {
+      id: 4,
+      title: "Creator Economy",
+      slug: "creator-economy",
+      isFree: false,
+    },
+  } satisfies LessonDetail);
+});
+
 void test("fetchLessonById returns null when lesson does not belong to the requested course slug", async () => {
   const lesson = await fetchLessonById(async () => [], "12", "slug-salah");
   assert.equal(lesson, null);

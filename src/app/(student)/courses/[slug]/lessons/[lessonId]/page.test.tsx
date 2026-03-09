@@ -1,10 +1,13 @@
+import assert from "node:assert/strict";
+
 import { render, screen } from "@testing-library/react";
-import { test, expect, vi } from "vitest";
+import { test, vi } from "vitest";
 import LessonPage from "./page";
 import * as authVars from "~/server/auth";
 import * as lessonDetail from "~/server/courses/lesson-detail";
 import * as quizQuestions from "~/server/courses/quiz-questions";
 import * as lessonNav from "~/server/courses/lesson-navigation";
+import * as subscriptionQueries from "~/server/queries/subscriptions";
 
 const dummyLesson = {
   id: 1,
@@ -54,16 +57,17 @@ vi.spyOn(lessonNav, "getAdjacentLessons").mockResolvedValue({
   prevLesson: null,
   nextLesson: null,
 });
+vi.spyOn(subscriptionQueries, "getUserActiveSubscription").mockResolvedValue(null);
 
 test("lesson page fetches quiz questions and renders QuizEngine", async () => {
-  const pageArgs = {
+  const pageArgs: Parameters<typeof LessonPage>[0] = {
     params: Promise.resolve({ slug: "course", lessonId: "1" }),
     searchParams: Promise.resolve({}),
   };
 
-  const PageComponent = await LessonPage(pageArgs as any);
+  const PageComponent = await LessonPage(pageArgs);
   render(PageComponent);
 
-  expect(screen.getByText("Test Question")).toBeDefined();
-  expect(screen.getByRole("button", { name: /Submit Quiz/i })).toBeDefined();
+  assert.ok(screen.getByText("Test Question"));
+  assert.ok(screen.getByRole("button", { name: /Submit Quiz/i }));
 });

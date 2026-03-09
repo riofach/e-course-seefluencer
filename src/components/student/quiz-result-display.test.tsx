@@ -1,6 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment */
+
+import assert from "node:assert/strict";
+
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { test, expect } from "vitest";
+import { test } from "vitest";
 import { QuizResultDisplay } from "./quiz-result-display";
 
 test("quiz result display renders passing state", () => {
@@ -15,10 +19,10 @@ test("quiz result display renders passing state", () => {
     />,
   );
 
-  expect(screen.getByText("80%")).toBeDefined();
-  expect(screen.getByText("8 / 10 pts")).toBeDefined();
-  expect(screen.getByText("Passed ✓")).toBeDefined();
-  expect(screen.getByRole("link", { name: /next lesson/i })).toBeDefined();
+  assert.ok(screen.getByText("80%"));
+  assert.ok(screen.getByText("8 / 10 pts"));
+  assert.ok(screen.getByText("Passed ✓"));
+  assert.ok(screen.getByRole("link", { name: /next lesson/i }));
 });
 
 test("quiz result display renders failing state", async () => {
@@ -36,14 +40,14 @@ test("quiz result display renders failing state", async () => {
     />,
   );
 
-  expect(screen.getByText("40%")).toBeDefined();
-  expect(screen.getByText("4 / 10 pts")).toBeDefined();
-  expect(screen.getByText("Failed ✗")).toBeDefined();
+  assert.ok(screen.getByText("40%"));
+  assert.ok(screen.getByText("4 / 10 pts"));
+  assert.ok(screen.getByText("Failed ✗"));
 
   const retakeBtn = screen.getByRole("button", { name: /retake quiz/i });
   await userEvent.click(retakeBtn);
 
-  expect(retakeCalled).toBe(true);
+  assert.equal(retakeCalled, true);
 });
 
 test("quiz result display renders passing state without next lesson", () => {
@@ -57,5 +61,5 @@ test("quiz result display renders passing state without next lesson", () => {
     />,
   );
 
-  expect(screen.getByRole("link", { name: /back to course/i })).toBeDefined();
+  assert.ok(screen.getByRole("link", { name: /back to course/i }));
 });

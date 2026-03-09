@@ -8,11 +8,10 @@ export const env = createEnv({
     NEXTAUTH_SECRET: process.env.NODE_ENV === "production" ? z.string() : z.string().optional(),
     NEXTAUTH_URL: z.string().url(),
     MIDTRANS_SERVER_KEY: z.string().min(1),
-    MIDTRANS_CLIENT_KEY: z.string().min(1),
   },
 
   client: {
-    // NEXT_PUBLIC_CLIENTVAR: z.string(),
+    NEXT_PUBLIC_MIDTRANS_CLIENT_KEY: z.string().min(1),
   },
 
   runtimeEnv: {
@@ -21,7 +20,7 @@ export const env = createEnv({
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     MIDTRANS_SERVER_KEY: process.env.MIDTRANS_SERVER_KEY,
-    MIDTRANS_CLIENT_KEY: process.env.MIDTRANS_CLIENT_KEY,
+    NEXT_PUBLIC_MIDTRANS_CLIENT_KEY: process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY,
   },
   skipValidation: !!process.env.SKIP_ENV_VALIDATION,
   emptyStringAsUndefined: true,

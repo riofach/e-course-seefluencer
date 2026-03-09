@@ -1,7 +1,13 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { CheckCircle2, CirclePlay, FileText, HelpCircle } from "lucide-react";
+import {
+  CheckCircle2,
+  CirclePlay,
+  FileText,
+  HelpCircle,
+  Lock,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import {
@@ -165,6 +171,14 @@ export function CourseSidebarNav({
                               <Badge variant="outline">
                                 {toLessonTypeLabel(lesson.type)}
                               </Badge>
+                              {lesson.isFree ? (
+                                <Badge variant="secondary">Free</Badge>
+                              ) : (
+                                <Badge variant="outline" className="gap-1">
+                                  <Lock className="size-3" aria-hidden="true" />
+                                  Pro
+                                </Badge>
+                              )}
                             </div>
                           </div>
 

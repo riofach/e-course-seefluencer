@@ -1,6 +1,6 @@
 import "server-only";
 
-import { and, eq, gt } from "drizzle-orm";
+import { and, eq, gt, sql } from "drizzle-orm";
 
 import { db } from "../db/index.ts";
 import { chapters, courses, lessons, subscriptions } from "../db/schema.ts";
@@ -31,7 +31,12 @@ export type {
 export async function getLessonById(
   lessonId: string,
   courseSlug: string,
+  options?: {
+    includeContent?: boolean;
+  },
 ): Promise<LessonDetail | null> {
+  const includeContent = options?.includeContent ?? true;
+
   const loadRows: LessonDetailRowsLoader = async (parsedLessonId, slug) => {
     const rows = await db
       .select({
@@ -39,7 +44,7 @@ export async function getLessonById(
           id: lessons.id,
           title: lessons.title,
           type: lessons.type,
-          content: lessons.content,
+          content: includeContent ? lessons.content : sql<string | null>`null`,
           isFree: lessons.isFree,
           order: lessons.order,
         },

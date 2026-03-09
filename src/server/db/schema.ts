@@ -8,6 +8,7 @@ import {
   timestamp,
   unique,
   varchar,
+  index,
 } from "drizzle-orm/pg-core";
 
 /**
@@ -161,23 +162,26 @@ export const quizAttempts = pgTable("quiz_attempts", {
 export const plans = pgTable("plans", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 100 }).notNull(),
-  price: integer("price").notNull(), // in IDR (smallest unit)
+  price: integer("price").notNull(),
   durationDays: integer("duration_days").notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
 });
 
-export const subscriptions = pgTable("subscriptions", {
-  id: serial("id").primaryKey(),
-  userId: text("user_id")
-    .references(() => users.id, { onDelete: "cascade" })
-    .notNull(),
-  planId: integer("plan_id")
-    .references(() => plans.id, { onDelete: "restrict" })
-    .notNull(),
-  status: varchar("status", { length: 20 }).default("inactive").notNull(), // 'active' | 'inactive' | 'expired'
-  startDate: timestamp("start_date"),
-  endDate: timestamp("end_date"),
-  midtransOrderId: varchar("midtrans_order_id", { length: 255 }),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
-});
+export const subscriptions = pgTable(
+  "subscriptions",
+  {
+    id: serial("id").primaryKey(),
+    userId: text("user_id")
+      .references(() => users.id, { onDelete: "cascade" })
+      .notNull(),
+    planId: integer("plan_id").references(() => plans.id),
+    status: varchar("status", { length: 20 }).default("inactive").notNull(),
+    startDate: timestamp("start_date", { withTimezone: true }),
+    endDate: timestamp("end_date", { withTimezone: true }),
+    midtransOrderId: varchar("midtrans_order_id", { length: 255 }).unique(),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
+  },
+  (table) => [
+    index("subscriptions_user_id_status_idx").on(table.userId, table.status),
+  ],
+);
