@@ -5,6 +5,7 @@ import { AutoNavCountdown } from "~/components/student/auto-nav-countdown";
 import { LessonLayout } from "~/components/student/lesson-layout";
 import { MarkCompleteButton } from "~/components/student/mark-complete-button";
 import { PaywallTeaserOverlay } from "~/components/student/paywall-teaser-overlay";
+import { QuizEngine } from "~/components/student/quiz-engine";
 import { TextLessonContent } from "~/components/student/text-lesson-content";
 import { VideoPlayerWrapper } from "~/components/student/video-player-wrapper";
 import { Badge } from "~/components/ui/badge";
@@ -27,6 +28,10 @@ import {
   toLessonTypeLabel,
 } from "~/server/courses/lesson-navigation.shared";
 import {
+  getQuizQuestions,
+  type ClientQuizQuestion,
+} from "~/server/courses/quiz-questions";
+import {
   getAdjacentLessons,
   getCourseSidebarData,
 } from "~/server/courses/lesson-navigation";
@@ -45,7 +50,11 @@ type LessonPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
-function renderLessonContent(lesson: LessonDetail) {
+function renderLessonContent(
+  lesson: LessonDetail,
+  quizQuestions: ClientQuizQuestion[],
+  courseSlug: string,
+) {
   switch (lesson.type.toLowerCase()) {
     case "video":
       return (
@@ -58,9 +67,12 @@ function renderLessonContent(lesson: LessonDetail) {
       return <TextLessonContent content={lesson.content ?? ""} />;
     case "quiz":
       return (
-        <div className="border-border/70 bg-card mx-auto w-full max-w-3xl rounded-2xl border px-6 py-12 text-center shadow-sm">
-          Quiz content coming soon
-        </div>
+        <QuizEngine
+          key={lesson.id}
+          questions={quizQuestions}
+          lessonId={lesson.id}
+          courseSlug={courseSlug}
+        />
       );
     default:
       return <TextLessonContent content={lesson.content ?? ""} />;
@@ -83,6 +95,10 @@ export default async function LessonPage({ params }: LessonPageProps) {
     lesson,
     activeSubscription,
   );
+  const quizQuestions =
+    !showPaywallOverlay && lesson.type === "quiz"
+      ? await getQuizQuestions(lesson.id)
+      : [];
   const sidebarData = await getCourseSidebarData(slug, userId);
   const adjacentLessons = await getAdjacentLessons(lesson.id, slug);
   const completedLessonIds = sidebarData?.completedLessonIds ?? [];
@@ -91,7 +107,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
     sidebarData?.completedCount ?? 0,
     sidebarData?.totalLessons ?? 0,
   );
-  const lessonContent = renderLessonContent(lesson);
+  const lessonContent = renderLessonContent(lesson, quizQuestions, slug);
 
   return (
     <LessonLayout

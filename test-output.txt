@@ -1,0 +1,406 @@
+
+> project-e-course@0.1.0 test
+> node --test
+
+TAP version 13
+# Subtest: requireAuthenticatedUserId redirects unauthenticated users to login
+ok 1 - requireAuthenticatedUserId redirects unauthenticated users to login
+  ---
+  duration_ms: 2.4934
+  type: 'test'
+  ...
+# Subtest: resolveLessonPageData calls notFound when lesson query returns null
+ok 2 - resolveLessonPageData calls notFound when lesson query returns null
+  ---
+  duration_ms: 0.3554
+  type: 'test'
+  ...
+# Subtest: shouldShowPaywallOverlay returns true only for premium lessons without an active subscription
+ok 3 - shouldShowPaywallOverlay returns true only for premium lessons without an active subscription
+  ---
+  duration_ms: 0.1965
+  type: 'test'
+  ...
+# Subtest: lesson page keeps mark complete hidden for quiz lessons while rendering quiz content before auto-nav
+ok 4 - lesson page keeps mark complete hidden for quiz lessons while rendering quiz content before auto-nav
+  ---
+  duration_ms: 1.6448
+  type: 'test'
+  ...
+# Subtest: lesson page fetches quiz questions in the RSC body and renders QuizEngine for quiz lessons
+ok 5 - lesson page fetches quiz questions in the RSC body and renders QuizEngine for quiz lessons
+  ---
+  duration_ms: 1.5839
+  type: 'test'
+  ...
+# Subtest: resolveCoursePageData returns course detail when slug exists
+ok 6 - resolveCoursePageData returns course detail when slug exists
+  ---
+  duration_ms: 1.2753
+  type: 'test'
+  ...
+# Subtest: resolveCoursePageData calls notFound when slug is missing
+ok 7 - resolveCoursePageData calls notFound when slug is missing
+  ---
+  duration_ms: 0.8036
+  type: 'test'
+  ...
+# Subtest: resolveCourseStaticParams maps published slugs for ISR
+ok 8 - resolveCourseStaticParams maps published slugs for ISR
+  ---
+  duration_ms: 1.0575
+  type: 'test'
+  ...
+# Subtest: course detail loading route renders the detail skeleton component
+ok 9 - course detail loading route renders the detail skeleton component
+  ---
+  duration_ms: 1.2836
+  type: 'test'
+  ...
+# Subtest: normalizeCourseSearchTerm trims whitespace and caps length
+ok 10 - normalizeCourseSearchTerm trims whitespace and caps length
+  ---
+  duration_ms: 1.1641
+  type: 'test'
+  ...
+# Subtest: normalizeCourseSearchTerm returns undefined for blank values
+ok 11 - normalizeCourseSearchTerm returns undefined for blank values
+  ---
+  duration_ms: 0.1811
+  type: 'test'
+  ...
+# Subtest: buildCourseSearchHref sets q while preserving unrelated params
+ok 12 - buildCourseSearchHref sets q while preserving unrelated params
+  ---
+  duration_ms: 0.3429
+  type: 'test'
+  ...
+# Subtest: buildCourseSearchHref removes q when query becomes empty
+ok 13 - buildCourseSearchHref removes q when query becomes empty
+  ---
+  duration_ms: 0.1937
+  type: 'test'
+  ...
+# Subtest: course syllabus links each lesson row to the lesson viewer route
+ok 14 - course syllabus links each lesson row to the lesson viewer route
+  ---
+  duration_ms: 1.4413
+  type: 'test'
+  ...
+# Subtest: lesson view skeleton mirrors the lesson layout using shadcn skeleton blocks
+ok 15 - lesson view skeleton mirrors the lesson layout using shadcn skeleton blocks
+  ---
+  duration_ms: 1.4288
+  type: 'test'
+  ...
+# Subtest: mark complete button hides itself for quiz lessons and uses optimistic transitions
+ok 16 - mark complete button hides itself for quiz lessons and uses optimistic transitions
+  ---
+  duration_ms: 1.6805
+  type: 'test'
+  ...
+# Subtest: mark complete button renders loading and completed states with sonner toasts
+ok 17 - mark complete button renders loading and completed states with sonner toasts
+  ---
+  duration_ms: 0.4184
+  type: 'test'
+  ...
+# Subtest: paywall teaser overlay keeps lesson content on the same route behind an overlay
+ok 18 - paywall teaser overlay keeps lesson content on the same route behind an overlay
+  ---
+  duration_ms: 2.0972
+  type: 'test'
+  ...
+# Subtest: quiz engine renders an empty state and hides submit when questions are empty
+ok 19 - quiz engine renders an empty state and hides submit when questions are empty
+  ---
+  duration_ms: 2.4068
+  type: 'test'
+  ...
+# Subtest: quiz engine enforces allAnswered before enabling submit
+ok 20 - quiz engine enforces allAnswered before enabling submit
+  ---
+  duration_ms: 0.9657
+  type: 'test'
+  ...
+# Subtest: quiz engine submits with transition state once all answers are present
+ok 21 - quiz engine submits with transition state once all answers are present
+  ---
+  duration_ms: 0.3718
+  type: 'test'
+  ...
+# Subtest: quiz engine renders labeled option badges for A through D and highlights selected choices
+ok 22 - quiz engine renders labeled option badges for A through D and highlights selected choices
+  ---
+  duration_ms: 0.3529
+  type: 'test'
+  ...
+# Subtest: normalizeYouTubeUrl converts standard watch URLs into embed URLs
+ok 23 - normalizeYouTubeUrl converts standard watch URLs into embed URLs
+  ---
+  duration_ms: 1.4467
+  type: 'test'
+  ...
+# Subtest: normalizeYouTubeUrl preserves existing embed URLs
+ok 24 - normalizeYouTubeUrl preserves existing embed URLs
+  ---
+  duration_ms: 0.1888
+  type: 'test'
+  ...
+# Subtest: normalizeYouTubeUrl supports youtube-nocookie.com domains
+ok 25 - normalizeYouTubeUrl supports youtube-nocookie.com domains
+  ---
+  duration_ms: 0.2217
+  type: 'test'
+  ...
+# Subtest: video player wrapper renders a lazy iframe inside an aspect-video container
+ok 26 - video player wrapper renders a lazy iframe inside an aspect-video container
+  ---
+  duration_ms: 0.5859
+  type: 'test'
+  ...
+# Subtest: markLessonComplete returns unauthorized when no session exists
+ok 27 - markLessonComplete returns unauthorized when no session exists
+  ---
+  duration_ms: 2.592
+  type: 'test'
+  ...
+# Subtest: markLessonComplete rejects non-positive lesson ids
+ok 28 - markLessonComplete rejects non-positive lesson ids
+  ---
+  duration_ms: 4.2019
+  type: 'test'
+  ...
+# Subtest: markLessonComplete returns forbidden if access denied
+ok 29 - markLessonComplete returns forbidden if access denied
+  ---
+  duration_ms: 0.4809
+  type: 'test'
+  ...
+# node:internal/modules/esm/resolve:274
+#     throw new ERR_MODULE_NOT_FOUND(
+#           ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find module 'D:\\RioRaditya\\Ngoding\\hiring-seefluencer\\project-e-course\\src\\server\\actions\\progress\\submit-quiz.shared' imported from D:\\RioRaditya\\Ngoding\\hiring-seefluencer\\project-e-course\\src\\server\\actions\\progress\\submit-quiz.test.ts
+#     at finalizeResolution (node:internal/modules/esm/resolve:274:11)
+#     at moduleResolve (node:internal/modules/esm/resolve:859:10)
+#     at defaultResolve (node:internal/modules/esm/resolve:983:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:783:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:707:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:690:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:307:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:183:49) {
+#   code: 'ERR_MODULE_NOT_FOUND',
+#   url: 'file:///D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/src/server/actions/progress/submit-quiz.shared'
+# }
+# Node.js v22.18.0
+# Subtest: src\\server\\actions\\progress\\submit-quiz.test.ts
+not ok 14 - src\\server\\actions\\progress\\submit-quiz.test.ts
+  ---
+  duration_ms: 192.8082
+  type: 'test'
+  location: 'D:\\RioRaditya\\Ngoding\\hiring-seefluencer\\project-e-course\\src\\server\\actions\\progress\\submit-quiz.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: toCourseDetailItem applies fallback description for blank values
+ok 31 - toCourseDetailItem applies fallback description for blank values
+  ---
+  duration_ms: 1.5339
+  type: 'test'
+  ...
+# Subtest: mapCourseDetailRows properly maps flat join rows into structured nested course data
+ok 32 - mapCourseDetailRows properly maps flat join rows into structured nested course data
+  ---
+  duration_ms: 0.3962
+  type: 'test'
+  ...
+# Subtest: mapCourseDetailRows returns null when rows are empty
+ok 33 - mapCourseDetailRows returns null when rows are empty
+  ---
+  duration_ms: 0.1833
+  type: 'test'
+  ...
+# Subtest: fetchCourseDetailBySlug returns published ordered course detail
+ok 34 - fetchCourseDetailBySlug returns published ordered course detail
+  ---
+  duration_ms: 0.6332
+  type: 'test'
+  ...
+# Subtest: fetchCourseDetailBySlug returns null for missing course
+ok 35 - fetchCourseDetailBySlug returns null for missing course
+  ---
+  duration_ms: 0.1938
+  type: 'test'
+  ...
+# Subtest: fetchPublishedCourseSlugs returns only published slugs
+ok 36 - fetchPublishedCourseSlugs returns only published slugs
+  ---
+  duration_ms: 0.2275
+  type: 'test'
+  ...
+# Subtest: parseLessonId returns null for invalid lesson id values
+ok 37 - parseLessonId returns null for invalid lesson id values
+  ---
+  duration_ms: 1.6718
+  type: 'test'
+  ...
+# Subtest: mapLessonDetailRows maps a video lesson into the shared LessonDetail contract
+ok 38 - mapLessonDetailRows maps a video lesson into the shared LessonDetail contract
+  ---
+  duration_ms: 1.6691
+  type: 'test'
+  ...
+# Subtest: fetchLessonById returns null when lesson does not belong to the requested course slug
+ok 39 - fetchLessonById returns null when lesson does not belong to the requested course slug
+  ---
+  duration_ms: 0.3101
+  type: 'test'
+  ...
+# Subtest: fetchLessonById returns null for a non-existent lesson id
+ok 40 - fetchLessonById returns null for a non-existent lesson id
+  ---
+  duration_ms: 0.1973
+  type: 'test'
+  ...
+# Subtest: fetchLessonById returns null when the parent course is not published
+ok 41 - fetchLessonById returns null when the parent course is not published
+  ---
+  duration_ms: 0.2048
+  type: 'test'
+  ...
+# Subtest: fetchHasActiveSubscription returns true when an active subscription exists
+ok 42 - fetchHasActiveSubscription returns true when an active subscription exists
+  ---
+  duration_ms: 0.2418
+  type: 'test'
+  ...
+# Subtest: fetchHasActiveSubscription returns false when no active subscription exists
+ok 43 - fetchHasActiveSubscription returns false when no active subscription exists
+  ---
+  duration_ms: 0.2926
+  type: 'test'
+  ...
+# Subtest: getAdjacentLessonsFromSortedList returns previous and next lessons for a middle lesson
+ok 44 - getAdjacentLessonsFromSortedList returns previous and next lessons for a middle lesson
+  ---
+  duration_ms: 2.9205
+  type: 'test'
+  ...
+# Subtest: getAdjacentLessonsFromSortedList returns null prev for the first lesson
+ok 45 - getAdjacentLessonsFromSortedList returns null prev for the first lesson
+  ---
+  duration_ms: 0.2201
+  type: 'test'
+  ...
+# Subtest: getAdjacentLessonsFromSortedList returns null next for the last lesson
+ok 46 - getAdjacentLessonsFromSortedList returns null next for the last lesson
+  ---
+  duration_ms: 0.4109
+  type: 'test'
+  ...
+# Subtest: getAdjacentLessonsFromSortedList returns null on both sides for a single lesson
+ok 47 - getAdjacentLessonsFromSortedList returns null on both sides for a single lesson
+  ---
+  duration_ms: 0.2037
+  type: 'test'
+  ...
+# Subtest: getAdjacentLessonsFromSortedList returns null on both sides for an empty list
+ok 48 - getAdjacentLessonsFromSortedList returns null on both sides for an empty list
+  ---
+  duration_ms: 0.3009
+  type: 'test'
+  ...
+# Subtest: mapProgressToCompletedIds returns a set of completed lesson ids
+ok 49 - mapProgressToCompletedIds returns a set of completed lesson ids
+  ---
+  duration_ms: 0.2175
+  type: 'test'
+  ...
+# Subtest: mapProgressToCompletedIds returns an empty set for empty rows
+ok 50 - mapProgressToCompletedIds returns an empty set for empty rows
+  ---
+  duration_ms: 0.2762
+  type: 'test'
+  ...
+# Subtest: calculateProgressPercent returns the expected rounded percentage
+ok 51 - calculateProgressPercent returns the expected rounded percentage
+  ---
+  duration_ms: 0.1848
+  type: 'test'
+  ...
+# Subtest: calculateProgressPercent returns zero when total lessons is zero
+ok 52 - calculateProgressPercent returns zero when total lessons is zero
+  ---
+  duration_ms: 0.4413
+  type: 'test'
+  ...
+# Subtest: toPublishedCourseCatalogItem normalizes free published courses
+ok 53 - toPublishedCourseCatalogItem normalizes free published courses
+  ---
+  duration_ms: 1.3971
+  type: 'test'
+  ...
+# Subtest: toPublishedCourseCatalogItem adds fallback description for blank values
+ok 54 - toPublishedCourseCatalogItem adds fallback description for blank values
+  ---
+  duration_ms: 0.1509
+  type: 'test'
+  ...
+# Subtest: fetchPublishedCourseCatalog requests only the published catalog fields
+ok 55 - fetchPublishedCourseCatalog requests only the published catalog fields
+  ---
+  duration_ms: 0.4694
+  type: 'test'
+  ...
+# node:internal/modules/esm/resolve:274
+#     throw new ERR_MODULE_NOT_FOUND(
+#           ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find module 'D:\\RioRaditya\\Ngoding\\hiring-seefluencer\\project-e-course\\src\\server\\courses\\quiz-questions.shared' imported from D:\\RioRaditya\\Ngoding\\hiring-seefluencer\\project-e-course\\src\\server\\courses\\quiz-questions.test.ts
+#     at finalizeResolution (node:internal/modules/esm/resolve:274:11)
+#     at moduleResolve (node:internal/modules/esm/resolve:859:10)
+#     at defaultResolve (node:internal/modules/esm/resolve:983:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:783:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:707:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:690:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:307:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:183:49) {
+#   code: 'ERR_MODULE_NOT_FOUND',
+#   url: 'file:///D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/src/server/courses/quiz-questions.shared'
+# }
+# Node.js v22.18.0
+# Subtest: src\\server\\courses\\quiz-questions.test.ts
+not ok 19 - src\\server\\courses\\quiz-questions.test.ts
+  ---
+  duration_ms: 189.4145
+  type: 'test'
+  location: 'D:\\RioRaditya\\Ngoding\\hiring-seefluencer\\project-e-course\\src\\server\\courses\\quiz-questions.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: fetchSearchPublishedCourses requests published title matches only
+ok 57 - fetchSearchPublishedCourses requests published title matches only
+  ---
+  duration_ms: 1.8248
+  type: 'test'
+  ...
+# Subtest: fetchSearchPublishedCourses preserves mapper fallback description
+ok 58 - fetchSearchPublishedCourses preserves mapper fallback description
+  ---
+  duration_ms: 0.2116
+  type: 'test'
+  ...
+1..58
+# tests 58
+# suites 0
+# pass 56
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1041.8889
