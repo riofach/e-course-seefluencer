@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { Badge } from "~/components/ui/badge";
 import {
   Card,
@@ -9,6 +11,7 @@ import {
 import type { CourseDetailItem } from "~/server/courses/course-detail";
 
 type CourseSyllabusProps = {
+  courseSlug: CourseDetailItem["slug"];
   chapters: CourseDetailItem["chapters"];
 };
 
@@ -25,7 +28,7 @@ function toLessonTypeLabel(type: string) {
   }
 }
 
-export function CourseSyllabus({ chapters }: CourseSyllabusProps) {
+export function CourseSyllabus({ courseSlug, chapters }: CourseSyllabusProps) {
   return (
     <Card className="border-border/70 bg-card/95">
       <CardHeader className="space-y-2">
@@ -60,7 +63,11 @@ export function CourseSyllabus({ chapters }: CourseSyllabusProps) {
                   >
                     {chapter.lessons.map((lesson) => (
                       <li key={lesson.id}>
-                        <div className="flex min-h-11 items-center justify-between gap-3 rounded-xl border px-4 py-3">
+                        <Link
+                          href={`/courses/${courseSlug}/lessons/${lesson.id}`}
+                          className="focus-visible:ring-ring block rounded-xl focus-visible:outline-none focus-visible:ring-[3px]"
+                        >
+                        <div className="hover:bg-accent/40 flex min-h-11 items-center justify-between gap-3 rounded-xl border px-4 py-3 transition-colors">
                           <div className="min-w-0 space-y-1">
                             <p className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
                               Lesson {lesson.order}
@@ -79,6 +86,7 @@ export function CourseSyllabus({ chapters }: CourseSyllabusProps) {
                             ) : null}
                           </div>
                         </div>
+                        </Link>
                       </li>
                     ))}
                   </ul>

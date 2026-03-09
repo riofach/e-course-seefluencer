@@ -36,7 +36,7 @@ export default async function CourseDetailPage({ params }: CourseDetailPageProps
     <section className="bg-background text-foreground">
       <div className="container mx-auto flex min-h-[calc(100vh-3.5rem)] flex-col gap-8 px-4 py-8 sm:py-10 lg:py-14">
         <CourseDetailHero course={course} />
-        <CourseSyllabus chapters={course.chapters} />
+        <CourseSyllabus courseSlug={course.slug} chapters={course.chapters} />
       </div>
     </section>
   );
