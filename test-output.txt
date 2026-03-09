@@ -1,402 +1,596 @@
 
-[1m[46m RUN [49m[22m [36mv4.0.18 [39m[90mD:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course[39m
+> project-e-course@0.1.0 test
+> node --test
 
- [31mΓ¥»[39m src/components/student/lesson-view-skeleton.test.ts [2m([22m[2m0 test[22m[2m)[22m
- [31mΓ¥»[39m src/components/student/course-search-input.helpers.test.ts [2m([22m[2m0 test[22m[2m)[22m
- [31mΓ¥»[39m src/components/student/video-player-wrapper.test.ts [2m([22m[2m0 test[22m[2m)[22m
- [31mΓ¥»[39m src/components/student/course-syllabus.test.ts [2m([22m[2m0 test[22m[2m)[22m
- [31mΓ¥»[39m src/components/student/course-detail-skeleton.test.ts [2m([22m[2m0 test[22m[2m)[22m
- [31mΓ¥»[39m src/components/student/mark-complete-button.test.ts [2m([22m[2m0 test[22m[2m)[22m
- [31mΓ¥»[39m src/components/student/paywall-teaser-overlay.test.ts [2m([22m[2m0 test[22m[2m)[22m
- [31mΓ¥»[39m src/server/courses/lesson-navigation.test.ts [2m([22m[2m0 test[22m[2m)[22m
- [31mΓ¥»[39m src/server/courses/course-detail.test.ts [2m([22m[2m0 test[22m[2m)[22m
- [31mΓ¥»[39m src/server/courses/lesson-detail.test.ts [2m([22m[2m0 test[22m[2m)[22m
- [31mΓ¥»[39m src/server/courses/search-published-courses.test.ts [2m([22m[2m0 test[22m[2m)[22m
- [31mΓ¥»[39m src/server/courses/quiz-questions.test.ts [2m([22m[2m0 test[22m[2m)[22m
- [31mΓ¥»[39m src/components/student/quiz-engine.test.tsx [2m([22m[2m0 test[22m[2m)[22m
- [31mΓ¥»[39m src/server/courses/published-course-catalog.test.ts [2m([22m[2m0 test[22m[2m)[22m
- [31mΓ¥»[39m src/server/actions/progress/submit-quiz.test.ts [2m([22m[2m0 test[22m[2m)[22m
- [31mΓ¥»[39m src/server/actions/progress/mark-lesson-complete.test.ts [2m([22m[2m0 test[22m[2m)[22m
- [31mΓ¥»[39m src/app/(student)/courses/[slug]/page.helpers.test.ts [2m([22m[2m0 test[22m[2m)[22m
- [31mΓ¥»[39m src/app/(student)/courses/[slug]/lessons/[lessonId]/page.helpers.test.ts [2m([22m[2m0 test[22m[2m)[22m
- [32mΓ£ô[39m src/components/student/quiz-result-display.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[33m 351[2mms[22m[39m
- [31mΓ¥»[39m src/app/(student)/courses/[slug]/lessons/[lessonId]/page.integration.test.tsx [2m([22m[2m0 test[22m[2m)[22m
- [31mΓ¥»[39m src/app/(student)/courses/[slug]/lessons/[lessonId]/page.test.tsx [2m([22m[2m0 test[22m[2m)[22m
-
-ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ» Failed Suites 20 ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
-
- FAIL  src/components/student/course-detail-skeleton.test.ts [ src/components/student/course-detail-skeleton.test.ts ]
-Error: Cannot bundle built-in module "node:test" imported from "src\components\student\course-detail-skeleton.test.ts". Consider disabling environments.client.noExternal or remove the built-in dependency.
-  Plugin: vite:import-analysis
-  File: D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/src/components/student/course-detail-skeleton.test.ts:4:17
-  2  |  import { readFileSync } from "node:fs";
-  3  |  import { resolve } from "node:path";
-  4  |  import test from "node:test";
-     |                    ^
-  5  |  void test("course detail loading route renders the detail skeleton component", () => {
-  6  |    const filePath = resolve(
- Γ¥» ResolveIdContext._formatLog node_modules/vite/dist/node/chunks/config.js:28999:43
- Γ¥» ResolveIdContext.error node_modules/vite/dist/node/chunks/config.js:28996:14
- Γ¥» ResolveIdContext.handler node_modules/vite/dist/node/chunks/config.js:32578:13
- Γ¥» EnvironmentPluginContainer.resolveId node_modules/vite/dist/node/chunks/config.js:28717:56
- Γ¥» TransformPluginContext.resolve node_modules/vite/dist/node/chunks/config.js:28929:13
- Γ¥» normalizeUrl node_modules/vite/dist/node/chunks/config.js:27111:22
- Γ¥» node_modules/vite/dist/node/chunks/config.js:27177:32
- Γ¥» TransformPluginContext.transform node_modules/vite/dist/node/chunks/config.js:27145:4
-
-ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[1/20]ΓÄ»
-
- FAIL  src/components/student/course-search-input.helpers.test.ts [ src/components/student/course-search-input.helpers.test.ts ]
-Error: Cannot bundle built-in module "node:test" imported from "src\components\student\course-search-input.helpers.test.ts". Consider disabling environments.client.noExternal or remove the built-in dependency.
-  Plugin: vite:import-analysis
-  File: D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/src/components/student/course-search-input.helpers.test.ts:2:17
-  1  |  import assert from "node:assert/strict";
-  2  |  import test from "node:test";
-     |                    ^
-  3  |  import {
-  4  |    buildCourseSearchHref,
- Γ¥» ResolveIdContext._formatLog node_modules/vite/dist/node/chunks/config.js:28999:43
- Γ¥» ResolveIdContext.error node_modules/vite/dist/node/chunks/config.js:28996:14
- Γ¥» ResolveIdContext.handler node_modules/vite/dist/node/chunks/config.js:32578:13
- Γ¥» EnvironmentPluginContainer.resolveId node_modules/vite/dist/node/chunks/config.js:28717:56
- Γ¥» TransformPluginContext.resolve node_modules/vite/dist/node/chunks/config.js:28929:13
- Γ¥» normalizeUrl node_modules/vite/dist/node/chunks/config.js:27111:22
- Γ¥» node_modules/vite/dist/node/chunks/config.js:27177:32
- Γ¥» TransformPluginContext.transform node_modules/vite/dist/node/chunks/config.js:27145:4
-
-ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[2/20]ΓÄ»
-
- FAIL  src/components/student/course-syllabus.test.ts [ src/components/student/course-syllabus.test.ts ]
-Error: Cannot bundle built-in module "node:test" imported from "src\components\student\course-syllabus.test.ts". Consider disabling environments.client.noExternal or remove the built-in dependency.
-  Plugin: vite:import-analysis
-  File: D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/src/components/student/course-syllabus.test.ts:4:17
-  2  |  import { readFileSync } from "node:fs";
-  3  |  import { resolve } from "node:path";
-  4  |  import test from "node:test";
-     |                    ^
-  5  |  void test("course syllabus links each lesson row to the lesson viewer route", () => {
-  6  |    const filePath = resolve(
- Γ¥» ResolveIdContext._formatLog node_modules/vite/dist/node/chunks/config.js:28999:43
- Γ¥» ResolveIdContext.error node_modules/vite/dist/node/chunks/config.js:28996:14
- Γ¥» ResolveIdContext.handler node_modules/vite/dist/node/chunks/config.js:32578:13
- Γ¥» EnvironmentPluginContainer.resolveId node_modules/vite/dist/node/chunks/config.js:28717:56
- Γ¥» TransformPluginContext.resolve node_modules/vite/dist/node/chunks/config.js:28929:13
- Γ¥» normalizeUrl node_modules/vite/dist/node/chunks/config.js:27111:22
- Γ¥» node_modules/vite/dist/node/chunks/config.js:27177:32
- Γ¥» TransformPluginContext.transform node_modules/vite/dist/node/chunks/config.js:27145:4
-
-ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[3/20]ΓÄ»
-
- FAIL  src/components/student/lesson-view-skeleton.test.ts [ src/components/student/lesson-view-skeleton.test.ts ]
-Error: Cannot bundle built-in module "node:test" imported from "src\components\student\lesson-view-skeleton.test.ts". Consider disabling environments.client.noExternal or remove the built-in dependency.
-  Plugin: vite:import-analysis
-  File: D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/src/components/student/lesson-view-skeleton.test.ts:4:17
-  2  |  import { readFileSync } from "node:fs";
-  3  |  import { resolve } from "node:path";
-  4  |  import test from "node:test";
-     |                    ^
-  5  |  void test("lesson view skeleton mirrors the lesson layout using shadcn skeleton blocks", () => {
-  6  |    const filePath = resolve(
- Γ¥» ResolveIdContext._formatLog node_modules/vite/dist/node/chunks/config.js:28999:43
- Γ¥» ResolveIdContext.error node_modules/vite/dist/node/chunks/config.js:28996:14
- Γ¥» ResolveIdContext.handler node_modules/vite/dist/node/chunks/config.js:32578:13
- Γ¥» EnvironmentPluginContainer.resolveId node_modules/vite/dist/node/chunks/config.js:28717:56
- Γ¥» TransformPluginContext.resolve node_modules/vite/dist/node/chunks/config.js:28929:13
- Γ¥» normalizeUrl node_modules/vite/dist/node/chunks/config.js:27111:22
- Γ¥» node_modules/vite/dist/node/chunks/config.js:27177:32
- Γ¥» TransformPluginContext.transform node_modules/vite/dist/node/chunks/config.js:27145:4
-
-ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[4/20]ΓÄ»
-
- FAIL  src/components/student/mark-complete-button.test.ts [ src/components/student/mark-complete-button.test.ts ]
-Error: Cannot bundle built-in module "node:test" imported from "src\components\student\mark-complete-button.test.ts". Consider disabling environments.client.noExternal or remove the built-in dependency.
-  Plugin: vite:import-analysis
-  File: D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/src/components/student/mark-complete-button.test.ts:4:17
-  2  |  import { readFileSync } from "node:fs";
-  3  |  import { resolve } from "node:path";
-  4  |  import test from "node:test";
-     |                    ^
-  5  |  void test("mark complete button hides itself for quiz lessons and uses optimistic transitions", () => {
-  6  |    const filePath = resolve(
- Γ¥» ResolveIdContext._formatLog node_modules/vite/dist/node/chunks/config.js:28999:43
- Γ¥» ResolveIdContext.error node_modules/vite/dist/node/chunks/config.js:28996:14
- Γ¥» ResolveIdContext.handler node_modules/vite/dist/node/chunks/config.js:32578:13
- Γ¥» EnvironmentPluginContainer.resolveId node_modules/vite/dist/node/chunks/config.js:28717:56
- Γ¥» TransformPluginContext.resolve node_modules/vite/dist/node/chunks/config.js:28929:13
- Γ¥» normalizeUrl node_modules/vite/dist/node/chunks/config.js:27111:22
- Γ¥» node_modules/vite/dist/node/chunks/config.js:27177:32
- Γ¥» TransformPluginContext.transform node_modules/vite/dist/node/chunks/config.js:27145:4
-
-ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[5/20]ΓÄ»
-
- FAIL  src/components/student/paywall-teaser-overlay.test.ts [ src/components/student/paywall-teaser-overlay.test.ts ]
-Error: Cannot bundle built-in module "node:test" imported from "src\components\student\paywall-teaser-overlay.test.ts". Consider disabling environments.client.noExternal or remove the built-in dependency.
-  Plugin: vite:import-analysis
-  File: D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/src/components/student/paywall-teaser-overlay.test.ts:4:17
-  2  |  import { readFileSync } from "node:fs";
-  3  |  import { resolve } from "node:path";
-  4  |  import test from "node:test";
-     |                    ^
-  5  |  void test("paywall teaser overlay keeps lesson content on the same route behind an overlay", () => {
-  6  |    const filePath = resolve(
- Γ¥» ResolveIdContext._formatLog node_modules/vite/dist/node/chunks/config.js:28999:43
- Γ¥» ResolveIdContext.error node_modules/vite/dist/node/chunks/config.js:28996:14
- Γ¥» ResolveIdContext.handler node_modules/vite/dist/node/chunks/config.js:32578:13
- Γ¥» EnvironmentPluginContainer.resolveId node_modules/vite/dist/node/chunks/config.js:28717:56
- Γ¥» TransformPluginContext.resolve node_modules/vite/dist/node/chunks/config.js:28929:13
- Γ¥» normalizeUrl node_modules/vite/dist/node/chunks/config.js:27111:22
- Γ¥» node_modules/vite/dist/node/chunks/config.js:27177:32
- Γ¥» TransformPluginContext.transform node_modules/vite/dist/node/chunks/config.js:27145:4
-
-ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[6/20]ΓÄ»
-
- FAIL  src/components/student/quiz-engine.test.tsx [ src/components/student/quiz-engine.test.tsx ]
- FAIL  src/app/(student)/courses/[slug]/lessons/[lessonId]/page.integration.test.tsx [ src/app/(student)/courses/[slug]/lessons/[lessonId]/page.integration.test.tsx ]
- FAIL  src/app/(student)/courses/[slug]/lessons/[lessonId]/page.test.tsx [ src/app/(student)/courses/[slug]/lessons/[lessonId]/page.test.tsx ]
-Error: No known conditions for "./adapters" specifier in "next-auth" package
-  Plugin: vite:import-analysis
-  File: D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/src/server/auth.ts:8:29
-  4  |    getServerSession
-  5  |  } from "next-auth";
-  6  |  import {} from "next-auth/adapters";
-     |                  ^
-  7  |  import CredentialsProvider from "next-auth/providers/credentials";
-  8  |  import bcrypt from "bcryptjs";
- Γ¥» e node_modules/vite/dist/node/chunks/config.js:6651:8
- Γ¥» n node_modules/vite/dist/node/chunks/config.js:6663:43
- Γ¥» o node_modules/vite/dist/node/chunks/config.js:6691:10
- Γ¥» resolveExportsOrImports node_modules/vite/dist/node/chunks/config.js:32827:45
- Γ¥» resolveDeepImport node_modules/vite/dist/node/chunks/config.js:32841:22
- Γ¥» tryNodeResolve node_modules/vite/dist/node/chunks/config.js:32716:70
- Γ¥» ResolveIdContext.handler node_modules/vite/dist/node/chunks/config.js:32555:16
- Γ¥» EnvironmentPluginContainer.resolveId node_modules/vite/dist/node/chunks/config.js:28717:56
- Γ¥» TransformPluginContext.resolve node_modules/vite/dist/node/chunks/config.js:28929:13
-
-ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[7/20]ΓÄ»
-
- FAIL  src/components/student/video-player-wrapper.test.ts [ src/components/student/video-player-wrapper.test.ts ]
-Error: Cannot bundle built-in module "node:test" imported from "src\components\student\video-player-wrapper.test.ts". Consider disabling environments.client.noExternal or remove the built-in dependency.
-  Plugin: vite:import-analysis
-  File: D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/src/components/student/video-player-wrapper.test.ts:4:17
-  2  |  import { readFileSync } from "node:fs";
-  3  |  import { resolve } from "node:path";
-  4  |  import test from "node:test";
-     |                    ^
-  5  |  import { normalizeYouTubeUrl } from "./video-player-wrapper.helpers.ts";
-  6  |  void test("normalizeYouTubeUrl converts standard watch URLs into embed URLs", () => {
- Γ¥» ResolveIdContext._formatLog node_modules/vite/dist/node/chunks/config.js:28999:43
- Γ¥» ResolveIdContext.error node_modules/vite/dist/node/chunks/config.js:28996:14
- Γ¥» ResolveIdContext.handler node_modules/vite/dist/node/chunks/config.js:32578:13
- Γ¥» EnvironmentPluginContainer.resolveId node_modules/vite/dist/node/chunks/config.js:28717:56
- Γ¥» TransformPluginContext.resolve node_modules/vite/dist/node/chunks/config.js:28929:13
- Γ¥» normalizeUrl node_modules/vite/dist/node/chunks/config.js:27111:22
- Γ¥» node_modules/vite/dist/node/chunks/config.js:27177:32
- Γ¥» TransformPluginContext.transform node_modules/vite/dist/node/chunks/config.js:27145:4
-
-ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[8/20]ΓÄ»
-
- FAIL  src/server/courses/course-detail.test.ts [ src/server/courses/course-detail.test.ts ]
-Error: Cannot bundle built-in module "node:test" imported from "src\server\courses\course-detail.test.ts". Consider disabling environments.client.noExternal or remove the built-in dependency.
-  Plugin: vite:import-analysis
-  File: D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/src/server/courses/course-detail.test.ts:2:17
-  1  |  import assert from "node:assert/strict";
-  2  |  import test from "node:test";
-     |                    ^
-  3  |  import {
-  4  |    fetchCourseDetailBySlug,
- Γ¥» ResolveIdContext._formatLog node_modules/vite/dist/node/chunks/config.js:28999:43
- Γ¥» ResolveIdContext.error node_modules/vite/dist/node/chunks/config.js:28996:14
- Γ¥» ResolveIdContext.handler node_modules/vite/dist/node/chunks/config.js:32578:13
- Γ¥» EnvironmentPluginContainer.resolveId node_modules/vite/dist/node/chunks/config.js:28717:56
- Γ¥» TransformPluginContext.resolve node_modules/vite/dist/node/chunks/config.js:28929:13
- Γ¥» normalizeUrl node_modules/vite/dist/node/chunks/config.js:27111:22
- Γ¥» node_modules/vite/dist/node/chunks/config.js:27177:32
- Γ¥» TransformPluginContext.transform node_modules/vite/dist/node/chunks/config.js:27145:4
-
-ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[9/20]ΓÄ»
-
- FAIL  src/server/courses/lesson-detail.test.ts [ src/server/courses/lesson-detail.test.ts ]
-Error: Cannot bundle built-in module "node:test" imported from "src\server\courses\lesson-detail.test.ts". Consider disabling environments.client.noExternal or remove the built-in dependency.
-  Plugin: vite:import-analysis
-  File: D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/src/server/courses/lesson-detail.test.ts:2:17
-  1  |  import assert from "node:assert/strict";
-  2  |  import test from "node:test";
-     |                    ^
-  3  |  import {
-  4  |    fetchHasActiveSubscription,
- Γ¥» ResolveIdContext._formatLog node_modules/vite/dist/node/chunks/config.js:28999:43
- Γ¥» ResolveIdContext.error node_modules/vite/dist/node/chunks/config.js:28996:14
- Γ¥» ResolveIdContext.handler node_modules/vite/dist/node/chunks/config.js:32578:13
- Γ¥» EnvironmentPluginContainer.resolveId node_modules/vite/dist/node/chunks/config.js:28717:56
- Γ¥» TransformPluginContext.resolve node_modules/vite/dist/node/chunks/config.js:28929:13
- Γ¥» normalizeUrl node_modules/vite/dist/node/chunks/config.js:27111:22
- Γ¥» node_modules/vite/dist/node/chunks/config.js:27177:32
- Γ¥» TransformPluginContext.transform node_modules/vite/dist/node/chunks/config.js:27145:4
-
-ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[10/20]ΓÄ»
-
- FAIL  src/server/courses/lesson-navigation.test.ts [ src/server/courses/lesson-navigation.test.ts ]
-Error: Cannot bundle built-in module "node:test" imported from "src\server\courses\lesson-navigation.test.ts". Consider disabling environments.client.noExternal or remove the built-in dependency.
-  Plugin: vite:import-analysis
-  File: D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/src/server/courses/lesson-navigation.test.ts:2:17
-  1  |  import assert from "node:assert/strict";
-  2  |  import test from "node:test";
-     |                    ^
-  3  |  import {
-  4  |    calculateProgressPercent,
- Γ¥» ResolveIdContext._formatLog node_modules/vite/dist/node/chunks/config.js:28999:43
- Γ¥» ResolveIdContext.error node_modules/vite/dist/node/chunks/config.js:28996:14
- Γ¥» ResolveIdContext.handler node_modules/vite/dist/node/chunks/config.js:32578:13
- Γ¥» EnvironmentPluginContainer.resolveId node_modules/vite/dist/node/chunks/config.js:28717:56
- Γ¥» TransformPluginContext.resolve node_modules/vite/dist/node/chunks/config.js:28929:13
- Γ¥» normalizeUrl node_modules/vite/dist/node/chunks/config.js:27111:22
- Γ¥» node_modules/vite/dist/node/chunks/config.js:27177:32
- Γ¥» TransformPluginContext.transform node_modules/vite/dist/node/chunks/config.js:27145:4
-
-ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[11/20]ΓÄ»
-
- FAIL  src/server/courses/published-course-catalog.test.ts [ src/server/courses/published-course-catalog.test.ts ]
-Error: Cannot bundle built-in module "node:test" imported from "src\server\courses\published-course-catalog.test.ts". Consider disabling environments.client.noExternal or remove the built-in dependency.
-  Plugin: vite:import-analysis
-  File: D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/src/server/courses/published-course-catalog.test.ts:1:17
-  1  |  import test from "node:test";
-     |                    ^
-  2  |  import assert from "node:assert/strict";
-  3  |  import {
- Γ¥» ResolveIdContext._formatLog node_modules/vite/dist/node/chunks/config.js:28999:43
- Γ¥» ResolveIdContext.error node_modules/vite/dist/node/chunks/config.js:28996:14
- Γ¥» ResolveIdContext.handler node_modules/vite/dist/node/chunks/config.js:32578:13
- Γ¥» EnvironmentPluginContainer.resolveId node_modules/vite/dist/node/chunks/config.js:28717:56
- Γ¥» TransformPluginContext.resolve node_modules/vite/dist/node/chunks/config.js:28929:13
- Γ¥» normalizeUrl node_modules/vite/dist/node/chunks/config.js:27111:22
- Γ¥» node_modules/vite/dist/node/chunks/config.js:27177:32
- Γ¥» TransformPluginContext.transform node_modules/vite/dist/node/chunks/config.js:27145:4
-
-ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[12/20]ΓÄ»
-
- FAIL  src/server/courses/quiz-questions.test.ts [ src/server/courses/quiz-questions.test.ts ]
-Error: Cannot bundle built-in module "node:test" imported from "src\server\courses\quiz-questions.test.ts". Consider disabling environments.client.noExternal or remove the built-in dependency.
-  Plugin: vite:import-analysis
-  File: D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/src/server/courses/quiz-questions.test.ts:2:17
-  1  |  import assert from "node:assert/strict";
-  2  |  import test from "node:test";
-     |                    ^
-  3  |  import {
-  4  |    sanitizeQuizQuestions
- Γ¥» ResolveIdContext._formatLog node_modules/vite/dist/node/chunks/config.js:28999:43
- Γ¥» ResolveIdContext.error node_modules/vite/dist/node/chunks/config.js:28996:14
- Γ¥» ResolveIdContext.handler node_modules/vite/dist/node/chunks/config.js:32578:13
- Γ¥» EnvironmentPluginContainer.resolveId node_modules/vite/dist/node/chunks/config.js:28717:56
- Γ¥» TransformPluginContext.resolve node_modules/vite/dist/node/chunks/config.js:28929:13
- Γ¥» normalizeUrl node_modules/vite/dist/node/chunks/config.js:27111:22
- Γ¥» node_modules/vite/dist/node/chunks/config.js:27177:32
- Γ¥» TransformPluginContext.transform node_modules/vite/dist/node/chunks/config.js:27145:4
-
-ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[13/20]ΓÄ»
-
- FAIL  src/server/courses/search-published-courses.test.ts [ src/server/courses/search-published-courses.test.ts ]
-Error: Cannot bundle built-in module "node:test" imported from "src\server\courses\search-published-courses.test.ts". Consider disabling environments.client.noExternal or remove the built-in dependency.
-  Plugin: vite:import-analysis
-  File: D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/src/server/courses/search-published-courses.test.ts:2:17
-  1  |  import assert from "node:assert/strict";
-  2  |  import test from "node:test";
-     |                    ^
-  3  |  import {
-  4  |    fetchSearchPublishedCourses
- Γ¥» ResolveIdContext._formatLog node_modules/vite/dist/node/chunks/config.js:28999:43
- Γ¥» ResolveIdContext.error node_modules/vite/dist/node/chunks/config.js:28996:14
- Γ¥» ResolveIdContext.handler node_modules/vite/dist/node/chunks/config.js:32578:13
- Γ¥» EnvironmentPluginContainer.resolveId node_modules/vite/dist/node/chunks/config.js:28717:56
- Γ¥» TransformPluginContext.resolve node_modules/vite/dist/node/chunks/config.js:28929:13
- Γ¥» normalizeUrl node_modules/vite/dist/node/chunks/config.js:27111:22
- Γ¥» node_modules/vite/dist/node/chunks/config.js:27177:32
- Γ¥» TransformPluginContext.transform node_modules/vite/dist/node/chunks/config.js:27145:4
-
-ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[14/20]ΓÄ»
-
- FAIL  src/server/actions/progress/mark-lesson-complete.test.ts [ src/server/actions/progress/mark-lesson-complete.test.ts ]
-Error: Cannot bundle built-in module "node:test" imported from "src\server\actions\progress\mark-lesson-complete.test.ts". Consider disabling environments.client.noExternal or remove the built-in dependency.
-  Plugin: vite:import-analysis
-  File: D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/src/server/actions/progress/mark-lesson-complete.test.ts:2:17
-  1  |  import assert from "node:assert/strict";
-  2  |  import test from "node:test";
-     |                    ^
-  3  |  import { markLessonCompleteWithDependencies } from "./mark-lesson-complete.shared.ts";
-  4  |  void test("markLessonComplete returns unauthorized when no session exists", async () => {
- Γ¥» ResolveIdContext._formatLog node_modules/vite/dist/node/chunks/config.js:28999:43
- Γ¥» ResolveIdContext.error node_modules/vite/dist/node/chunks/config.js:28996:14
- Γ¥» ResolveIdContext.handler node_modules/vite/dist/node/chunks/config.js:32578:13
- Γ¥» EnvironmentPluginContainer.resolveId node_modules/vite/dist/node/chunks/config.js:28717:56
- Γ¥» TransformPluginContext.resolve node_modules/vite/dist/node/chunks/config.js:28929:13
- Γ¥» normalizeUrl node_modules/vite/dist/node/chunks/config.js:27111:22
- Γ¥» node_modules/vite/dist/node/chunks/config.js:27177:32
- Γ¥» TransformPluginContext.transform node_modules/vite/dist/node/chunks/config.js:27145:4
-
-ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[15/20]ΓÄ»
-
- FAIL  src/server/actions/progress/submit-quiz.test.ts [ src/server/actions/progress/submit-quiz.test.ts ]
-Error: Cannot bundle built-in module "node:test" imported from "src\server\actions\progress\submit-quiz.test.ts". Consider disabling environments.client.noExternal or remove the built-in dependency.
-  Plugin: vite:import-analysis
-  File: D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/src/server/actions/progress/submit-quiz.test.ts:2:17
-  1  |  import assert from "node:assert/strict";
-  2  |  import test from "node:test";
-     |                    ^
-  3  |  import {
-  4  |    calculateScore,
- Γ¥» ResolveIdContext._formatLog node_modules/vite/dist/node/chunks/config.js:28999:43
- Γ¥» ResolveIdContext.error node_modules/vite/dist/node/chunks/config.js:28996:14
- Γ¥» ResolveIdContext.handler node_modules/vite/dist/node/chunks/config.js:32578:13
- Γ¥» EnvironmentPluginContainer.resolveId node_modules/vite/dist/node/chunks/config.js:28717:56
- Γ¥» TransformPluginContext.resolve node_modules/vite/dist/node/chunks/config.js:28929:13
- Γ¥» normalizeUrl node_modules/vite/dist/node/chunks/config.js:27111:22
- Γ¥» node_modules/vite/dist/node/chunks/config.js:27177:32
- Γ¥» TransformPluginContext.transform node_modules/vite/dist/node/chunks/config.js:27145:4
-
-ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[16/20]ΓÄ»
-
- FAIL  src/app/(student)/courses/[slug]/page.helpers.test.ts [ src/app/(student)/courses/[slug]/page.helpers.test.ts ]
-Error: Cannot bundle built-in module "node:test" imported from "src\app\(student)\courses\[slug]\page.helpers.test.ts". Consider disabling environments.client.noExternal or remove the built-in dependency.
-  Plugin: vite:import-analysis
-  File: D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/src/app/(student)/courses/[slug]/page.helpers.test.ts:2:17
-  1  |  import assert from "node:assert/strict";
-  2  |  import test from "node:test";
-     |                    ^
-  3  |  import {
-  4  |    resolveCoursePageData,
- Γ¥» ResolveIdContext._formatLog node_modules/vite/dist/node/chunks/config.js:28999:43
- Γ¥» ResolveIdContext.error node_modules/vite/dist/node/chunks/config.js:28996:14
- Γ¥» ResolveIdContext.handler node_modules/vite/dist/node/chunks/config.js:32578:13
- Γ¥» EnvironmentPluginContainer.resolveId node_modules/vite/dist/node/chunks/config.js:28717:56
- Γ¥» TransformPluginContext.resolve node_modules/vite/dist/node/chunks/config.js:28929:13
- Γ¥» normalizeUrl node_modules/vite/dist/node/chunks/config.js:27111:22
- Γ¥» node_modules/vite/dist/node/chunks/config.js:27177:32
- Γ¥» TransformPluginContext.transform node_modules/vite/dist/node/chunks/config.js:27145:4
-
-ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[17/20]ΓÄ»
-
- FAIL  src/app/(student)/courses/[slug]/lessons/[lessonId]/page.helpers.test.ts [ src/app/(student)/courses/[slug]/lessons/[lessonId]/page.helpers.test.ts ]
-Error: Cannot bundle built-in module "node:test" imported from "src\app\(student)\courses\[slug]\lessons\[lessonId]\page.helpers.test.ts". Consider disabling environments.client.noExternal or remove the built-in dependency.
-  Plugin: vite:import-analysis
-  File: D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/src/app/(student)/courses/[slug]/lessons/[lessonId]/page.helpers.test.ts:2:17
-  1  |  import assert from "node:assert/strict";
-  2  |  import test from "node:test";
-     |                    ^
-  3  |  import {
-  4  |    requireAuthenticatedUserId,
- Γ¥» ResolveIdContext._formatLog node_modules/vite/dist/node/chunks/config.js:28999:43
- Γ¥» ResolveIdContext.error node_modules/vite/dist/node/chunks/config.js:28996:14
- Γ¥» ResolveIdContext.handler node_modules/vite/dist/node/chunks/config.js:32578:13
- Γ¥» EnvironmentPluginContainer.resolveId node_modules/vite/dist/node/chunks/config.js:28717:56
- Γ¥» TransformPluginContext.resolve node_modules/vite/dist/node/chunks/config.js:28929:13
- Γ¥» normalizeUrl node_modules/vite/dist/node/chunks/config.js:27111:22
- Γ¥» node_modules/vite/dist/node/chunks/config.js:27177:32
- Γ¥» TransformPluginContext.transform node_modules/vite/dist/node/chunks/config.js:27145:4
-
-ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[18/20]ΓÄ»
-
-
-[2m Test Files [22m [1m[31m20 failed[39m[22m[2m | [22m[1m[32m1 passed[39m[22m[90m (21)[39m
-[2m      Tests [22m [1m[32m3 passed[39m[22m[90m (3)[39m
-[2m   Start at [22m 15:11:19
-[2m   Duration [22m 5.73s[2m (transform 507ms, setup 0ms, import 714ms, tests 351ms, environment 38.80s)[22m
-
+TAP version 13
+# Subtest: requireAuthenticatedUserId redirects unauthenticated users to login
+ok 1 - requireAuthenticatedUserId redirects unauthenticated users to login
+  ---
+  duration_ms: 2.9513
+  type: 'test'
+  ...
+# Subtest: resolveLessonPageData calls notFound when lesson query returns null
+ok 2 - resolveLessonPageData calls notFound when lesson query returns null
+  ---
+  duration_ms: 0.4017
+  type: 'test'
+  ...
+# Subtest: shouldShowPaywallOverlay returns true only for premium lessons without an active subscription
+ok 3 - shouldShowPaywallOverlay returns true only for premium lessons without an active subscription
+  ---
+  duration_ms: 0.2038
+  type: 'test'
+  ...
+# Subtest: shouldShowPaywallOverlay keeps free lessons accessible even when subscription is missing
+ok 4 - shouldShowPaywallOverlay keeps free lessons accessible even when subscription is missing
+  ---
+  duration_ms: 0.2189
+  type: 'test'
+  ...
+# Subtest: resolveCoursePageData returns course detail when slug exists
+ok 5 - resolveCoursePageData returns course detail when slug exists
+  ---
+  duration_ms: 3.1428
+  type: 'test'
+  ...
+# Subtest: resolveCoursePageData calls notFound when slug is missing
+ok 6 - resolveCoursePageData calls notFound when slug is missing
+  ---
+  duration_ms: 0.8096
+  type: 'test'
+  ...
+# Subtest: resolveCourseStaticParams maps published slugs for ISR
+ok 7 - resolveCourseStaticParams maps published slugs for ISR
+  ---
+  duration_ms: 1.183
+  type: 'test'
+  ...
+# Subtest: handleMidtransWebhookBody returns 400 for malformed payloads
+not ok 8 - handleMidtransWebhookBody returns 400 for malformed payloads
+  ---
+  duration_ms: 6.1196
+  type: 'test'
+  location: 'D:\\RioRaditya\\Ngoding\\hiring-seefluencer\\project-e-course\\src\\app\\api\\webhooks\\midtrans\\route.test.ts:6:6'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+      {
+        body: {
+    +     ok: true
+    -     error: 'Invalid payload'
+        },
+    +   status: 200
+    -   status: 400
+      }
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    status: 400
+    body:
+      error: 'Invalid payload'
+  actual:
+    status: 200
+    body:
+      ok: true
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/src/app/api/webhooks/midtrans/route.test.ts:13:10)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: handleMidtransWebhookBody returns 401 for invalid signature
+ok 9 - handleMidtransWebhookBody returns 401 for invalid signature
+  ---
+  duration_ms: 0.9214
+  type: 'test'
+  ...
+# Subtest: handleMidtransWebhookBody forwards valid settlement payloads
+ok 10 - handleMidtransWebhookBody forwards valid settlement payloads
+  ---
+  duration_ms: 0.3396
+  type: 'test'
+  ...
+# Subtest: handleMidtransWebhookBody preserves downstream not-found responses
+ok 11 - handleMidtransWebhookBody preserves downstream not-found responses
+  ---
+  duration_ms: 0.3992
+  type: 'test'
+  ...
+# Subtest: course detail loading route renders the detail skeleton component
+ok 12 - course detail loading route renders the detail skeleton component
+  ---
+  duration_ms: 1.3751
+  type: 'test'
+  ...
+# Subtest: normalizeCourseSearchTerm trims whitespace and caps length
+ok 13 - normalizeCourseSearchTerm trims whitespace and caps length
+  ---
+  duration_ms: 1.2473
+  type: 'test'
+  ...
+# Subtest: normalizeCourseSearchTerm returns undefined for blank values
+ok 14 - normalizeCourseSearchTerm returns undefined for blank values
+  ---
+  duration_ms: 0.2565
+  type: 'test'
+  ...
+# Subtest: buildCourseSearchHref sets q while preserving unrelated params
+ok 15 - buildCourseSearchHref sets q while preserving unrelated params
+  ---
+  duration_ms: 0.339
+  type: 'test'
+  ...
+# Subtest: buildCourseSearchHref removes q when query becomes empty
+ok 16 - buildCourseSearchHref removes q when query becomes empty
+  ---
+  duration_ms: 0.1839
+  type: 'test'
+  ...
+# Subtest: course syllabus links each lesson row to the lesson viewer route
+ok 17 - course syllabus links each lesson row to the lesson viewer route
+  ---
+  duration_ms: 1.5869
+  type: 'test'
+  ...
+# Subtest: lesson view skeleton mirrors the lesson layout using shadcn skeleton blocks
+ok 18 - lesson view skeleton mirrors the lesson layout using shadcn skeleton blocks
+  ---
+  duration_ms: 1.4229
+  type: 'test'
+  ...
+# Subtest: mark complete button hides itself for quiz lessons and uses optimistic transitions
+ok 19 - mark complete button hides itself for quiz lessons and uses optimistic transitions
+  ---
+  duration_ms: 1.7443
+  type: 'test'
+  ...
+# Subtest: mark complete button renders loading and completed states with sonner toasts
+ok 20 - mark complete button renders loading and completed states with sonner toasts
+  ---
+  duration_ms: 0.4902
+  type: 'test'
+  ...
+# Subtest: normalizeYouTubeUrl converts standard watch URLs into embed URLs
+ok 21 - normalizeYouTubeUrl converts standard watch URLs into embed URLs
+  ---
+  duration_ms: 1.7377
+  type: 'test'
+  ...
+# Subtest: normalizeYouTubeUrl preserves existing embed URLs
+ok 22 - normalizeYouTubeUrl preserves existing embed URLs
+  ---
+  duration_ms: 0.2479
+  type: 'test'
+  ...
+# Subtest: normalizeYouTubeUrl supports youtube-nocookie.com domains
+ok 23 - normalizeYouTubeUrl supports youtube-nocookie.com domains
+  ---
+  duration_ms: 0.2281
+  type: 'test'
+  ...
+# Subtest: video player wrapper renders a lazy iframe inside an aspect-video container
+ok 24 - video player wrapper renders a lazy iframe inside an aspect-video container
+  ---
+  duration_ms: 0.569
+  type: 'test'
+  ...
+# Subtest: initiateMidtransCheckout returns unauthorized when no session exists
+ok 25 - initiateMidtransCheckout returns unauthorized when no session exists
+  ---
+  duration_ms: 2.4239
+  type: 'test'
+  ...
+# Subtest: initiateMidtransCheckout returns plan not found for invalid plan id
+ok 26 - initiateMidtransCheckout returns plan not found for invalid plan id
+  ---
+  duration_ms: 0.8606
+  type: 'test'
+  ...
+# Subtest: initiateMidtransCheckout creates subscription row and returns snap token
+ok 27 - initiateMidtransCheckout creates subscription row and returns snap token
+  ---
+  duration_ms: 1.8804
+  type: 'test'
+  ...
+# Subtest: initiateMidtransCheckout returns error when Midtrans request fails
+ok 28 - initiateMidtransCheckout returns error when Midtrans request fails
+  ---
+  duration_ms: 0.4578
+  type: 'test'
+  ...
+# Subtest: processMidtransWebhook activates subscription for settlement status
+ok 29 - processMidtransWebhook activates subscription for settlement status
+  ---
+  duration_ms: 3.5944
+  type: 'test'
+  ...
+# Subtest: processMidtransWebhook returns early for already active subscription
+ok 30 - processMidtransWebhook returns early for already active subscription
+  ---
+  duration_ms: 0.3616
+  type: 'test'
+  ...
+# Subtest: processMidtransWebhook marks subscription inactive for denied payments
+ok 31 - processMidtransWebhook marks subscription inactive for denied payments
+  ---
+  duration_ms: 0.3535
+  type: 'test'
+  ...
+# Subtest: processMidtransWebhook returns not found for unknown order id
+ok 32 - processMidtransWebhook returns not found for unknown order id
+  ---
+  duration_ms: 0.3448
+  type: 'test'
+  ...
+# Subtest: processMidtransWebhook returns not found for missing plan
+ok 33 - processMidtransWebhook returns not found for missing plan
+  ---
+  duration_ms: 1.1176
+  type: 'test'
+  ...
+# Subtest: verifyMidtransSignature returns true for matching signature
+ok 34 - verifyMidtransSignature returns true for matching signature
+  ---
+  duration_ms: 1.9112
+  type: 'test'
+  ...
+# Subtest: verifyMidtransSignature returns false for incorrect signature
+ok 35 - verifyMidtransSignature returns false for incorrect signature
+  ---
+  duration_ms: 0.2229
+  type: 'test'
+  ...
+# Subtest: verifyMidtransSignature returns false for empty signature
+ok 36 - verifyMidtransSignature returns false for empty signature
+  ---
+  duration_ms: 0.1755
+  type: 'test'
+  ...
+# Subtest: markLessonComplete returns unauthorized when no session exists
+ok 37 - markLessonComplete returns unauthorized when no session exists
+  ---
+  duration_ms: 2.1963
+  type: 'test'
+  ...
+# Subtest: markLessonComplete rejects non-positive lesson ids
+ok 38 - markLessonComplete rejects non-positive lesson ids
+  ---
+  duration_ms: 3.9157
+  type: 'test'
+  ...
+# Subtest: markLessonComplete returns forbidden if access denied
+ok 39 - markLessonComplete returns forbidden if access denied
+  ---
+  duration_ms: 0.4638
+  type: 'test'
+  ...
+# Failed to submit quiz Error: db down
+#     at Object.getQuizData (file:///D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/src/server/actions/progress/submit-quiz.test.ts:241:15)
+#     at submitQuizWithDependencies (file:///D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/src/server/actions/progress/submit-quiz.shared.ts:104:41)
+#     at async TestContext.<anonymous> (file:///D:/RioRaditya/Ngoding/hiring-seefluencer/project-e-course/src/server/actions/progress/submit-quiz.test.ts:235:18)
+#     at async Test.run (node:internal/test_runner/test:1054:7)
+#     at async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+# Subtest: submitQuiz rejects unauthenticated users
+ok 40 - submitQuiz rejects unauthenticated users
+  ---
+  duration_ms: 1.6663
+  type: 'test'
+  ...
+# Subtest: submitQuiz rejects invalid answers payload
+ok 41 - submitQuiz rejects invalid answers payload
+  ---
+  duration_ms: 2.6546
+  type: 'test'
+  ...
+# Subtest: submitQuiz rejects unauthorized lesson access
+ok 42 - submitQuiz rejects unauthorized lesson access
+  ---
+  duration_ms: 0.6298
+  type: 'test'
+  ...
+# Subtest: calculateScore returns full score for all correct answers
+ok 43 - calculateScore returns full score for all correct answers
+  ---
+  duration_ms: 1.1836
+  type: 'test'
+  ...
+# Subtest: calculateScore returns zero score when all answers are wrong
+ok 44 - calculateScore returns zero score when all answers are wrong
+  ---
+  duration_ms: 0.3351
+  type: 'test'
+  ...
+# Subtest: submitQuiz passes at the exact 70% threshold
+ok 45 - submitQuiz passes at the exact 70% threshold
+  ---
+  duration_ms: 0.7442
+  type: 'test'
+  ...
+# Subtest: submitQuiz fails below the 70% threshold
+ok 46 - submitQuiz fails below the 70% threshold
+  ---
+  duration_ms: 0.4166
+  type: 'test'
+  ...
+# Subtest: calculateScore returns zero totals for empty quiz data
+ok 47 - calculateScore returns zero totals for empty quiz data
+  ---
+  duration_ms: 0.1508
+  type: 'test'
+  ...
+# Subtest: submitQuiz records attempts and inserts progress only on first pass
+ok 48 - submitQuiz records attempts and inserts progress only on first pass
+  ---
+  duration_ms: 1.1612
+  type: 'test'
+  ...
+# Subtest: submitQuiz records retake attempts without duplicating progress
+ok 49 - submitQuiz records retake attempts without duplicating progress
+  ---
+  duration_ms: 0.9825
+  type: 'test'
+  ...
+# Subtest: submitQuiz does not insert progress for failed attempts
+ok 50 - submitQuiz does not insert progress for failed attempts
+  ---
+  duration_ms: 2.2915
+  type: 'test'
+  ...
+# Subtest: submitQuiz returns grading error when dependencies fail
+ok 51 - submitQuiz returns grading error when dependencies fail
+  ---
+  duration_ms: 1.6458
+  type: 'test'
+  ...
+# Subtest: toCourseDetailItem applies fallback description for blank values
+ok 52 - toCourseDetailItem applies fallback description for blank values
+  ---
+  duration_ms: 1.5395
+  type: 'test'
+  ...
+# Subtest: mapCourseDetailRows properly maps flat join rows into structured nested course data
+ok 53 - mapCourseDetailRows properly maps flat join rows into structured nested course data
+  ---
+  duration_ms: 0.4023
+  type: 'test'
+  ...
+# Subtest: mapCourseDetailRows returns null when rows are empty
+ok 54 - mapCourseDetailRows returns null when rows are empty
+  ---
+  duration_ms: 0.1821
+  type: 'test'
+  ...
+# Subtest: fetchCourseDetailBySlug returns published ordered course detail
+ok 55 - fetchCourseDetailBySlug returns published ordered course detail
+  ---
+  duration_ms: 0.6378
+  type: 'test'
+  ...
+# Subtest: fetchCourseDetailBySlug returns null for missing course
+ok 56 - fetchCourseDetailBySlug returns null for missing course
+  ---
+  duration_ms: 0.1967
+  type: 'test'
+  ...
+# Subtest: fetchPublishedCourseSlugs returns only published slugs
+ok 57 - fetchPublishedCourseSlugs returns only published slugs
+  ---
+  duration_ms: 0.2382
+  type: 'test'
+  ...
+# Subtest: parseLessonId returns null for invalid lesson id values
+ok 58 - parseLessonId returns null for invalid lesson id values
+  ---
+  duration_ms: 1.5847
+  type: 'test'
+  ...
+# Subtest: mapLessonDetailRows maps a video lesson into the shared LessonDetail contract
+ok 59 - mapLessonDetailRows maps a video lesson into the shared LessonDetail contract
+  ---
+  duration_ms: 1.7767
+  type: 'test'
+  ...
+# Subtest: mapLessonDetailRows preserves null content when premium payload is gated
+ok 60 - mapLessonDetailRows preserves null content when premium payload is gated
+  ---
+  duration_ms: 0.3447
+  type: 'test'
+  ...
+# Subtest: fetchLessonById returns null when lesson does not belong to the requested course slug
+ok 61 - fetchLessonById returns null when lesson does not belong to the requested course slug
+  ---
+  duration_ms: 0.2378
+  type: 'test'
+  ...
+# Subtest: fetchLessonById returns null for a non-existent lesson id
+ok 62 - fetchLessonById returns null for a non-existent lesson id
+  ---
+  duration_ms: 0.8715
+  type: 'test'
+  ...
+# Subtest: fetchLessonById returns null when the parent course is not published
+ok 63 - fetchLessonById returns null when the parent course is not published
+  ---
+  duration_ms: 0.2037
+  type: 'test'
+  ...
+# Subtest: fetchHasActiveSubscription returns true when an active subscription exists
+ok 64 - fetchHasActiveSubscription returns true when an active subscription exists
+  ---
+  duration_ms: 0.5408
+  type: 'test'
+  ...
+# Subtest: fetchHasActiveSubscription returns false when no active subscription exists
+ok 65 - fetchHasActiveSubscription returns false when no active subscription exists
+  ---
+  duration_ms: 0.225
+  type: 'test'
+  ...
+# Subtest: getAdjacentLessonsFromSortedList returns previous and next lessons for a middle lesson
+ok 66 - getAdjacentLessonsFromSortedList returns previous and next lessons for a middle lesson
+  ---
+  duration_ms: 2.2581
+  type: 'test'
+  ...
+# Subtest: getAdjacentLessonsFromSortedList returns null prev for the first lesson
+ok 67 - getAdjacentLessonsFromSortedList returns null prev for the first lesson
+  ---
+  duration_ms: 0.2421
+  type: 'test'
+  ...
+# Subtest: getAdjacentLessonsFromSortedList returns null next for the last lesson
+ok 68 - getAdjacentLessonsFromSortedList returns null next for the last lesson
+  ---
+  duration_ms: 0.2919
+  type: 'test'
+  ...
+# Subtest: getAdjacentLessonsFromSortedList returns null on both sides for a single lesson
+ok 69 - getAdjacentLessonsFromSortedList returns null on both sides for a single lesson
+  ---
+  duration_ms: 0.1891
+  type: 'test'
+  ...
+# Subtest: getAdjacentLessonsFromSortedList returns null on both sides for an empty list
+ok 70 - getAdjacentLessonsFromSortedList returns null on both sides for an empty list
+  ---
+  duration_ms: 0.2903
+  type: 'test'
+  ...
+# Subtest: mapProgressToCompletedIds returns a set of completed lesson ids
+ok 71 - mapProgressToCompletedIds returns a set of completed lesson ids
+  ---
+  duration_ms: 0.2336
+  type: 'test'
+  ...
+# Subtest: mapProgressToCompletedIds returns an empty set for empty rows
+ok 72 - mapProgressToCompletedIds returns an empty set for empty rows
+  ---
+  duration_ms: 0.3587
+  type: 'test'
+  ...
+# Subtest: calculateProgressPercent returns the expected rounded percentage
+ok 73 - calculateProgressPercent returns the expected rounded percentage
+  ---
+  duration_ms: 0.1832
+  type: 'test'
+  ...
+# Subtest: calculateProgressPercent returns zero when total lessons is zero
+ok 74 - calculateProgressPercent returns zero when total lessons is zero
+  ---
+  duration_ms: 0.4045
+  type: 'test'
+  ...
+# Subtest: toPublishedCourseCatalogItem normalizes free published courses
+ok 75 - toPublishedCourseCatalogItem normalizes free published courses
+  ---
+  duration_ms: 1.3722
+  type: 'test'
+  ...
+# Subtest: toPublishedCourseCatalogItem adds fallback description for blank values
+ok 76 - toPublishedCourseCatalogItem adds fallback description for blank values
+  ---
+  duration_ms: 0.1518
+  type: 'test'
+  ...
+# Subtest: fetchPublishedCourseCatalog requests only the published catalog fields
+ok 77 - fetchPublishedCourseCatalog requests only the published catalog fields
+  ---
+  duration_ms: 0.5069
+  type: 'test'
+  ...
+# Subtest: sanitizeQuizQuestions returns an empty array when no questions exist
+ok 78 - sanitizeQuizQuestions returns an empty array when no questions exist
+  ---
+  duration_ms: 1.9258
+  type: 'test'
+  ...
+# Subtest: sanitizeQuizQuestions removes sensitive grading fields like correctAnswer and points
+ok 79 - sanitizeQuizQuestions removes sensitive grading fields like correctAnswer and points
+  ---
+  duration_ms: 0.3523
+  type: 'test'
+  ...
+# Subtest: fetchSearchPublishedCourses requests published title matches only
+ok 80 - fetchSearchPublishedCourses requests published title matches only
+  ---
+  duration_ms: 1.9674
+  type: 'test'
+  ...
+# Subtest: fetchSearchPublishedCourses preserves mapper fallback description
+ok 81 - fetchSearchPublishedCourses preserves mapper fallback description
+  ---
+  duration_ms: 0.229
+  type: 'test'
+  ...
+# Subtest: plans schema matches story 4.1 requirements
+ok 82 - plans schema matches story 4.1 requirements
+  ---
+  duration_ms: 1.4014
+  type: 'test'
+  ...
+# Subtest: subscriptions schema matches story 4.1 requirements
+ok 83 - subscriptions schema matches story 4.1 requirements
+  ---
+  duration_ms: 0.1539
+  type: 'test'
+  ...
+# Subtest: initialPlans includes the Pro Monthly plan
+ok 84 - initialPlans includes the Pro Monthly plan
+  ---
+  duration_ms: 1.8781
+  type: 'test'
+  ...
+# Subtest: seedPlans inserts plans only when matching rows do not exist
+ok 85 - seedPlans inserts plans only when matching rows do not exist
+  ---
+  duration_ms: 0.5132
+  type: 'test'
+  ...
+# Subtest: getPlans returns rows ordered by price
+ok 86 - getPlans returns rows ordered by price
+  ---
+  duration_ms: 2.1818
+  type: 'test'
+  ...
+# Subtest: getPlans returns empty array when plans table has no rows
+ok 87 - getPlans returns empty array when plans table has no rows
+  ---
+  duration_ms: 0.719
+  type: 'test'
+  ...
+# Subtest: getUserActiveSubscription returns null when query returns no rows
+ok 88 - getUserActiveSubscription returns null when query returns no rows
+  ---
+  duration_ms: 1.2902
+  type: 'test'
+  ...
+# Subtest: getUserActiveSubscription returns subscription when active row exists
+ok 89 - getUserActiveSubscription returns subscription when active row exists
+  ---
+  duration_ms: 0.6196
+  type: 'test'
+  ...
+# Subtest: getUserActiveSubscription returns null when returned row is expired
+ok 90 - getUserActiveSubscription returns null when returned row is expired
+  ---
+  duration_ms: 0.2837
+  type: 'test'
+  ...
+# Subtest: getUserActiveSubscription returns null when returned row is inactive
+ok 91 - getUserActiveSubscription returns null when returned row is inactive
+  ---
+  duration_ms: 0.2512
+  type: 'test'
+  ...
+1..91
+# tests 91
+# suites 0
+# pass 90
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1287.2537

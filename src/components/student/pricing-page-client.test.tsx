@@ -22,16 +22,22 @@ type SnapPayOptions = {
   onClose?: () => void;
 };
 
-const {
-  mockInitiateMidtransCheckout,
-  mockToast,
-} = vi.hoisted(() => ({
-  mockInitiateMidtransCheckout: vi.fn<
-    (planId: number) => Promise<ActionResponse<{ snap_token: string }>>
-  >(),
-  mockToast: Object.assign(vi.fn(), {
-    error: vi.fn(),
-    success: vi.fn(),
+const { mockInitiateMidtransCheckout, mockToast, mockRouterRefresh } =
+  vi.hoisted(() => ({
+    mockInitiateMidtransCheckout:
+      vi.fn<
+        (planId: number) => Promise<ActionResponse<{ snap_token: string }>>
+      >(),
+    mockToast: Object.assign(vi.fn(), {
+      error: vi.fn(),
+      success: vi.fn(),
+    }),
+    mockRouterRefresh: vi.fn(),
+  }));
+
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({
+    refresh: mockRouterRefresh,
   }),
 }));
 
@@ -60,6 +66,7 @@ describe("PricingPageClient", () => {
     mockToast.mockReset();
     mockToast.error.mockReset();
     mockToast.success.mockReset();
+    mockRouterRefresh.mockReset();
     window.snap = {
       pay: vi.fn(),
       hide: vi.fn(),
@@ -170,6 +177,7 @@ describe("PricingPageClient", () => {
       mockToast.success.mock.calls[0]?.[0],
       "Pembayaran berhasil! Sedang mengaktifkan langgananmu…",
     );
+    assert.equal(mockRouterRefresh.mock.calls.length, 1);
   });
 
   test("shows pending toast when snap onPending callback runs", async () => {
@@ -201,10 +209,7 @@ describe("PricingPageClient", () => {
     });
 
     assert.equal(mockToast.mock.calls.length, 1);
-    assert.equal(
-      mockToast.mock.calls[0]?.[0],
-      "Pembayaran sedang diproses...",
-    );
+    assert.equal(mockToast.mock.calls[0]?.[0], "Pembayaran sedang diproses...");
   });
 
   test("shows snap not ready error when window.snap is undefined", async () => {
@@ -261,10 +266,7 @@ describe("PricingPageClient", () => {
       assert.ok(screen.getByRole("button", { name: /subscribe/i }));
     });
 
-    assert.equal(
-      getSubscribeButton().hasAttribute("disabled"),
-      false,
-    );
+    assert.equal(getSubscribeButton().hasAttribute("disabled"), false);
     assert.equal(mockToast.mock.calls.length, 0);
     assert.equal(mockToast.error.mock.calls.length, 0);
     assert.equal(mockToast.success.mock.calls.length, 0);

@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Loader2, PackageOpen, Sparkles } from "lucide-react";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { toast } from "sonner";
 
 import { formatIDR } from "~/lib/format-currency";
@@ -37,8 +38,34 @@ export function PricingPageClient({
   plans,
   isSubscribed,
 }: PricingPageClientProps) {
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [pendingPlanId, setPendingPlanId] = useState<number | null>(null);
+  const [isPolling, setIsPolling] = useState(false);
+
+  useEffect(() => {
+    let interval: number;
+    let timeout: number;
+
+    if (isPolling) {
+      if (isSubscribed) {
+        setIsPolling(false);
+      } else {
+        interval = window.setInterval(() => {
+          router.refresh();
+        }, 2000);
+
+        timeout = window.setTimeout(() => {
+          setIsPolling(false);
+        }, 10000);
+      }
+    }
+
+    return () => {
+      if (interval) window.clearInterval(interval);
+      if (timeout) window.clearTimeout(timeout);
+    };
+  }, [isPolling, isSubscribed, router]);
 
   const handleCheckout = (planId: number) => {
     startTransition(async () => {
@@ -71,8 +98,12 @@ export function PricingPageClient({
           setPendingPlanId(null);
         },
         onSuccess: () => {
-          toast.success("Pembayaran berhasil! Sedang mengaktifkan langgananmu…");
+          toast.success(
+            "Pembayaran berhasil! Sedang mengaktifkan langgananmu…",
+          );
           setPendingPlanId(null);
+          setIsPolling(true);
+          router.refresh();
         },
       });
     });
@@ -110,7 +141,9 @@ export function PricingPageClient({
               <Sparkles className="size-5" />
             </div>
             <div className="space-y-1.5">
-              <p className="text-base font-semibold tracking-tight">You&apos;re Pro! ✨</p>
+              <p className="text-base font-semibold tracking-tight">
+                You&apos;re Pro! ✨
+              </p>
               <p className="max-w-2xl text-sm leading-6 text-white/85">
                 Langgananmu aktif. Nikmati semua materi premium tanpa batas.
               </p>
@@ -133,7 +166,7 @@ export function PricingPageClient({
               className={cn(
                 "justify-between rounded-3xl border shadow-sm transition-all duration-200",
                 isCurrentPlan &&
-                  "border-indigo-400/50 bg-gradient-to-b from-indigo-500/10 via-background to-background shadow-[0_0_0_1px_rgba(99,102,241,0.18),0_20px_50px_rgba(99,102,241,0.12)]",
+                  "via-background to-background border-indigo-400/50 bg-gradient-to-b from-indigo-500/10 shadow-[0_0_0_1px_rgba(99,102,241,0.18),0_20px_50px_rgba(99,102,241,0.12)]",
               )}
             >
               <CardHeader className="space-y-4 pb-4">
@@ -142,7 +175,8 @@ export function PricingPageClient({
                     <CardTitle className="text-2xl">{plan.name}</CardTitle>
                     {isCurrentPlan ? (
                       <p className="text-muted-foreground text-sm leading-6">
-                        Paketmu aktif dan siap dipakai untuk akses semua lesson premium.
+                        Paketmu aktif dan siap dipakai untuk akses semua lesson
+                        premium.
                       </p>
                     ) : null}
                   </div>
@@ -153,7 +187,8 @@ export function PricingPageClient({
                   ) : null}
                 </div>
                 <CardDescription className="leading-7">
-                  Paket premium untuk akses materi berbayar dan pengalaman belajar penuh.
+                  Paket premium untuk akses materi berbayar dan pengalaman
+                  belajar penuh.
                 </CardDescription>
               </CardHeader>
 
@@ -168,7 +203,7 @@ export function PricingPageClient({
                 </div>
 
                 <div className="space-y-3 rounded-2xl border border-white/5 bg-white/5 p-4 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.03]">
-                  <p className="text-sm font-medium text-foreground">
+                  <p className="text-foreground text-sm font-medium">
                     {formatDuration(plan.durationDays)}
                   </p>
                   <ul className="text-muted-foreground space-y-2 text-sm leading-6">
