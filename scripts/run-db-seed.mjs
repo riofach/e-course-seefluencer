@@ -46,15 +46,19 @@ if (!process.env.DATABASE_URL) {
 const sql = postgres(process.env.DATABASE_URL, { max: 1 });
 
 try {
+  // Menggunakan VALUES untuk multi-insert dan mencegah duplikasi berdasarkan 'name'
   await sql`
     insert into plans (name, price, duration_days)
-    select 'Pro Monthly', 99000, 30
+    select * from (
+      values
+        ('Pro Monthly', 99000, 30),
+        ('Pro Quarterly', 250000, 90),
+        ('Pro Semester', 400000, 180)
+    ) as data(name, price, duration_days)
     where not exists (
       select 1
       from plans
-      where name = 'Pro Monthly'
-        and price = 99000
-        and duration_days = 30
+      where plans.name = data.name
     )
   `;
 

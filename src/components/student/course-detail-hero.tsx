@@ -1,11 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, BookOpen, Clock3, PlayCircle, Sparkles } from "lucide-react";
 
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Progress } from "~/components/ui/progress";
 import type { CourseDetailItem } from "~/server/courses/course-detail";
+import type { CourseLandingCta } from "~/app/(student)/courses/[slug]/page.helpers";
 
 export type CourseDetailHeroProgressData = {
   progressPercent: number;
@@ -18,79 +19,180 @@ type CourseDetailHeroProps = {
     CourseDetailItem,
     "title" | "description" | "thumbnailUrl" | "isFree" | "chapters" | "slug"
   >;
+  cta: CourseLandingCta;
   progressData?: CourseDetailHeroProgressData;
 };
 
-function getFirstLessonHref(course: CourseDetailHeroProps["course"]) {
-  const firstLessonId = course.chapters[0]?.lessons[0]?.id;
+function getCourseStats(course: CourseDetailHeroProps["course"]) {
+  const lessonCount = course.chapters.reduce(
+    (total, chapter) => total + chapter.lessons.length,
+    0,
+  );
 
-  return firstLessonId
-    ? `/courses/${course.slug}/lessons/${firstLessonId}`
-    : `/courses/${course.slug}`;
+  return {
+    chapterCount: course.chapters.length,
+    lessonCount,
+  };
 }
 
-export function CourseDetailHero({ course, progressData }: CourseDetailHeroProps) {
+export function CourseDetailHero({ course, cta, progressData }: CourseDetailHeroProps) {
+  const stats = getCourseStats(course);
+
   return (
-    <section className="grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center">
-      <div className="order-2 space-y-4 lg:order-1">
-        <Badge variant={course.isFree ? "secondary" : "default"}>
-          {course.isFree ? "Free" : "Premium"}
-        </Badge>
+    <section className="relative overflow-hidden rounded-[32px] border border-white/10 bg-[#1A1A24] px-6 py-8 text-white shadow-[0_24px_70px_rgba(0,0,0,0.28)] sm:px-8 lg:px-10 lg:py-10">
+      <div className="pointer-events-none absolute left-1/4 top-0 h-96 w-96 rounded-full bg-gradient-to-br from-[#FF6B6B]/10 via-[#9B59B6]/10 to-[#1ABC9C]/10 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-24 right-0 h-72 w-72 rounded-full bg-[#6366F1]/10 blur-3xl" />
 
-        <div className="space-y-3">
-          <h1 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl lg:text-5xl">
-            {course.title}
-          </h1>
-          <p className="text-muted-foreground max-w-3xl text-base leading-7 sm:text-lg">
-            {course.description}
-          </p>
-        </div>
-
-        <Button asChild className="min-h-11 px-5 text-sm">
-          <Link href={getFirstLessonHref(course)}>
-            Start Learning
-            <ArrowRight className="size-4" aria-hidden="true" />
-          </Link>
-        </Button>
-
-        {progressData !== undefined && (
-          <div className="border-b px-0 py-0">
-            <div className="mb-2 flex items-center justify-between gap-3">
-              <p className="text-sm font-semibold">Progress belajar</p>
-              <span className="text-muted-foreground text-sm font-medium">
-                {progressData.progressPercent}% complete
-              </span>
-            </div>
-            <Progress
-              value={progressData.progressPercent}
-              aria-label={`${progressData.progressPercent}% complete`}
-            />
+      <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(360px,0.9fr)] lg:items-center">
+        <div className="order-2 space-y-6 lg:order-1">
+          <div className="flex flex-wrap items-center gap-3">
+            <Badge
+              className={course.isFree
+                ? "border border-teal-500/20 bg-teal-500/20 px-3 py-1 text-teal-400"
+                : "border border-indigo-500/20 bg-indigo-500/20 px-3 py-1 text-indigo-400"
+              }
+            >
+              {course.isFree ? "Free" : "Premium"}
+            </Badge>
+            <span className="text-sm font-medium tracking-[-0.02em] text-slate-300">
+              Persuasive course landing page • public preview
+            </span>
           </div>
-        )}
-      </div>
 
-      <div className="border-border/70 bg-card/70 order-1 overflow-hidden rounded-3xl border shadow-sm lg:order-2">
-        {course.thumbnailUrl ? (
-          <Image
-            src={course.thumbnailUrl}
-            alt={course.title}
-            width={800}
-            height={400}
-            className="h-full min-h-64 w-full object-cover"
-          />
-        ) : (
-          <div className="from-primary/15 via-primary/5 to-background flex min-h-64 items-end bg-gradient-to-br p-6 sm:min-h-80">
-            <div className="bg-background/85 rounded-2xl border px-4 py-3 shadow-sm">
-              <p className="text-sm font-medium">Preview kursus</p>
-              <p className="text-muted-foreground mt-1 text-sm">
-                Gambar thumbnail belum tersedia.
+          <div className="space-y-4">
+            <h1 className="font-display bg-gradient-to-r from-[#FF6B6B] via-[#9B59B6] to-[#1ABC9C] bg-clip-text text-4xl font-bold tracking-tight text-balance text-transparent sm:text-5xl lg:text-6xl">
+              {course.title}
+            </h1>
+            <p className="max-w-3xl text-base leading-8 tracking-[-0.02em] text-slate-300 sm:text-lg">
+              {course.description}
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-3 text-sm tracking-[-0.02em] text-slate-200">
+            <div className="flex min-h-11 items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2">
+              <BookOpen className="size-4 text-[#1ABC9C]" aria-hidden="true" />
+              <span>{stats.chapterCount} chapters</span>
+            </div>
+            <div className="flex min-h-11 items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2">
+              <PlayCircle className="size-4 text-[#FF6B6B]" aria-hidden="true" />
+              <span>{stats.lessonCount} lessons</span>
+            </div>
+            <div className="flex min-h-11 items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2">
+              <Clock3 className="size-4 text-[#9B59B6]" aria-hidden="true" />
+              <span>Structured, chapter-based learning flow</span>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <Button asChild className="min-h-[44px] rounded-full bg-indigo-600 px-6 text-sm text-white hover:bg-violet-500">
+              <Link href={cta.href}>
+                {cta.label}
+                <ArrowRight className="size-4" aria-hidden="true" />
+              </Link>
+            </Button>
+            <p className="max-w-xl text-sm leading-6 tracking-[-0.02em] text-slate-400">
+              {cta.helperText}
+            </p>
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-3">
+            <div className="rounded-[24px] border border-[#2A2A3C] bg-[#14141C] p-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                Value snapshot
+              </p>
+              <p className="mt-2 text-sm leading-6 tracking-[-0.02em] text-slate-300">
+                Preview the full course structure and understand exactly what you&apos;ll unlock before committing.
+              </p>
+            </div>
+            <div className="rounded-[24px] border border-[#2A2A3C] bg-[#14141C] p-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                Who it&apos;s for
+              </p>
+              <p className="mt-2 text-sm leading-6 tracking-[-0.02em] text-slate-300">
+                Learners who want a guided curriculum, clear milestones, and premium pacing without noise.
+              </p>
+            </div>
+            <div className="rounded-[24px] border border-[#2A2A3C] bg-[#14141C] p-4">
+              <div className="flex items-center gap-2">
+                <Sparkles className="size-4 text-[#1ABC9C]" aria-hidden="true" />
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                  Trust layer
+                </p>
+              </div>
+              <p className="mt-2 text-sm leading-6 tracking-[-0.02em] text-slate-300">
+                Same premium public-zone rhythm as the homepage, pricing, and course catalog for consistent confidence.
               </p>
             </div>
           </div>
-        )}
+
+          {progressData !== undefined && (
+            <div className="rounded-[24px] border border-[#2A2A3C] bg-[#14141C] p-5">
+              <div className="mb-3 flex items-center justify-between gap-3">
+                <p className="text-sm font-semibold tracking-[-0.02em] text-white">Learning progress</p>
+                <span className="text-sm font-medium tracking-[-0.02em] text-slate-400">
+                  {progressData.progressPercent}% complete
+                </span>
+              </div>
+              <Progress
+                value={progressData.progressPercent}
+                aria-label={`${progressData.progressPercent}% complete`}
+              />
+              <p className="mt-3 text-xs leading-5 tracking-[-0.02em] text-slate-400">
+                {progressData.completedCount} dari {progressData.totalLessons} lesson sudah selesai.
+              </p>
+            </div>
+          )}
+        </div>
+
+        <div className="order-1 lg:order-2">
+          <div className="overflow-hidden rounded-[28px] border border-[#2A2A3C] bg-[#14141C] shadow-[0_16px_40px_rgba(0,0,0,0.28)]">
+            {course.thumbnailUrl ? (
+              <Image
+                src={course.thumbnailUrl}
+                alt={course.title}
+                width={960}
+                height={720}
+                className="h-full min-h-[280px] w-full object-cover lg:min-h-[420px]"
+              />
+            ) : (
+              <div className="flex min-h-[280px] items-end bg-gradient-to-br from-[#FF6B6B]/25 via-[#9B59B6]/20 to-[#1ABC9C]/15 p-6 lg:min-h-[420px]">
+                <div className="rounded-[24px] border border-white/15 bg-black/30 p-5 backdrop-blur-sm">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-300">
+                    Course preview
+                  </p>
+                  <p className="mt-2 max-w-xs font-display text-2xl font-bold tracking-tight text-white">
+                    Premium-looking landing hero even before the thumbnail is uploaded.
+                  </p>
+                  <p className="mt-3 text-sm leading-6 tracking-[-0.02em] text-slate-300">
+                    Visual placeholder keeps the page polished while content assets are still being prepared.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            <div className="grid gap-4 border-t border-[#2A2A3C] px-6 py-5 sm:grid-cols-2">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                  Access model
+                </p>
+                <p className="mt-2 text-sm leading-6 tracking-[-0.02em] text-slate-300">
+                  {course.isFree
+                    ? "Open for every learner who wants to sample the experience and start progressing fast."
+                    : "Premium curriculum designed for learners who want the full lesson path, reinforcement, and momentum."}
+                </p>
+              </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                  CTA hierarchy
+                </p>
+                <p className="mt-2 text-sm leading-6 tracking-[-0.02em] text-slate-300">
+                  Primary action is visible above the fold, with repeated reinforcement lower on the page for conversion continuity.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
 }
-
-export { getFirstLessonHref };
