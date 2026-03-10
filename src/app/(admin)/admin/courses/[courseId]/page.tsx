@@ -5,7 +5,9 @@ import {
   CourseEditForm,
   CoursePublishStatusButton,
 } from "~/components/admin/CourseEditForm";
+import { ChapterList } from "~/components/admin/ChapterList";
 import { getCourseById } from "~/server/queries/courses";
+import { getChaptersByCourseId } from "~/server/queries/chapters";
 
 type CourseEditorPageProps = {
   params: Promise<{ courseId: string }>;
@@ -18,6 +20,8 @@ export default async function CourseEditorPage({ params }: CourseEditorPageProps
   if (!course) {
     notFound();
   }
+
+  const chapters = await getChaptersByCourseId(course.id);
 
   return (
     <div className="min-h-screen flex-1 bg-white p-6">
@@ -37,10 +41,7 @@ export default async function CourseEditorPage({ params }: CourseEditorPageProps
       <CourseEditForm course={course} />
 
       <div className="mt-10 border-t border-gray-200 pt-6">
-        <h2 className="mb-4 text-sm font-semibold text-gray-700">Chapters</h2>
-        <div className="rounded-md border border-dashed border-gray-300 p-6 text-center text-sm text-gray-400">
-          Chapters management will be available in the next update.
-        </div>
+        <ChapterList courseId={String(course.id)} initialChapters={chapters} />
       </div>
     </div>
   );

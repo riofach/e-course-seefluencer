@@ -14,7 +14,8 @@ vi.mock("~/server/queries/courses", () => ({
   getAllCourses: mockGetAllCourses,
 }));
 
-import CoursesPage, { CoursesTableSection } from "./page";
+import CoursesPage from "./page";
+import { CoursesTableSection } from "./courses-table-section";
 
 beforeEach(() => {
   mockGetAllCourses.mockReset();
