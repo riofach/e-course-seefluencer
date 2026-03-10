@@ -105,13 +105,13 @@ export function PublicNavbarContent({
           ) : (
             <>
               <Button variant="ghost" asChild className="min-h-[44px] rounded-full px-5">
-                <Link href="/login">Sign In</Link>
+                <Link href="/login">Login</Link>
               </Button>
               <Button
                 asChild
                 className="min-h-[44px] rounded-full bg-gradient-to-r from-[#FF6B6B] via-[#9B59B6] to-[#1ABC9C] px-5 text-white hover:opacity-90"
               >
-                <Link href="/register">Sign Up</Link>
+                <Link href="/register">Get Started</Link>
               </Button>
             </>
           )}

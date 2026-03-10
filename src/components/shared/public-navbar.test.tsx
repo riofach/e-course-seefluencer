@@ -61,15 +61,15 @@ test("renders Home, Courses, and Pricing links in the navbar", () => {
   );
 });
 
-test("renders Sign In and Sign Up actions when no session exists", () => {
+test("renders Login and Get Started actions when no session exists", () => {
   renderNavbar({
     displayName: null,
     profileImage: "",
     userEmail: "",
   });
 
-  assert.ok(screen.getAllByRole("link", { name: /sign in/i }).length >= 1);
-  assert.ok(screen.getAllByRole("link", { name: /sign up/i }).length >= 1);
+  assert.ok(screen.getAllByRole("link", { name: /login/i }).length >= 1);
+  assert.ok(screen.getAllByRole("link", { name: /get started/i }).length >= 1);
 });
 
 test("renders the user display name when session exists", () => {

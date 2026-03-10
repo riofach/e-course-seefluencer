@@ -106,7 +106,7 @@ export function PublicMobileMenu({ displayName }: PublicMobileMenuProps) {
 
                 <SheetClose asChild>
                   <Button variant="ghost" asChild className="min-h-[44px] w-full rounded-xl">
-                    <Link href="/login">Sign In</Link>
+                    <Link href="/login">Login</Link>
                   </Button>
                 </SheetClose>
 
@@ -115,7 +115,7 @@ export function PublicMobileMenu({ displayName }: PublicMobileMenuProps) {
                     asChild
                     className="min-h-[44px] w-full rounded-xl bg-gradient-to-r from-[#FF6B6B] via-[#9B59B6] to-[#1ABC9C] text-white hover:opacity-90"
                   >
-                    <Link href="/register">Sign Up</Link>
+                    <Link href="/register">Get Started</Link>
                   </Button>
                 </SheetClose>
               </div>

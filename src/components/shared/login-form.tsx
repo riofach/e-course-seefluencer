@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import Link from "next/link";
 
@@ -24,6 +24,8 @@ import { cn } from "~/lib/utils";
 export function LoginForm() {
   const [isPending, setIsPending] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") ?? "/courses";
 
   const form = useForm<LoginInput>({
     resolver: zodResolver(LoginSchema),
@@ -40,6 +42,7 @@ export function LoginForm() {
       email: data.email,
       password: data.password,
       redirect: false,
+      callbackUrl,
     });
     setIsPending(false);
 
@@ -55,7 +58,7 @@ export function LoginForm() {
     if (session?.user?.role === "admin") {
       router.push("/admin");
     } else {
-      router.push("/courses");
+      router.push(result?.url ?? callbackUrl);
     }
     router.refresh();
   };

@@ -30,6 +30,10 @@ const middleware = importedMiddleware as unknown as MiddlewareHandler;
 
 test("middleware config protects /admin routes", () => {
   assert.ok(config.matcher.includes("/admin/:path*"));
+  assert.ok(!config.matcher.includes("/pricing/:path*"));
+  assert.ok(!config.matcher.includes("/courses"));
+  assert.ok(!config.matcher.includes("/courses/:path*"));
+  assert.ok(config.matcher.includes("/courses/*/lessons/:path*"));
 });
 
 test("middleware redirects non-admin users away from /admin", () => {

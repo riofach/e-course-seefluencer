@@ -79,7 +79,11 @@ describe("PricingPageClient", () => {
   });
 
   function getSubscribeButton() {
-    return screen.getByRole("button", { name: /^subscribe$/i });
+    return screen.getByRole("button", { name: /subscribe with midtrans/i });
+  }
+
+  function getLoginToSubscribeLink() {
+    return screen.getByRole("link", { name: /login to subscribe/i });
   }
 
   function getSnapOptionsFromCall(mockFn: { mock: { calls: unknown[][] } }) {
@@ -93,7 +97,13 @@ describe("PricingPageClient", () => {
   }
 
   test("disables subscribe button when user is already subscribed", () => {
-    render(<PricingPageClient plans={plans} isSubscribed />);
+    render(
+      <PricingPageClient
+        plans={plans}
+        isAuthenticated
+        isSubscribed
+      />,
+    );
 
     const button = screen.getByRole("button", { name: /current plan active/i });
 
@@ -108,7 +118,13 @@ describe("PricingPageClient", () => {
 
     const user = userEvent.setup();
 
-    render(<PricingPageClient plans={plans} isSubscribed={false} />);
+    render(
+      <PricingPageClient
+        plans={plans}
+        isAuthenticated
+        isSubscribed={false}
+      />,
+    );
 
     await user.click(getSubscribeButton());
 
@@ -127,7 +143,13 @@ describe("PricingPageClient", () => {
     const paySpy = vi.fn();
     window.snap.pay = paySpy;
 
-    render(<PricingPageClient plans={plans} isSubscribed={false} />);
+    render(
+      <PricingPageClient
+        plans={plans}
+        isAuthenticated
+        isSubscribed={false}
+      />,
+    );
 
     await user.click(getSubscribeButton());
 
@@ -157,7 +179,13 @@ describe("PricingPageClient", () => {
       onSuccess = options?.onSuccess;
     });
 
-    render(<PricingPageClient plans={plans} isSubscribed={false} />);
+    render(
+      <PricingPageClient
+        plans={plans}
+        isAuthenticated
+        isSubscribed={false}
+      />,
+    );
 
     await user.click(getSubscribeButton());
 
@@ -193,7 +221,13 @@ describe("PricingPageClient", () => {
       onPending = options?.onPending;
     });
 
-    render(<PricingPageClient plans={plans} isSubscribed={false} />);
+    render(
+      <PricingPageClient
+        plans={plans}
+        isAuthenticated
+        isSubscribed={false}
+      />,
+    );
 
     await user.click(getSubscribeButton());
 
@@ -222,7 +256,13 @@ describe("PricingPageClient", () => {
     // @ts-expect-error test runtime for missing snap
     window.snap = undefined;
 
-    render(<PricingPageClient plans={plans} isSubscribed={false} />);
+    render(
+      <PricingPageClient
+        plans={plans}
+        isAuthenticated
+        isSubscribed={false}
+      />,
+    );
 
     await user.click(getSubscribeButton());
 
@@ -247,7 +287,13 @@ describe("PricingPageClient", () => {
       onClose = options?.onClose;
     });
 
-    render(<PricingPageClient plans={plans} isSubscribed={false} />);
+    render(
+      <PricingPageClient
+        plans={plans}
+        isAuthenticated
+        isSubscribed={false}
+      />,
+    );
 
     const button = getSubscribeButton();
     await user.click(button);
@@ -263,12 +309,32 @@ describe("PricingPageClient", () => {
     });
 
     await waitFor(() => {
-      assert.ok(screen.getByRole("button", { name: /subscribe/i }));
+      assert.ok(screen.getByRole("button", { name: /subscribe with midtrans/i }));
     });
 
     assert.equal(getSubscribeButton().hasAttribute("disabled"), false);
     assert.equal(mockToast.mock.calls.length, 0);
     assert.equal(mockToast.error.mock.calls.length, 0);
     assert.equal(mockToast.success.mock.calls.length, 0);
+  });
+
+  test("renders login CTA with callbackUrl plan context for guests", () => {
+    render(
+      <PricingPageClient
+        plans={plans}
+        isAuthenticated={false}
+        isSubscribed={false}
+      />,
+    );
+
+    const link = getLoginToSubscribeLink();
+
+    assert.equal(
+      link.getAttribute("href"),
+      "/login?callbackUrl=%2Fpricing%3Fplan%3D1",
+    );
+    assert.ok(
+      screen.getByText(/auth is only required to complete checkout/i),
+    );
   });
 });

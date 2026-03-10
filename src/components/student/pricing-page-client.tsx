@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Loader2, PackageOpen, Sparkles } from "lucide-react";
+import { ArrowRight, Loader2, PackageOpen, Sparkles } from "lucide-react";
 import { useEffect, useState, useTransition } from "react";
 import { toast } from "sonner";
 
@@ -10,6 +10,7 @@ import { formatIDR } from "~/lib/format-currency";
 import { cn } from "~/lib/utils";
 import { initiateMidtransCheckout } from "~/server/actions/payments/initiate-checkout";
 import type { Plan } from "~/server/queries/plans";
+import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import {
   Card,
@@ -19,24 +20,34 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { Badge } from "~/components/ui/badge";
 
 type PricingPageClientProps = {
   plans: Plan[];
+  isAuthenticated: boolean;
   isSubscribed: boolean;
+  highlightedPlanId?: number | null;
 };
 
 function formatDuration(days: number) {
-  if (days === 30) {
-    return "30 hari akses penuh";
-  }
-
+  if (days === 30) return "30 hari akses penuh";
+  if (days === 90) return "90 hari untuk sprint pembelajaran intensif";
+  if (days === 180) return "180 hari untuk momentum jangka panjang";
   return `${days} hari akses penuh`;
+}
+
+function getPlanBenefits(plan: Plan) {
+  return [
+    `Akses premium selama ${plan.durationDays} hari`,
+    "Semua lesson premium dan quiz reinforcement terbuka",
+    "Alur belajar tetap rapi dengan progress tracking existing",
+  ];
 }
 
 export function PricingPageClient({
   plans,
+  isAuthenticated,
   isSubscribed,
+  highlightedPlanId = null,
 }: PricingPageClientProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -98,9 +109,7 @@ export function PricingPageClient({
           setPendingPlanId(null);
         },
         onSuccess: () => {
-          toast.success(
-            "Pembayaran berhasil! Sedang mengaktifkan langgananmu…",
-          );
+          toast.success("Pembayaran berhasil! Sedang mengaktifkan langgananmu…");
           setPendingPlanId(null);
           setIsPolling(true);
           router.refresh();
@@ -111,19 +120,18 @@ export function PricingPageClient({
 
   if (plans.length === 0) {
     return (
-      <Card className="border-dashed text-center">
+      <Card className="border-[#2A2A3C] bg-[#1A1A24] text-center text-white">
         <CardHeader className="items-center text-center">
-          <div className="bg-muted flex h-16 w-16 items-center justify-center rounded-full">
-            <PackageOpen className="text-muted-foreground size-8" />
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/5">
+            <PackageOpen className="size-8 text-slate-400" />
           </div>
           <CardTitle>No plans available yet</CardTitle>
-          <CardDescription>
-            Paket langganan belum tersedia. Sementara itu, kamu masih bisa
-            lanjut eksplor kursus gratis.
+          <CardDescription className="text-slate-300">
+            Paket langganan belum tersedia. Sementara itu, kamu masih bisa lanjut eksplor kursus gratis.
           </CardDescription>
         </CardHeader>
         <CardFooter className="justify-center">
-          <Button asChild className="bg-indigo-600 hover:bg-indigo-700">
+          <Button asChild className="min-h-[44px] rounded-full bg-[#6366F1] hover:bg-[#8B5CF6]">
             <Link href="/courses">Lihat kursus</Link>
           </Button>
         </CardFooter>
@@ -141,9 +149,7 @@ export function PricingPageClient({
               <Sparkles className="size-5" />
             </div>
             <div className="space-y-1.5">
-              <p className="text-base font-semibold tracking-tight">
-                You&apos;re Pro! ✨
-              </p>
+              <p className="text-base font-semibold tracking-tight">You&apos;re Pro! ✨</p>
               <p className="max-w-2xl text-sm leading-6 text-white/85">
                 Langgananmu aktif. Nikmati semua materi premium tanpa batas.
               </p>
@@ -155,28 +161,41 @@ export function PricingPageClient({
         </div>
       ) : null}
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
         {plans.map((plan) => {
           const isLoading = isPending && pendingPlanId === plan.id;
           const isCurrentPlan = isSubscribed;
+          const isHighlighted = highlightedPlanId === plan.id;
+          const unauthenticatedHref = `/login?callbackUrl=${encodeURIComponent(`/pricing?plan=${plan.id}`)}`;
+          const benefits = getPlanBenefits(plan);
 
           return (
             <Card
               key={plan.id}
               className={cn(
-                "justify-between rounded-3xl border shadow-sm transition-all duration-200",
+                "flex rounded-[28px] border border-[#2A2A3C] bg-[#1A1A24] text-white shadow-[0_18px_40px_rgba(0,0,0,0.24)] transition-all duration-200",
+                isHighlighted &&
+                  "shadow-[0_0_0_1px_rgba(99,102,241,0.45),0_24px_55px_rgba(99,102,241,0.18)]",
                 isCurrentPlan &&
-                  "via-background to-background border-indigo-400/50 bg-gradient-to-b from-indigo-500/10 shadow-[0_0_0_1px_rgba(99,102,241,0.18),0_20px_50px_rgba(99,102,241,0.12)]",
+                  "shadow-[0_0_0_1px_rgba(99,102,241,0.4),0_20px_50px_rgba(99,102,241,0.14)]",
               )}
             >
               <CardHeader className="space-y-4 pb-4">
                 <div className="flex items-start justify-between gap-3">
                   <div className="space-y-2">
-                    <CardTitle className="text-2xl">{plan.name}</CardTitle>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <CardTitle className="font-[family-name:var(--font-playfair-display)] text-3xl font-bold tracking-tight">
+                        {plan.name}
+                      </CardTitle>
+                      {isHighlighted ? (
+                        <Badge className="border border-indigo-400/30 bg-indigo-500/10 text-indigo-200">
+                          Recommended
+                        </Badge>
+                      ) : null}
+                    </div>
                     {isCurrentPlan ? (
-                      <p className="text-muted-foreground text-sm leading-6">
-                        Paketmu aktif dan siap dipakai untuk akses semua lesson
-                        premium.
+                      <p className="text-sm leading-6 text-slate-300">
+                        Paketmu aktif dan siap dipakai untuk akses semua lesson premium.
                       </p>
                     ) : null}
                   </div>
@@ -186,57 +205,74 @@ export function PricingPageClient({
                     </Badge>
                   ) : null}
                 </div>
-                <CardDescription className="leading-7">
-                  Paket premium untuk akses materi berbayar dan pengalaman
-                  belajar penuh.
+                <CardDescription className="text-sm leading-7 tracking-[-0.02em] text-slate-300">
+                  Premium access for focused learners who want structure, momentum, and a polished creator-led experience.
                 </CardDescription>
               </CardHeader>
 
               <CardContent className="space-y-5">
                 <div className="space-y-1">
-                  <p className="text-3xl font-semibold tracking-tight">
+                  <p className="font-[family-name:var(--font-playfair-display)] text-5xl font-bold tracking-tight text-white">
                     {formatIDR(plan.price)}
                   </p>
-                  <p className="text-muted-foreground text-sm font-medium">
-                    / bulan
+                  <p className="text-sm font-medium tracking-[-0.02em] text-slate-400">
+                    / plan • {formatDuration(plan.durationDays)}
                   </p>
                 </div>
 
-                <div className="space-y-3 rounded-2xl border border-white/5 bg-white/5 p-4 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.03]">
-                  <p className="text-foreground text-sm font-medium">
-                    {formatDuration(plan.durationDays)}
+                <div className="rounded-[24px] border border-[#2A2A3C] bg-[#14141C] p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                    What you get
                   </p>
-                  <ul className="text-muted-foreground space-y-2 text-sm leading-6">
-                    <li>• Akses penuh ke semua lesson premium</li>
-                    <li>• Pengalaman belajar tanpa paywall teaser</li>
-                    <li>• Siap dipakai langsung setelah subscription aktif</li>
+                  <ul className="mt-3 space-y-2 text-sm leading-6 tracking-[-0.02em] text-slate-300">
+                    {benefits.map((item) => (
+                      <li key={item}>• {item}</li>
+                    ))}
                   </ul>
                 </div>
               </CardContent>
 
-              <CardFooter>
-                <Button
-                  type="button"
-                  className={cn(
-                    "w-full gap-2 rounded-xl",
-                    isCurrentPlan
-                      ? "border border-emerald-400/20 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/10"
-                      : "bg-indigo-600 hover:bg-indigo-700",
-                  )}
-                  onClick={() => handleCheckout(plan.id)}
-                  disabled={isCurrentPlan || isLoading}
-                >
-                  {isLoading ? (
-                    <>
-                      <Loader2 className="size-4 animate-spin" />
-                      <span>Memproses...</span>
-                    </>
-                  ) : isCurrentPlan ? (
-                    <span>Current Plan Active</span>
-                  ) : (
-                    <span>Subscribe</span>
-                  )}
-                </Button>
+              <CardFooter className="mt-auto flex-col items-stretch gap-3">
+                {isAuthenticated ? (
+                  <Button
+                    type="button"
+                    className={cn(
+                      "min-h-[44px] w-full gap-2 rounded-full",
+                      isCurrentPlan
+                        ? "border border-emerald-400/20 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/10"
+                        : "bg-[#6366F1] text-white hover:bg-[#8B5CF6]",
+                    )}
+                    onClick={() => handleCheckout(plan.id)}
+                    disabled={isCurrentPlan || isLoading}
+                  >
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="size-4 animate-spin" />
+                        <span>Memproses...</span>
+                      </>
+                    ) : isCurrentPlan ? (
+                      <span>Current Plan Active</span>
+                    ) : (
+                      <>
+                        <span>Subscribe with Midtrans</span>
+                        <ArrowRight className="size-4" />
+                      </>
+                    )}
+                  </Button>
+                ) : (
+                  <Button
+                    asChild
+                    className="min-h-[44px] w-full rounded-full bg-[#6366F1] text-white hover:bg-[#8B5CF6]"
+                  >
+                    <Link href={unauthenticatedHref}>Login to Subscribe</Link>
+                  </Button>
+                )}
+
+                {!isAuthenticated ? (
+                  <p className="text-center text-xs leading-5 tracking-[-0.02em] text-slate-400">
+                    Auth is only required to complete checkout. After login, you&apos;ll return here with this plan context.
+                  </p>
+                ) : null}
               </CardFooter>
             </Card>
           );
