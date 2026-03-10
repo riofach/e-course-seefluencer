@@ -36,7 +36,7 @@ export async function initiateMidtransCheckout(planId: number) {
         {
           method: "POST",
           headers: {
-            Authorization: `Basic ${toBasicAuth(env.MIDTRANS_SERVER_KEY)}`,
+            Authorization: `Basic ${toBasicAuth(env.MIDTRANS_SERVER_KEY ?? "")}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify(payload),

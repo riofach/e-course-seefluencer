@@ -46,7 +46,7 @@ test("quiz engine enforces allAnswered before enabling submit", async () => {
   const submitButton = screen.getByRole("button", { name: /submit quiz/i });
   expect((submitButton as HTMLButtonElement).disabled).toBe(true);
 
-  const radioB = screen.getAllByRole("radio")[1];
+  const radioB = screen.getAllByRole("radio")[1]!;
   await userEvent.click(radioB);
 
   expect((submitButton as HTMLButtonElement).disabled).toBe(false);

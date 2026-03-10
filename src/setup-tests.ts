@@ -1,11 +1,13 @@
 import { JSDOM } from "jsdom";
 
-process.env.NODE_ENV ??= "test";
-process.env.DATABASE_URL ??= "postgresql://postgres:password@localhost:5432/hiring_seefluencer_test";
-process.env.NEXTAUTH_URL ??= "http://localhost:3000";
-process.env.NEXTAUTH_SECRET ??= "test-nextauth-secret";
-process.env.MIDTRANS_SERVER_KEY ??= "test-midtrans-server-key";
-process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY ??= "test-midtrans-client-key";
+const testEnv = process.env as Record<string, string | undefined>;
+
+testEnv.NODE_ENV ??= "test";
+testEnv.DATABASE_URL ??= "postgresql://postgres:password@localhost:5432/hiring_seefluencer_test";
+testEnv.NEXTAUTH_URL ??= "http://localhost:3000";
+testEnv.NEXTAUTH_SECRET ??= "test-nextauth-secret";
+testEnv.MIDTRANS_SERVER_KEY ??= "test-midtrans-server-key";
+testEnv.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY ??= "test-midtrans-client-key";
 
 const dom = new JSDOM("<!doctype html><html><body></body></html>");
 

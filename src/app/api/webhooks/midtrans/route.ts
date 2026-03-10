@@ -10,7 +10,7 @@ export async function POST(request: Request) {
   try {
     const body: unknown = await request.json().catch(() => null);
     const result = await handleMidtransWebhookBody(body, {
-      serverKey: env.MIDTRANS_SERVER_KEY,
+      serverKey: env.MIDTRANS_SERVER_KEY ?? "",
       verifySignature: verifyMidtransSignature,
       processWebhook: processMidtransWebhook,
     });

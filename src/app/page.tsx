@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Inter, Playfair_Display } from "next/font/google";
 
+import { HeroParallaxAccent } from "~/components/shared/hero-parallax-accent";
 import { LandingHero } from "~/components/shared/landing-hero";
 import { LandingHighlightsSection } from "~/components/shared/landing-highlights-section";
 import { LandingPricingCTA } from "~/components/shared/landing-pricing-cta";
+import { ScrollReveal } from "~/components/shared/scroll-reveal";
 import { LandingTrustSection } from "~/components/shared/landing-trust-section";
 import { LandingValueSection } from "~/components/shared/landing-value-section";
 import { PublicNavbar } from "~/components/shared/public-navbar";
@@ -34,26 +36,37 @@ export default async function Home() {
       <PublicNavbar />
 
       <div id="main-content" className="mx-auto flex w-full max-w-7xl flex-col px-4 pt-2 sm:px-6 sm:pt-3 lg:px-8">
-        <LandingHero />
+        <div className="relative isolate overflow-hidden rounded-[2rem]">
+          <HeroParallaxAccent />
+          <LandingHero />
+        </div>
 
-        <section id="value" className="border-b border-slate-200/70 py-16 dark:border-white/10">
-          <LandingValueSection />
-        </section>
+        <ScrollReveal>
+          <section id="value" className="border-b border-slate-200/70 py-16 dark:border-white/10">
+            <LandingValueSection />
+          </section>
+        </ScrollReveal>
 
-        <section id="highlights" className="border-b border-slate-200/70 py-16 dark:border-white/10">
-          <LandingHighlightsSection />
-        </section>
+        <ScrollReveal delay={80}>
+          <section id="highlights" className="border-b border-slate-200/70 py-16 dark:border-white/10">
+            <LandingHighlightsSection />
+          </section>
+        </ScrollReveal>
 
-        <section id="trust" className="border-b border-slate-200/70 py-16 dark:border-white/10">
-          <LandingTrustSection />
-        </section>
+        <ScrollReveal delay={160}>
+          <section id="trust" className="border-b border-slate-200/70 py-16 dark:border-white/10">
+            <LandingTrustSection />
+          </section>
+        </ScrollReveal>
 
-        <section
-          id="pricing-cta"
-          className="border-b border-slate-200/70 bg-slate-50 py-20 dark:border-white/10 dark:bg-[#1A1A24]"
-        >
-          <LandingPricingCTA />
-        </section>
+        <ScrollReveal delay={240}>
+          <section
+            id="pricing-cta"
+            className="border-b border-slate-200/70 bg-slate-50 py-20 dark:border-white/10 dark:bg-[#1A1A24]"
+          >
+            <LandingPricingCTA />
+          </section>
+        </ScrollReveal>
 
         <footer id="footer" className="py-12">
           <div className="flex flex-col gap-6 border-t border-slate-200/70 pt-8 dark:border-white/10">
