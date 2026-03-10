@@ -6,10 +6,10 @@ import { HeroParallaxAccent } from "~/components/shared/hero-parallax-accent";
 import { LandingHero } from "~/components/shared/landing-hero";
 import { LandingHighlightsSection } from "~/components/shared/landing-highlights-section";
 import { LandingPricingCTA } from "~/components/shared/landing-pricing-cta";
+import { PublicNavbarShell } from "~/components/shared/public-navbar-shell";
 import { ScrollReveal } from "~/components/shared/scroll-reveal";
 import { LandingTrustSection } from "~/components/shared/landing-trust-section";
 import { LandingValueSection } from "~/components/shared/landing-value-section";
-import { PublicNavbar } from "~/components/shared/public-navbar";
 
 export const metadata: Metadata = {
   title: "Seefluencer | Learn from Influencers",
@@ -30,11 +30,10 @@ const playfairDisplay = Playfair_Display({
 
 export default async function Home() {
   return (
-    <div
-      className={`${inter.variable} ${playfairDisplay.variable} min-h-screen bg-white font-[family-name:var(--font-inter)] tracking-[-0.02em] text-slate-900 dark:bg-[#0F0F14] dark:text-white`}
-    >
-      <PublicNavbar />
-
+    <PublicNavbarShell>
+      <div
+        className={`${inter.variable} ${playfairDisplay.variable} min-h-screen bg-white font-[family-name:var(--font-inter)] tracking-[-0.02em] text-slate-900 dark:bg-[#0F0F14] dark:text-white`}
+      >
       <div id="main-content" className="mx-auto flex w-full max-w-7xl flex-col px-4 pt-2 sm:px-6 sm:pt-3 lg:px-8">
         <div className="relative isolate overflow-hidden rounded-[2rem]">
           <HeroParallaxAccent />
@@ -102,6 +101,7 @@ export default async function Home() {
           </div>
         </footer>
       </div>
-    </div>
+      </div>
+    </PublicNavbarShell>
   );
 }
