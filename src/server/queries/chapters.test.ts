@@ -10,6 +10,7 @@ function createChapterRow(id: number): ChapterRow {
     title: `Chapter ${id}`,
     description: null,
     order: id,
+    lessonCount: id + 1,
     createdAt: new Date("2026-03-10T09:00:00.000Z"),
   };
 }
@@ -36,4 +37,12 @@ void test("valid courseId calls query with parsed integer", async () => {
 
   assert.equal(receivedCourseId, 5);
   assert.deepEqual(result, [createChapterRow(1)]);
+});
+
+void test("chapter rows carry lessonCount metadata from the query", async () => {
+  const result = await getChaptersByCourseIdFromQuery(5, async () => [
+    createChapterRow(2),
+  ]);
+
+  assert.equal(result[0]?.lessonCount, 3);
 });

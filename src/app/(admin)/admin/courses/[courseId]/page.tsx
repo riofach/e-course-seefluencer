@@ -8,6 +8,7 @@ import {
 import { ChapterList } from "~/components/admin/ChapterList";
 import { getCourseById } from "~/server/queries/courses";
 import { getChaptersByCourseId } from "~/server/queries/chapters";
+import { getLessonsByCourseId } from "~/server/queries/lessons";
 
 type CourseEditorPageProps = {
   params: Promise<{ courseId: string }>;
@@ -22,6 +23,7 @@ export default async function CourseEditorPage({ params }: CourseEditorPageProps
   }
 
   const chapters = await getChaptersByCourseId(course.id);
+  const lessonsMap = await getLessonsByCourseId(course.id);
 
   return (
     <div className="min-h-screen flex-1 bg-white p-6">
@@ -41,7 +43,11 @@ export default async function CourseEditorPage({ params }: CourseEditorPageProps
       <CourseEditForm course={course} />
 
       <div className="mt-10 border-t border-gray-200 pt-6">
-        <ChapterList courseId={String(course.id)} initialChapters={chapters} />
+        <ChapterList
+          courseId={String(course.id)}
+          initialChapters={chapters}
+          initialLessonsMap={lessonsMap}
+        />
       </div>
     </div>
   );

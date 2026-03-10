@@ -6,7 +6,7 @@ import {
   Droppable,
   type DropResult,
 } from "@hello-pangea/dnd";
-import { GripVertical } from "lucide-react";
+import { ChevronDown, ChevronRight, GripVertical } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -22,6 +22,7 @@ import {
   reorderChapters,
 } from "~/server/actions/chapters";
 import type { ChapterRow } from "~/server/queries/chapters";
+import type { LessonRow } from "~/server/queries/lessons";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -36,10 +37,12 @@ import {
 import { Button } from "~/components/ui/button";
 
 import { ChapterTitleInput } from "./ChapterTitleInput";
+import { LessonList } from "./LessonList";
 
 type ChapterListProps = {
   courseId: string;
   initialChapters: ChapterRow[];
+  initialLessonsMap?: Record<number, LessonRow[]>;
 };
 
 function createOptimisticChapter(courseId: string, order: number, title: string): ChapterRow {
@@ -49,15 +52,23 @@ function createOptimisticChapter(courseId: string, order: number, title: string)
     title,
     description: null,
     order,
+    lessonCount: 0,
     createdAt: new Date(),
   };
 }
 
-export function ChapterList({ courseId, initialChapters }: ChapterListProps) {
+export function ChapterList({
+  courseId,
+  initialChapters,
+  initialLessonsMap = {},
+}: ChapterListProps) {
   const [chapters, setChapters] = useState<ChapterRow[]>(initialChapters);
   const [isCreating, setIsCreating] = useState(false);
   const [isDeletingId, setIsDeletingId] = useState<number | null>(null);
   const [isDrafting, setIsDrafting] = useState(false);
+  const [expandedChapterIds, setExpandedChapterIds] = useState<Set<number>>(
+    () => new Set(),
+  );
 
   const draftOrder = useMemo(() => chapters.length + 1, [chapters.length]);
 
@@ -142,6 +153,20 @@ export function ChapterList({ courseId, initialChapters }: ChapterListProps) {
     );
 
     setIsDeletingId(null);
+  };
+
+  const toggleExpand = (chapterId: number) => {
+    setExpandedChapterIds((current) => {
+      const next = new Set(current);
+
+      if (next.has(chapterId)) {
+        next.delete(chapterId);
+      } else {
+        next.add(chapterId);
+      }
+
+      return next;
+    });
   };
 
   const handleDragEnd = async (result: DropResult) => {
@@ -294,7 +319,10 @@ export function ChapterList({ courseId, initialChapters }: ChapterListProps) {
                   </div>
                 ) : null}
 
-                {chapters.map((chapter, index) => (
+                {chapters.map((chapter, index) => {
+                  const isExpanded = expandedChapterIds.has(chapter.id);
+
+                  return (
                   <Draggable
                     key={chapter.id}
                     draggableId={String(chapter.id)}
@@ -305,63 +333,84 @@ export function ChapterList({ courseId, initialChapters }: ChapterListProps) {
                       <div
                         ref={draggableProvided.innerRef}
                         {...draggableProvided.draggableProps}
-                        className="group flex min-h-[44px] items-center gap-2 rounded-md border border-gray-200 bg-white px-3"
+                        className="space-y-1"
                       >
-                        <div
-                          {...draggableProvided.dragHandleProps}
-                          className="flex min-h-[44px] min-w-[44px] cursor-grab items-center justify-center text-gray-300 group-hover:text-gray-400"
-                          aria-label={`Drag ${chapter.title}`}
-                        >
-                          <GripVertical size={16} />
+                        <div className="group flex min-h-[44px] items-center gap-2 rounded-md border border-gray-200 bg-white px-3">
+                          <button
+                            type="button"
+                            onClick={() => toggleExpand(chapter.id)}
+                            className="mr-1 flex min-h-[44px] min-w-[44px] items-center justify-center text-gray-400 hover:text-gray-600"
+                            aria-label={isExpanded ? "Collapse chapter" : "Expand chapter"}
+                          >
+                            {isExpanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
+                          </button>
+
+                          <div
+                            {...draggableProvided.dragHandleProps}
+                            className="flex min-h-[44px] min-w-[44px] cursor-grab items-center justify-center text-gray-300 group-hover:text-gray-400"
+                            aria-label={`Drag ${chapter.title}`}
+                          >
+                            <GripVertical size={16} />
+                          </div>
+
+                          <span className="text-[11px] text-gray-400">
+                            #{chapter.order}
+                          </span>
+                          <ChapterTitleInput chapter={chapter} />
+                          <span className="ml-2 rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-medium text-gray-500">
+                            {chapter.lessonCount} {chapter.lessonCount === 1 ? "lesson" : "lessons"}
+                          </span>
+
+                          <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                              <Button
+                                type="button"
+                                variant="ghost"
+                                size="sm"
+                                disabled={isDeletingId === chapter.id}
+                                className="ml-auto min-h-[44px] min-w-[44px] text-xs text-red-400 hover:text-red-600"
+                              >
+                                {isDeletingId === chapter.id ? "..." : "Delete"}
+                              </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>
+                                  Delete Chapter?
+                                </AlertDialogTitle>
+                                <AlertDialogDescription>
+                                  This will permanently delete this chapter and
+                                  all its Lessons. This action cannot be undone.
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                <AlertDialogAction
+                                  onClick={() =>
+                                    void handleDeleteChapter(chapter.id)
+                                  }
+                                  className="bg-red-600 text-white hover:bg-red-700"
+                                >
+                                  Yes, delete chapter
+                                </AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
                         </div>
 
-                        <span className="text-[11px] text-gray-400">
-                          #{chapter.order}
-                        </span>
-                        <ChapterTitleInput chapter={chapter} />
-                        <span className="ml-2 text-[10px] text-gray-400">
-                          0 lessons
-                        </span>
-
-                        <AlertDialog>
-                          <AlertDialogTrigger asChild>
-                            <Button
-                              type="button"
-                              variant="ghost"
-                              size="sm"
-                              disabled={isDeletingId === chapter.id}
-                              className="ml-auto min-h-[44px] min-w-[44px] text-xs text-red-400 hover:text-red-600"
-                            >
-                              {isDeletingId === chapter.id ? "..." : "Delete"}
-                            </Button>
-                          </AlertDialogTrigger>
-                          <AlertDialogContent>
-                            <AlertDialogHeader>
-                              <AlertDialogTitle>
-                                Delete Chapter?
-                              </AlertDialogTitle>
-                              <AlertDialogDescription>
-                                This will permanently delete this chapter and
-                                all its Lessons. This action cannot be undone.
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                              <AlertDialogCancel>Cancel</AlertDialogCancel>
-                              <AlertDialogAction
-                                onClick={() =>
-                                  void handleDeleteChapter(chapter.id)
-                                }
-                                className="bg-red-600 text-white hover:bg-red-700"
-                              >
-                                Yes, delete chapter
-                              </AlertDialogAction>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
-                        </AlertDialog>
+                        {isExpanded ? (
+                          <div className="ml-6 mt-1 space-y-1 border-l border-gray-100 pl-3 pb-2">
+                            <LessonList
+                              chapterId={chapter.id}
+                              initialLessons={initialLessonsMap[chapter.id] ?? []}
+                            />
+                          </div>
+                        ) : null}
                       </div>
                     )}
                   </Draggable>
-                ))}
+                  );
+                })}
                 {droppableProvided.placeholder}
               </div>
             )}

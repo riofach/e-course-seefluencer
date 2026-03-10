@@ -4,6 +4,27 @@ import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/re
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, test, vi } from "vitest";
 
+import type { LessonRow } from "~/server/queries/lessons";
+
+vi.mock("./LessonList", () => ({
+  LessonList: ({ chapterId, initialLessons }: { chapterId: number; initialLessons: LessonRow[] }) => (
+    <div data-testid={`lesson-list-${chapterId}`}>Lessons: {initialLessons.length}</div>
+  ),
+}));
+
+function createLesson(id: number): LessonRow {
+  return {
+    id,
+    chapterId: 1,
+    title: `Lesson ${id}`,
+    type: "video",
+    content: null,
+    isFree: false,
+    order: id,
+    createdAt: new Date("2026-03-10T09:00:00.000Z"),
+  };
+}
+
 const { mockCreateChapter, mockDeleteChapter, mockReorderChapters } = vi.hoisted(() => ({
   mockCreateChapter: vi.fn<
     (courseId: string, title?: string) => Promise<{ success: true; data: { chapterId: number } }>
@@ -47,6 +68,7 @@ const baseChapter = {
   title: "Introduction",
   description: null,
   order: 1,
+  lessonCount: 2,
   createdAt: new Date("2026-03-10T09:00:00.000Z"),
 };
 
@@ -58,11 +80,34 @@ test("renders empty state when no chapters", () => {
 });
 
 test("renders chapter rows when chapters exist", () => {
-  render(<ChapterList courseId="5" initialChapters={[baseChapter]} />);
+  render(
+    <ChapterList
+      courseId="5"
+      initialChapters={[baseChapter]}
+      initialLessonsMap={{ 1: [createLesson(10), createLesson(11)] }}
+    />,
+  );
 
   assert.ok(screen.getByDisplayValue("Introduction"));
   assert.ok(screen.getByText("#1"));
-  assert.ok(screen.getByText(/0 lessons/i));
+  assert.ok(screen.getByText(/2 lessons/i));
+});
+
+test("expands a chapter row and renders the nested lesson list", async () => {
+  const user = userEvent.setup();
+
+  render(
+    <ChapterList
+      courseId="5"
+      initialChapters={[baseChapter]}
+      initialLessonsMap={{ 1: [createLesson(10), createLesson(11)] }}
+    />,
+  );
+
+  await user.click(screen.getByRole("button", { name: /expand chapter/i }));
+
+  assert.ok(screen.getByTestId("lesson-list-1"));
+  assert.ok(screen.getByText("Lessons: 2"));
 });
 
 test('"Add Chapter" button shows an inline draft row instead of immediate placeholder creation', async () => {
