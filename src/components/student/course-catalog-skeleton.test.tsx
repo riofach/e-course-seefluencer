@@ -15,6 +15,5 @@ test("renders public catalog skeleton with hero and card placeholders", () => {
 
   const skeletons = container.querySelectorAll("[data-slot='skeleton']");
   assert.ok(skeletons.length >= 10);
-  assert.ok(container.textContent?.includes(""));
-  assert.ok(container.querySelector(".rounded-\[32px\]") || container.querySelector(".rounded-3xl"));
+  assert.ok(container.innerHTML.includes("rounded-[32px]") || container.innerHTML.includes("rounded-3xl"));
 });

@@ -87,9 +87,9 @@ export function CourseSearchInput({
       <label htmlFor="course-search" className="sr-only">
         Cari kursus berdasarkan judul
       </label>
-      <div className="border-border/70 bg-card/95 focus-within:border-primary/50 focus-within:ring-primary/10 relative flex min-h-[56px] items-center gap-3 rounded-2xl border px-4 py-2 shadow-sm transition-colors focus-within:ring-2">
+      <div className="relative flex min-h-[56px] items-center gap-3 rounded-3xl border border-[#2A2A3C] bg-[#1A1A24] px-4 py-2 shadow-[0_18px_40px_rgba(0,0,0,0.2)] transition-colors focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500">
         <Search
-          className="text-muted-foreground size-5 shrink-0"
+          className="size-5 shrink-0 text-gray-500"
           aria-hidden="true"
         />
         <Input
@@ -98,9 +98,9 @@ export function CourseSearchInput({
           inputMode="search"
           value={value}
           onChange={(event) => setValue(event.target.value)}
-          placeholder="Cari judul kursus..."
+          placeholder="Search courses..."
           aria-label="Cari kursus berdasarkan judul"
-          className="min-h-[44px] flex-1 border-0 bg-transparent px-2 text-sm shadow-none focus-visible:ring-0"
+          className="min-h-[44px] flex-1 border-0 bg-transparent px-2 text-sm text-white placeholder:text-gray-500 shadow-none focus-visible:ring-0"
         />
         {normalizeCourseSearchTerm(value) ? (
           <Button
@@ -109,7 +109,7 @@ export function CourseSearchInput({
             size="icon"
             onClick={handleClear}
             aria-label="Hapus pencarian kursus"
-            className="text-muted-foreground hover:text-foreground min-h-[44px] min-w-[44px] shrink-0 rounded-full"
+            className="min-h-[44px] min-w-[44px] shrink-0 rounded-full text-gray-500 hover:bg-white/5 hover:text-white"
           >
             <X className="size-4" aria-hidden="true" />
           </Button>

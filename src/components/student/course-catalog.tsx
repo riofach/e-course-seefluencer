@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, BookOpenText } from "lucide-react";
+import { ArrowRight, BookOpenText, SearchX } from "lucide-react";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -23,7 +23,7 @@ export function CourseCatalog({ courses, searchQuery }: CourseCatalogProps) {
   }
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       {courses.map((course) => (
         <CourseCatalogCard key={course.id} course={course} />
       ))}
@@ -32,54 +32,63 @@ export function CourseCatalog({ courses, searchQuery }: CourseCatalogProps) {
 }
 
 function CourseCatalogCard({ course }: { course: PublishedCourseCatalogItem }) {
+  const isFree = course.accessLabel === "Free";
+
   return (
-    <Card className="border-border/70 bg-card/95 hover:border-primary/40 flex h-full flex-col overflow-hidden transition-colors">
-      <div className="from-primary/12 via-primary/6 to-background relative min-h-44 overflow-hidden border-b bg-gradient-to-br p-6">
-        {course.thumbnailUrl && (
+    <Card className="flex h-full flex-col overflow-hidden rounded-3xl border border-[#2A2A3C] bg-[#1A1A24] text-white shadow-[0_18px_40px_rgba(0,0,0,0.24)] transition-all duration-200 hover:border-[#3A3A4C] focus-within:ring-2 focus-within:ring-indigo-500">
+      <div className="relative h-52 overflow-hidden rounded-t-3xl border-b border-[#2A2A3C] bg-[#14141C]">
+        {course.thumbnailUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={course.thumbnailUrl}
             alt={course.title}
-            className="absolute inset-0 h-full w-full object-cover"
+            className="h-full w-full object-cover"
           />
+        ) : (
+          <div className="h-full w-full bg-gradient-to-tr from-[#9B59B6]/30 via-[#151520] to-[#1ABC9C]/10" />
         )}
-        <div className="from-background/90 to-background/20 absolute inset-0 bg-gradient-to-t" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F14]/90 via-[#0F0F14]/25 to-transparent" />
 
-        <span className="bg-background/90 text-foreground relative z-10 inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border px-4 text-sm font-medium shadow-sm">
+        <span
+          className={isFree
+            ? "absolute right-4 top-4 inline-flex min-h-[44px] items-center rounded-full border border-teal-500/20 bg-teal-500/20 px-4 text-sm font-medium text-teal-400"
+            : "absolute right-4 top-4 inline-flex min-h-[44px] items-center rounded-full border border-indigo-500/20 bg-indigo-500/20 px-4 text-sm font-medium text-indigo-400"}
+        >
           {course.accessLabel}
         </span>
-        <div className="bg-background/80 text-primary absolute right-4 bottom-4 z-10 rounded-full border p-3 shadow-sm">
-          <BookOpenText className="size-6" aria-hidden="true" />
+        <div className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/25 px-3 py-2 text-xs font-medium tracking-[0.18em] uppercase text-slate-200 backdrop-blur-sm">
+          <BookOpenText className="size-4" aria-hidden="true" />
+          Published
         </div>
       </div>
 
-      <CardHeader className="space-y-3">
+      <CardHeader className="space-y-3 pb-4">
         <div className="space-y-2">
-          <CardTitle className="line-clamp-2 text-xl leading-tight">
+          <CardTitle className="line-clamp-2 text-xl font-semibold leading-tight text-white">
             {course.title}
           </CardTitle>
-          <CardDescription className="line-clamp-3 text-sm leading-6">
+          <CardDescription className="line-clamp-3 text-sm leading-6 tracking-tight text-gray-400">
             {course.description}
           </CardDescription>
         </div>
       </CardHeader>
 
       <CardContent className="flex-1">
-        <div className="text-muted-foreground flex items-center gap-2 text-sm">
-          <span className="bg-primary/10 text-primary rounded-full px-3 py-1 font-medium">
-            Katalog publik
+        <div className="flex items-center gap-2 text-sm text-slate-400">
+          <span className="rounded-full border border-white/10 bg-[#14141C] px-3 py-1 font-medium text-slate-200">
+            {isFree ? "Open entry" : "Premium path"}
           </span>
-          <span>Siap untuk pencarian & detail kursus</span>
+          <span>Ready for discovery and detail preview</span>
         </div>
       </CardContent>
 
       <CardFooter>
         <Button
           asChild
-          className="min-h-11 w-full justify-between px-4 text-sm"
+          className="min-h-[44px] w-full justify-between rounded-full bg-indigo-600 px-4 text-sm text-white hover:bg-violet-500 focus-visible:ring-2 focus-visible:ring-indigo-500"
         >
-          <Link href={`/courses/${course.slug}`}>
-            Lihat detail kursus
+          <Link href={`/courses/${course.slug}`} aria-label={`View course details for ${course.title}`}>
+            View course details
             <ArrowRight className="size-4" aria-hidden="true" />
           </Link>
         </Button>
@@ -89,41 +98,42 @@ function CourseCatalogCard({ course }: { course: PublishedCourseCatalogItem }) {
 }
 
 function CourseCatalogEmptyState({ searchQuery }: { searchQuery?: string }) {
+  const isSearchEmpty = Boolean(searchQuery);
+
   return (
-    <Card className="border-border/70 from-card via-card to-primary/5 relative mx-auto w-full max-w-3xl overflow-hidden border-dashed bg-gradient-to-br shadow-sm">
+    <Card className="relative mx-auto w-full max-w-3xl overflow-hidden rounded-3xl border border-[#2A2A3C] bg-[#1A1A24] text-white shadow-[0_18px_40px_rgba(0,0,0,0.24)]">
       <div
         aria-hidden="true"
-        className="bg-primary/10 absolute -top-12 left-1/2 size-36 -translate-x-1/2 rounded-full blur-3xl"
+        className="absolute -top-12 left-1/2 size-36 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,_rgba(99,102,241,0.35),_transparent_70%)] blur-3xl"
       />
 
       <CardHeader className="relative items-center px-6 pt-10 text-center sm:px-10">
         <div
           aria-hidden="true"
-          className="from-primary/18 via-primary/8 to-background mb-4 flex size-24 items-center justify-center rounded-[28px] border bg-gradient-to-br shadow-sm"
+          className="mb-4 flex size-24 items-center justify-center rounded-[28px] border border-[#2A2A3C] bg-[linear-gradient(135deg,_rgba(255,107,107,0.16)_0%,_rgba(155,89,182,0.18)_52%,_rgba(26,188,156,0.16)_100%)] shadow-sm"
         >
-          <div className="bg-background/85 flex size-14 items-center justify-center rounded-2xl border shadow-sm">
-            <BookOpenText className="text-primary size-7" />
+          <div className="flex size-14 items-center justify-center rounded-2xl border border-[#2A2A3C] bg-[#14141C] shadow-sm">
+            <SearchX className="size-7 text-indigo-300" />
           </div>
         </div>
 
         <div className="space-y-3">
-          <CardTitle className="text-2xl tracking-tight sm:text-3xl">
-            {searchQuery ? "Kursus tidak ditemukan" : "Belum ada kursus publik"}
+          <CardTitle className="text-2xl tracking-tight text-white sm:text-3xl">
+            {isSearchEmpty ? "No courses found" : "No courses available yet"}
           </CardTitle>
-          <CardDescription className="text-muted-foreground mx-auto max-w-md text-center text-sm leading-7 sm:text-base">
-            {searchQuery ? (
+          <CardDescription className="mx-auto max-w-md text-center text-sm leading-7 tracking-tight text-slate-300 sm:text-base">
+            {isSearchEmpty ? (
               <>
-                Tidak ada kursus publik yang cocok dengan pencarian &quot;
+                No published courses match &quot;
                 <strong>{searchQuery}</strong>&quot;.
                 <br className="hidden sm:block" />
-                Coba gunakan kata kunci lain.
+                Try a different keyword or clear the search to browse everything.
               </>
             ) : (
               <>
-                Kursus yang sudah dipublikasikan akan muncul di sini.
+                Published courses will appear here as soon as they are ready.
                 <br className="hidden sm:block" />
-                Sementara itu, kamu bisa kembali ke beranda untuk melihat update
-                terbaru.
+                In the meantime, head back to the homepage or pricing surface for the next step.
               </>
             )}
           </CardDescription>
@@ -132,17 +142,17 @@ function CourseCatalogEmptyState({ searchQuery }: { searchQuery?: string }) {
 
       <CardContent className="relative flex justify-center px-6 pb-10 sm:px-10">
         <div className="flex flex-col items-center gap-3">
-          {searchQuery ? (
-            <Button asChild variant="outline" className="min-h-11 px-5">
-              <Link href="/courses">Lihat semua kursus</Link>
+          {isSearchEmpty ? (
+            <Button asChild className="min-h-[44px] rounded-full bg-indigo-600 px-5 text-white hover:bg-indigo-500">
+              <Link href="/courses">Clear search</Link>
             </Button>
           ) : (
             <>
-              <Button asChild variant="outline" className="min-h-11 px-5">
-                <Link href="/">Jelajahi beranda</Link>
+              <Button asChild className="min-h-[44px] rounded-full bg-indigo-600 px-5 text-white hover:bg-indigo-500">
+                <Link href="/">Back to homepage</Link>
               </Button>
-              <p className="text-muted-foreground text-center text-sm leading-6">
-                Jangan khawatir — materi baru akan tampil otomatis setelah live.
+              <p className="text-center text-sm leading-6 text-slate-400">
+                This surface stays intentionally non-empty so visitors always have a clear next action.
               </p>
             </>
           )}

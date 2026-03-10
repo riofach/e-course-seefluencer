@@ -32,7 +32,7 @@ const sampleCourses = [
 test("renders premium dark-surface course cards with public CTA hierarchy", () => {
   const { container } = render(<CourseCatalog courses={sampleCourses} />);
 
-  const cards = container.querySelectorAll("article");
+  const cards = container.querySelectorAll('[data-slot="card"]');
   assert.equal(cards.length, 2);
   assert.ok(cards[0]?.className.includes("bg-[#1A1A24]"));
   assert.ok(cards[0]?.className.includes("border-[#2A2A3C]"));
@@ -42,7 +42,7 @@ test("renders premium dark-surface course cards with public CTA hierarchy", () =
   assert.ok(screen.getByText("Free").className.includes("text-teal-400"));
   assert.ok(screen.getByText("Premium").className.includes("text-indigo-400"));
   assert.ok(screen.getByRole("img", { name: /react foundations/i }));
-  assert.ok(screen.getByRole("link", { name: /view course details/i }));
+  assert.ok(screen.getByRole("link", { name: /view course details for react foundations/i }));
   assert.ok(screen.getByText(/build better react mental models/i).className.includes("tracking-tight"));
 });
 

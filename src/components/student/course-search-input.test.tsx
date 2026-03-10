@@ -32,7 +32,7 @@ test("renders dark public-surface search styling with indigo focus affordance ho
   assert.ok(formShell.className.includes("focus-within:border-indigo-500"));
   assert.ok(formShell.className.includes("focus-within:ring-1"));
 
-  const input = screen.getByRole("searchbox", { name: /cari kursus berdasarkan judul/i });
+  const input = screen.getByLabelText(/cari kursus berdasarkan judul/i);
   assert.ok(input.className.includes("placeholder:text-gray-500"));
   assert.equal(input.getAttribute("placeholder"), "Search courses...");
 });
