@@ -4,13 +4,21 @@ import { ArrowRight } from "lucide-react";
 
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
+import { Progress } from "~/components/ui/progress";
 import type { CourseDetailItem } from "~/server/courses/course-detail";
+
+export type CourseDetailHeroProgressData = {
+  progressPercent: number;
+  completedCount: number;
+  totalLessons: number;
+};
 
 type CourseDetailHeroProps = {
   course: Pick<
     CourseDetailItem,
     "title" | "description" | "thumbnailUrl" | "isFree" | "chapters" | "slug"
   >;
+  progressData?: CourseDetailHeroProgressData;
 };
 
 function getFirstLessonHref(course: CourseDetailHeroProps["course"]) {
@@ -21,7 +29,7 @@ function getFirstLessonHref(course: CourseDetailHeroProps["course"]) {
     : `/courses/${course.slug}`;
 }
 
-export function CourseDetailHero({ course }: CourseDetailHeroProps) {
+export function CourseDetailHero({ course, progressData }: CourseDetailHeroProps) {
   return (
     <section className="grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center">
       <div className="order-2 space-y-4 lg:order-1">
@@ -44,6 +52,21 @@ export function CourseDetailHero({ course }: CourseDetailHeroProps) {
             <ArrowRight className="size-4" aria-hidden="true" />
           </Link>
         </Button>
+
+        {progressData !== undefined && (
+          <div className="border-b px-0 py-0">
+            <div className="mb-2 flex items-center justify-between gap-3">
+              <p className="text-sm font-semibold">Progress belajar</p>
+              <span className="text-muted-foreground text-sm font-medium">
+                {progressData.progressPercent}% complete
+              </span>
+            </div>
+            <Progress
+              value={progressData.progressPercent}
+              aria-label={`${progressData.progressPercent}% complete`}
+            />
+          </div>
+        )}
       </div>
 
       <div className="border-border/70 bg-card/70 order-1 overflow-hidden rounded-3xl border shadow-sm lg:order-2">

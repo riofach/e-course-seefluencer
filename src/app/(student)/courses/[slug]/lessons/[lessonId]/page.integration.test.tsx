@@ -8,6 +8,8 @@ import * as lessonDetail from "~/server/courses/lesson-detail";
 import * as quizQuestions from "~/server/courses/quiz-questions";
 import * as lessonNav from "~/server/courses/lesson-navigation";
 import * as subscriptionQueries from "~/server/queries/subscriptions";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 
 const dummyLesson = {
   id: 1,
@@ -99,4 +101,17 @@ test("lesson page renders paywall overlay for premium lesson without active subs
   render(PageComponent);
 
   assert.ok(screen.getByText("This lesson is for Pro members"));
+});
+
+test("lesson page keeps the mark complete CTA sticky and right aligned", () => {
+  const filePath = resolve(
+    process.cwd(),
+    "src/app/(student)/courses/[slug]/lessons/[lessonId]/page.tsx",
+  );
+  const contents = readFileSync(filePath, "utf8");
+
+  assert.match(
+    contents,
+    /sticky bottom-0 flex justify-end border-t py-4 backdrop-blur-sm/,
+  );
 });

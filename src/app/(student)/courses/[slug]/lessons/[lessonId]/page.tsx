@@ -177,7 +177,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
         {showPaywallOverlay ? <PaywallTeaserOverlay /> : lessonContent}
 
         {!showPaywallOverlay && lesson.type !== "quiz" && (
-          <div className="bg-background/80 border-border sticky bottom-0 border-t py-4 backdrop-blur-sm">
+          <div className="bg-background/80 border-border sticky bottom-0 flex justify-end border-t py-4 backdrop-blur-sm">
             <MarkCompleteButton
               lessonId={lesson.id}
               courseSlug={slug}
