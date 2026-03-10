@@ -1,6 +1,13 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { test, expect, vi } from "vitest";
+import { afterEach, test, expect, vi } from "vitest";
+
+vi.mock("server-only", () => ({}));
+
+afterEach(() => {
+  cleanup();
+});
+
 import { QuizEngine } from "./quiz-engine";
 import * as submitAction from "~/server/actions/progress/submit-quiz";
 import * as sonner from "sonner";
@@ -39,7 +46,7 @@ test("quiz engine enforces allAnswered before enabling submit", async () => {
   const submitButton = screen.getByRole("button", { name: /submit quiz/i });
   expect((submitButton as HTMLButtonElement).disabled).toBe(true);
 
-  const radioB = screen.getByLabelText("4");
+  const radioB = screen.getAllByRole("radio")[1];
   await userEvent.click(radioB);
 
   expect((submitButton as HTMLButtonElement).disabled).toBe(false);
@@ -50,7 +57,7 @@ test("quiz engine submits and swaps to result display", async () => {
     <QuizEngine questions={mockQuestions} lessonId={1} courseSlug="test" />,
   );
 
-  await userEvent.click(screen.getByLabelText("4"));
+  await userEvent.click(screen.getAllByRole("radio")[1]!);
 
   const submitButton = screen.getByRole("button", { name: /submit quiz/i });
   await userEvent.click(submitButton);

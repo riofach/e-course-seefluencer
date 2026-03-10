@@ -2,6 +2,17 @@ import assert from "node:assert/strict";
 
 import { render, screen } from "@testing-library/react";
 import { test, vi } from "vitest";
+
+vi.mock("server-only", () => ({}));
+vi.mock("next/navigation", () => ({
+  redirect: vi.fn(),
+  notFound: vi.fn(),
+  useRouter: () => ({
+    push: vi.fn(),
+    refresh: vi.fn(),
+  }),
+}));
+
 import LessonPage from "./page";
 import * as authVars from "~/server/auth";
 import * as lessonDetail from "~/server/courses/lesson-detail";
@@ -68,6 +79,6 @@ test("lesson page fetches quiz questions and renders QuizEngine", async () => {
   const PageComponent = await LessonPage(pageArgs);
   render(PageComponent);
 
-  assert.ok(screen.getByText("Test Question"));
+  assert.ok(screen.getByText(/Test Question/));
   assert.ok(screen.getByRole("button", { name: /Submit Quiz/i }));
 });
