@@ -6,6 +6,7 @@ import { db } from "~/server/db";
 import { chapters, lessons } from "~/server/db/schema";
 
 import {
+  getLessonByIdFromQuery,
   getLessonsByChapterIdFromQuery,
   getLessonsByCourseIdFromQuery,
   type LessonRow,
@@ -47,5 +48,17 @@ export async function getLessonsByCourseId(
     }
 
     return map;
+  });
+}
+
+export async function getLessonById(lessonId: number): Promise<LessonRow | null> {
+  return getLessonByIdFromQuery(lessonId, async (parsedLessonId) => {
+    const result = await db
+      .select()
+      .from(lessons)
+      .where(eq(lessons.id, parsedLessonId))
+      .limit(1);
+
+    return result[0] ?? null;
   });
 }

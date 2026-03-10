@@ -401,6 +401,7 @@ export function ChapterList({
                         {isExpanded ? (
                           <div className="ml-6 mt-1 space-y-1 border-l border-gray-100 pl-3 pb-2">
                             <LessonList
+                              courseId={Number(courseId)}
                               chapterId={chapter.id}
                               initialLessons={initialLessonsMap[chapter.id] ?? []}
                             />

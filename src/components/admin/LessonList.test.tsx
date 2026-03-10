@@ -56,14 +56,14 @@ const baseLesson = {
 };
 
 test("renders empty state when no lessons", () => {
-  render(<LessonList chapterId={5} initialLessons={[]} />);
+  render(<LessonList courseId={9} chapterId={5} initialLessons={[]} />);
 
   assert.ok(screen.getByText(/no lessons in this chapter yet/i));
   assert.ok(screen.getByRole("button", { name: /add first lesson/i }));
 });
 
 test("renders lesson rows when lessons exist", () => {
-  render(<LessonList chapterId={5} initialLessons={[baseLesson]} />);
+  render(<LessonList courseId={9} chapterId={5} initialLessons={[baseLesson]} />);
 
   assert.ok(screen.getByDisplayValue("Welcome Video"));
   assert.ok(screen.getByDisplayValue("https://example.com/video"));
@@ -79,7 +79,7 @@ test('"Add Lesson" button calls createLesson action', async () => {
 
   const user = userEvent.setup();
 
-  render(<LessonList chapterId={5} initialLessons={[baseLesson]} />);
+  render(<LessonList courseId={9} chapterId={5} initialLessons={[baseLesson]} />);
 
   await user.click(screen.getByRole("button", { name: /add lesson/i }));
 
@@ -93,7 +93,7 @@ test("premium switch updates lesson free state", async () => {
 
   const user = userEvent.setup();
 
-  render(<LessonList chapterId={5} initialLessons={[baseLesson]} />);
+  render(<LessonList courseId={9} chapterId={5} initialLessons={[baseLesson]} />);
 
   await user.click(screen.getByRole("switch", { name: /premium toggle for welcome video/i }));
 
@@ -109,4 +109,26 @@ test("premium switch updates lesson free state", async () => {
       },
     ]);
   });
+});
+
+test("renders quiz builder link for quiz lessons", () => {
+  render(
+    <LessonList
+      courseId={9}
+      chapterId={5}
+      initialLessons={[
+        {
+          ...baseLesson,
+          id: 11,
+          title: "Quiz Lesson",
+          type: "quiz",
+          content: null,
+        },
+      ]}
+    />,
+  );
+
+  const link = screen.getByRole("link", { name: /manage quiz questions/i });
+
+  assert.equal(link.getAttribute("href"), "/admin/courses/9/lessons/11/quiz");
 });

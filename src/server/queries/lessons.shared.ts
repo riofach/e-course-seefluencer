@@ -25,3 +25,14 @@ export async function getLessonsByCourseIdFromQuery(
 
   return query(courseId);
 }
+
+export async function getLessonByIdFromQuery(
+  lessonId: number,
+  query: (parsedLessonId: number) => Promise<LessonRow | null>,
+): Promise<LessonRow | null> {
+  if (!Number.isInteger(lessonId) || lessonId <= 0) {
+    return null;
+  }
+
+  return query(lessonId);
+}

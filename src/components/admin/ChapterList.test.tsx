@@ -7,8 +7,18 @@ import { afterEach, beforeEach, test, vi } from "vitest";
 import type { LessonRow } from "~/server/queries/lessons";
 
 vi.mock("./LessonList", () => ({
-  LessonList: ({ chapterId, initialLessons }: { chapterId: number; initialLessons: LessonRow[] }) => (
-    <div data-testid={`lesson-list-${chapterId}`}>Lessons: {initialLessons.length}</div>
+  LessonList: ({
+    courseId,
+    chapterId,
+    initialLessons,
+  }: {
+    courseId: number;
+    chapterId: number;
+    initialLessons: LessonRow[];
+  }) => (
+    <div data-testid={`lesson-list-${chapterId}`}>
+      Course {courseId}: Lessons: {initialLessons.length}
+    </div>
   ),
 }));
 
@@ -107,7 +117,7 @@ test("expands a chapter row and renders the nested lesson list", async () => {
   await user.click(screen.getByRole("button", { name: /expand chapter/i }));
 
   assert.ok(screen.getByTestId("lesson-list-1"));
-  assert.ok(screen.getByText("Lessons: 2"));
+  assert.ok(screen.getByText("Course 5: Lessons: 2"));
 });
 
 test('"Add Chapter" button shows an inline draft row instead of immediate placeholder creation', async () => {

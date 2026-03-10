@@ -1,6 +1,7 @@
 "use client";
 
 import { FileText, HelpCircle, Plus, Trash2, Video } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -26,6 +27,7 @@ import { LessonTitleInput } from "./LessonTitleInput";
 import { LessonTypeSelect } from "./LessonTypeSelect";
 
 type LessonListProps = {
+  courseId: number;
   chapterId: number;
   initialLessons: LessonRow[];
 };
@@ -56,7 +58,7 @@ function createOptimisticLesson(chapterId: number, order: number): LessonRow {
   };
 }
 
-export function LessonList({ chapterId, initialLessons }: LessonListProps) {
+export function LessonList({ courseId, chapterId, initialLessons }: LessonListProps) {
   const [lessons, setLessons] = useState<LessonRow[]>(initialLessons);
   const [isCreating, setIsCreating] = useState(false);
   const [isDeletingId, setIsDeletingId] = useState<number | null>(null);
@@ -339,9 +341,15 @@ export function LessonList({ chapterId, initialLessons }: LessonListProps) {
           ) : null}
 
           {lesson.type === "quiz" ? (
-            <p className="mt-2 text-xs text-gray-500">
-              Quiz questions are managed in the Quiz Builder (next feature).
-            </p>
+            <div className="mt-2 px-3 pb-3">
+              <Link
+                href={`/admin/courses/${courseId}/lessons/${lesson.id}/quiz`}
+                className="inline-flex min-h-[44px] items-center gap-1.5 rounded-md border border-indigo-200 px-3 py-2 text-xs font-medium text-indigo-600 transition-colors hover:bg-indigo-50"
+              >
+                <HelpCircle size={12} />
+                Manage Quiz Questions
+              </Link>
+            </div>
           ) : null}
         </div>
       ))}
