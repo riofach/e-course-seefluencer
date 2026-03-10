@@ -29,3 +29,21 @@ test("renders the premium creator-led value proposition", () => {
   );
   assert.ok(screen.getByText(/premium learning paths from trusted creators/i));
 });
+
+test("marks decorative blob wrapper as aria-hidden", () => {
+  const { container } = render(<LandingHero />);
+
+  const decorativeWrapper = container.querySelector('[aria-hidden="true"]');
+
+  assert.ok(decorativeWrapper);
+});
+
+test("renders both CTA links as reachable interactive elements", () => {
+  render(<LandingHero />);
+
+  const exploreCoursesLink = screen.getByRole("link", { name: /explore courses/i });
+  const viewPricingLink = screen.getByRole("link", { name: /view pricing/i });
+
+  assert.equal(exploreCoursesLink.getAttribute("href"), "/courses");
+  assert.equal(viewPricingLink.getAttribute("href"), "/pricing");
+});

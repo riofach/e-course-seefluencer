@@ -31,9 +31,11 @@ export function LandingHero() {
       id="hero"
       className="relative overflow-hidden rounded-[32px] bg-[linear-gradient(135deg,_rgba(255,245,245,1)_0%,_rgba(255,255,255,0.98)_42%,_rgba(238,248,255,1)_100%)] px-6 py-12 dark:bg-[linear-gradient(135deg,_#151520_0%,_#12121A_45%,_#102228_100%)] sm:px-10 sm:py-14 lg:px-12 lg:py-12"
     >
-      <div className="pointer-events-none absolute left-1/2 top-6 h-72 w-72 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,_rgba(255,107,107,0.16),_rgba(155,89,182,0.08)_42%,_transparent_72%)] blur-3xl dark:bg-[radial-gradient(circle,_rgba(255,107,107,0.14),_rgba(155,89,182,0.08)_44%,_transparent_74%)]" />
-      <div className="pointer-events-none absolute -right-20 top-24 h-72 w-72 rounded-full bg-[radial-gradient(circle,_rgba(26,188,156,0.20),_transparent_68%)] blur-2xl" />
-      <div className="pointer-events-none absolute left-0 top-32 h-64 w-64 rounded-full bg-[radial-gradient(circle,_rgba(155,89,182,0.14),_transparent_70%)] blur-3xl dark:bg-[radial-gradient(circle,_rgba(155,89,182,0.18),_transparent_72%)]" />
+      <div aria-hidden="true">
+        <div className="pointer-events-none absolute left-1/2 top-6 h-72 w-72 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,_rgba(255,107,107,0.16),_rgba(155,89,182,0.08)_42%,_transparent_72%)] blur-3xl dark:bg-[radial-gradient(circle,_rgba(255,107,107,0.14),_rgba(155,89,182,0.08)_44%,_transparent_74%)]" />
+        <div className="pointer-events-none absolute -right-20 top-24 h-72 w-72 rounded-full bg-[radial-gradient(circle,_rgba(26,188,156,0.20),_transparent_68%)] blur-2xl" />
+        <div className="pointer-events-none absolute left-0 top-32 h-64 w-64 rounded-full bg-[radial-gradient(circle,_rgba(155,89,182,0.14),_transparent_70%)] blur-3xl dark:bg-[radial-gradient(circle,_rgba(155,89,182,0.18),_transparent_72%)]" />
+      </div>
 
       <div className="relative grid min-h-[31rem] content-start gap-8 pt-2 sm:min-h-[33rem] sm:pt-4 lg:min-h-[36rem] lg:grid-cols-[minmax(0,1.2fr)_minmax(320px,0.8fr)] lg:items-start lg:gap-10 lg:pt-6">
         <div className="max-w-3xl space-y-5 lg:pt-4">
@@ -79,7 +81,7 @@ export function LandingHero() {
             ))}
           </div>
 
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-white/10 pt-4 text-sm text-slate-500 dark:text-slate-400">
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-white/10 pt-4 text-sm text-slate-500 dark:text-slate-300">
             {microTrustPoints.map((point) => (
               <div key={point} className="inline-flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-[linear-gradient(90deg,_#FF6B6B_0%,_#9B59B6_52%,_#1ABC9C_100%)]" />

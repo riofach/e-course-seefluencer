@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 
-import { render, screen } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import React from "react";
 import { afterEach, test, vi } from "vitest";
 
@@ -8,7 +8,9 @@ vi.mock("server-only", () => ({}));
 
 vi.mock("./public-mobile-menu", () => ({
   PublicMobileMenu: ({ displayName }: { displayName: string | null }) => (
-    <div data-testid="public-mobile-menu">{displayName ?? "guest"}</div>
+    <button type="button" data-testid="public-mobile-menu" aria-label="Open navigation menu">
+      {displayName ?? "guest"}
+    </button>
   ),
 }));
 
@@ -23,6 +25,7 @@ vi.mock("./logout-button", () => ({
 import { PublicNavbarContent } from "./public-navbar-content";
 
 afterEach(() => {
+  cleanup();
   vi.restoreAllMocks();
 });
 
@@ -77,4 +80,10 @@ test("renders the user display name when session exists", () => {
   });
 
   assert.equal(screen.getAllByText("Rio Display").length, 2);
+});
+
+test("renders the mobile menu trigger with accessible aria-label regression", () => {
+  renderNavbar({ displayName: null, profileImage: "", userEmail: "" });
+
+  assert.equal(screen.getByTestId("public-mobile-menu").getAttribute("aria-label"), "Open navigation menu");
 });

@@ -79,19 +79,19 @@ export default async function Home() {
               <nav aria-label="Footer navigation" className="flex flex-wrap items-center gap-3 sm:gap-4">
                 <Link
                   href="/#hero"
-                  className="inline-flex min-h-[44px] items-center rounded-full px-4 text-sm font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+                  className="inline-flex min-h-[44px] items-center rounded-full px-4 text-sm font-medium text-slate-600 transition hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:text-slate-300 dark:hover:text-white"
                 >
                   Home
                 </Link>
                 <Link
                   href="/courses"
-                  className="inline-flex min-h-[44px] items-center rounded-full px-4 text-sm font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+                  className="inline-flex min-h-[44px] items-center rounded-full px-4 text-sm font-medium text-slate-600 transition hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:text-slate-300 dark:hover:text-white"
                 >
                   Courses
                 </Link>
                 <Link
                   href="/pricing"
-                  className="inline-flex min-h-[44px] items-center rounded-full px-4 text-sm font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+                  className="inline-flex min-h-[44px] items-center rounded-full px-4 text-sm font-medium text-slate-600 transition hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:text-slate-300 dark:hover:text-white"
                 >
                   Pricing
                 </Link>
