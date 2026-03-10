@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Inter, Playfair_Display } from "next/font/google";
 
 import { LandingHero } from "~/components/shared/landing-hero";
+import { LandingHighlightsSection } from "~/components/shared/landing-highlights-section";
+import { LandingPricingCTA } from "~/components/shared/landing-pricing-cta";
+import { LandingTrustSection } from "~/components/shared/landing-trust-section";
+import { LandingValueSection } from "~/components/shared/landing-value-section";
 import { PublicNavbar } from "~/components/shared/public-navbar";
 
 export const metadata: Metadata = {
@@ -31,43 +36,56 @@ export default async function Home() {
       <div id="main-content" className="mx-auto flex w-full max-w-7xl flex-col px-4 pt-2 sm:px-6 sm:pt-3 lg:px-8">
         <LandingHero />
 
-        <section id="value" className="min-h-[24rem] border-b border-slate-200/70 py-16 dark:border-white/10">
-          <div className="rounded-[28px] border border-dashed border-slate-300/80 p-8 dark:border-white/15">
-            <p className="text-sm font-medium uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
-              Value proposition placeholder
-            </p>
-          </div>
+        <section id="value" className="border-b border-slate-200/70 py-16 dark:border-white/10">
+          <LandingValueSection />
         </section>
 
-        <section id="highlights" className="min-h-[24rem] border-b border-slate-200/70 py-16 dark:border-white/10">
-          <div className="rounded-[28px] border border-dashed border-slate-300/80 p-8 dark:border-white/15">
-            <p className="text-sm font-medium uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
-              Featured highlights placeholder
-            </p>
-          </div>
+        <section id="highlights" className="border-b border-slate-200/70 py-16 dark:border-white/10">
+          <LandingHighlightsSection />
         </section>
 
-        <section id="trust" className="min-h-[24rem] border-b border-slate-200/70 py-16 dark:border-white/10">
-          <div className="rounded-[28px] border border-dashed border-slate-300/80 p-8 dark:border-white/15">
-            <p className="text-sm font-medium uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
-              Social proof placeholder
-            </p>
-          </div>
+        <section id="trust" className="border-b border-slate-200/70 py-16 dark:border-white/10">
+          <LandingTrustSection />
         </section>
 
-        <section id="pricing-cta" className="min-h-[20rem] border-b border-slate-200/70 py-16 dark:border-white/10">
-          <div className="rounded-[28px] border border-dashed border-slate-300/80 p-8 dark:border-white/15">
-            <p className="text-sm font-medium uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
-              Pricing bridge placeholder
-            </p>
-          </div>
+        <section
+          id="pricing-cta"
+          className="border-b border-slate-200/70 bg-slate-50 py-20 dark:border-white/10 dark:bg-[#1A1A24]"
+        >
+          <LandingPricingCTA />
         </section>
 
         <footer id="footer" className="py-12">
-          <div className="rounded-[28px] border border-dashed border-slate-300/80 p-8 dark:border-white/15">
-            <p className="text-sm font-medium uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
-              Footer placeholder
-            </p>
+          <div className="flex flex-col gap-6 border-t border-slate-200/70 pt-8 dark:border-white/10">
+            <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+              <div>
+                <p className="text-lg font-bold text-slate-900 dark:text-white">Seefluencer</p>
+                <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Learn from the best creators.</p>
+              </div>
+
+              <nav aria-label="Footer navigation" className="flex flex-wrap items-center gap-3 sm:gap-4">
+                <Link
+                  href="/#hero"
+                  className="inline-flex min-h-[44px] items-center rounded-full px-4 text-sm font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+                >
+                  Home
+                </Link>
+                <Link
+                  href="/courses"
+                  className="inline-flex min-h-[44px] items-center rounded-full px-4 text-sm font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+                >
+                  Courses
+                </Link>
+                <Link
+                  href="/pricing"
+                  className="inline-flex min-h-[44px] items-center rounded-full px-4 text-sm font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+                >
+                  Pricing
+                </Link>
+              </nav>
+            </div>
+
+            <p className="text-sm text-slate-500 dark:text-slate-400">© 2026 Seefluencer. All rights reserved.</p>
           </div>
         </footer>
       </div>
