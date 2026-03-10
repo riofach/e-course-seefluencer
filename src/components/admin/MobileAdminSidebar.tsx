@@ -22,7 +22,7 @@ const navItems = [
 
 export function MobileAdminSidebar() {
   const [open, setOpen] = useState(false);
-  const pathname = usePathname();
+  const pathname = usePathname() ?? "";
 
   return (
     <header className="flex h-14 items-center gap-4 border-b border-[#E5E7EB] bg-white px-4 md:hidden">
@@ -44,7 +44,9 @@ export function MobileAdminSidebar() {
           </SheetHeader>
           <nav className="flex flex-col gap-1 px-3 py-4">
             {navItems.map((item) => {
-              const isActive = pathname === item.href;
+              const isActive =
+                pathname === item.href ||
+                (item.href !== "/admin" && pathname.startsWith(`${item.href}/`));
 
               return (
                 <Link
@@ -54,7 +56,7 @@ export function MobileAdminSidebar() {
                   className={cn(
                     "rounded-md border border-transparent px-3 py-2 text-sm font-medium transition-colors hover:border-[#E5E7EB] hover:bg-neutral-50 hover:text-neutral-950",
                     isActive
-                      ? "bg-neutral-50 text-neutral-950"
+                      ? "border-gray-200 bg-white text-neutral-950"
                       : "text-neutral-600",
                   )}
                 >

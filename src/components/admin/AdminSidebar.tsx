@@ -11,7 +11,7 @@ const navItems = [
 ];
 
 export function AdminSidebar() {
-  const pathname = usePathname();
+  const pathname = usePathname() ?? "";
 
   return (
     <aside className="hidden w-64 shrink-0 flex-col border-r border-[#E5E7EB] bg-white md:flex">
@@ -29,7 +29,9 @@ export function AdminSidebar() {
         aria-label="Admin navigation"
       >
         {navItems.map((item) => {
-          const isActive = pathname === item.href;
+          const isActive =
+            pathname === item.href ||
+            (item.href !== "/admin" && pathname.startsWith(`${item.href}/`));
 
           return (
             <Link
@@ -38,7 +40,7 @@ export function AdminSidebar() {
               className={cn(
                 "rounded-md border border-transparent px-3 py-2 text-sm font-medium transition-colors hover:border-[#E5E7EB] hover:bg-neutral-50 hover:text-neutral-950",
                 isActive
-                  ? "bg-neutral-50 text-neutral-950"
+                  ? "border-gray-200 bg-white text-neutral-950"
                   : "text-neutral-600",
               )}
             >

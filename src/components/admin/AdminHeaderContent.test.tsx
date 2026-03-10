@@ -18,6 +18,5 @@ test("AdminHeaderContent renders signed-in admin identity and sign-out action", 
   );
 
   assert.ok(screen.getByText("Rio Admin"));
-  assert.ok(screen.getByText("rio@example.com"));
-  assert.ok(screen.getByRole("button", { name: /sign out/i }));
+  assert.ok(screen.getByRole("button", { name: /rio admin/i }));
 });

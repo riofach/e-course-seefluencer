@@ -134,7 +134,7 @@ export function PricingPageClient({
   return (
     <div className="space-y-8">
       {isSubscribed ? (
-        <div className="relative overflow-hidden rounded-[28px] border border-white/10 bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500 px-6 py-5 text-white shadow-[0_18px_45px_rgba(99,102,241,0.28)]">
+        <div className="relative overflow-hidden rounded-[28px] border border-white/10 bg-gradient-to-r from-indigo-500 to-violet-500 px-6 py-5 text-white shadow-[0_18px_45px_rgba(99,102,241,0.28)]">
           <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-white/10 blur-3xl" />
           <div className="relative flex items-start gap-4">
             <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white/15 ring-1 ring-white/20 backdrop-blur-sm">

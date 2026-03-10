@@ -7,3 +7,21 @@ Object.assign(globalThis, {
   document: dom.window.document,
   navigator: dom.window.navigator,
 });
+
+class ResizeObserverMock {
+  observe() {
+    return undefined;
+  }
+
+  unobserve() {
+    return undefined;
+  }
+
+  disconnect() {
+    return undefined;
+  }
+}
+
+Object.assign(globalThis, {
+  ResizeObserver: ResizeObserverMock,
+});
