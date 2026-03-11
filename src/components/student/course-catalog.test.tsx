@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 import { afterEach, test } from "vitest";
 
@@ -53,6 +53,20 @@ test("renders empty state with clear-search CTA when query has no matches", () =
   const cta = screen.getByRole("link", { name: /clear search/i });
   assert.equal(cta.getAttribute("href"), "/courses");
   assert.ok(cta.className.includes("bg-indigo-600"));
+});
+
+test("renders the existing thumbnail fallback when no thumbnail is stored", () => {
+  render(<CourseCatalog courses={[sampleCourses[1]!]} />);
+
+  assert.ok(screen.getByText(/thumbnail unavailable for advanced next\.js/i));
+});
+
+test("renders the existing thumbnail fallback when image loading fails at runtime", () => {
+  render(<CourseCatalog courses={[sampleCourses[0]!]} />);
+
+  fireEvent.error(screen.getByRole("img", { name: /react foundations/i }));
+
+  assert.ok(screen.getByText(/thumbnail unavailable for react foundations/i));
 });
 
 test("renders no-published-courses empty state with browse-home CTA", () => {

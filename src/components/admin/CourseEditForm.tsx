@@ -1,21 +1,24 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 import {
+  COURSE_THUMBNAIL_ACCEPTED_MIME_TYPES,
   courseUpdateSchema,
   type CourseUpdateInput,
 } from "~/lib/validations/course";
 import {
   toggleCoursePublishStatus,
+  uploadCourseThumbnail,
   updateCourse,
 } from "~/server/actions/courses";
 import type { CourseAdminListItem } from "~/server/queries/courses";
 import { Button } from "~/components/ui/button";
+import { ThumbnailWithFallback } from "~/components/shared/thumbnail-with-fallback";
 import { Switch } from "~/components/ui/switch";
 import { cn } from "~/lib/utils";
 
@@ -81,6 +84,7 @@ export function CoursePublishStatusButton({
 }
 
 export function CourseEditForm({ course }: CourseEditFormProps) {
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const lastSavedValueRef = useRef<string>(
     JSON.stringify({
       title: course.title,
@@ -103,6 +107,8 @@ export function CourseEditForm({ course }: CourseEditFormProps) {
 
   const watchedValues = useWatch({ control: form.control });
   const watchedThumbnailUrl = form.watch("thumbnailUrl");
+  const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
+  const [isUploadingThumbnail, setIsUploadingThumbnail] = useState(false);
 
   const autoSave = useCallback(
     async (data: CourseUpdateInput) => {
@@ -152,6 +158,53 @@ export function CourseEditForm({ course }: CourseEditFormProps) {
     };
   }, [autoSave, form, form.formState.errors, watchedValues]);
 
+  const handleThumbnailUpload = useCallback(async () => {
+    const file = fileInputRef.current?.files?.[0];
+
+    if (!file) {
+      toast.error("Select a thumbnail image before uploading.", {
+        duration: 4000,
+        position: "bottom-right",
+      });
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("thumbnail", file);
+
+    setIsUploadingThumbnail(true);
+
+    const result = await uploadCourseThumbnail(String(course.id), formData);
+
+    setIsUploadingThumbnail(false);
+
+    if (!result.success) {
+      toast.error(result.error, {
+        duration: 4000,
+        position: "bottom-right",
+      });
+      return;
+    }
+
+    const nextValues = {
+      ...form.getValues(),
+      thumbnailUrl: result.data.thumbnailUrl,
+    } satisfies CourseUpdateInput;
+
+    lastSavedValueRef.current = JSON.stringify(nextValues);
+    form.reset(nextValues);
+    setSelectedFileName(null);
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+
+    toast.success("Thumbnail updated", {
+      duration: 3000,
+      position: "bottom-right",
+    });
+  }, [course.id, form]);
+
   return (
     <form className="max-w-lg space-y-4" onSubmit={(e) => e.preventDefault()}>
       <div>
@@ -199,38 +252,74 @@ export function CourseEditForm({ course }: CourseEditFormProps) {
 
       <div>
         <label
-          htmlFor="course-thumbnail-url"
+          htmlFor="course-thumbnail-upload"
           className="mb-1 block text-[10px] font-semibold tracking-wider text-gray-600 uppercase"
         >
-          Thumbnail URL
+          Thumbnail image
         </label>
-        <input
-          id="course-thumbnail-url"
-          type="text"
-          placeholder="https://example.com/thumbnail.jpg"
-          className={fieldClassName(
-            Boolean(form.formState.errors.thumbnailUrl),
-          )}
-          {...form.register("thumbnailUrl")}
-        />
+        <div className="space-y-3 rounded-xl border border-gray-200 bg-gray-50 p-3">
+          <input
+            id="course-thumbnail-upload"
+            ref={fileInputRef}
+            type="file"
+            accept={COURSE_THUMBNAIL_ACCEPTED_MIME_TYPES.join(",")}
+            className={fieldClassName(Boolean(form.formState.errors.thumbnailUrl))}
+            onChange={(event) => {
+              setSelectedFileName(event.currentTarget.files?.[0]?.name ?? null);
+            }}
+          />
+          <p className="text-xs leading-5 text-gray-500">
+            Upload a single JPG, PNG, or WebP image up to 5 MB. The server
+            will resize it for thumbnail use, convert it to WebP, and store it
+            locally as a temporary transitional asset.
+          </p>
+          <div className="flex flex-wrap items-center gap-3">
+            <Button
+              type="button"
+              onClick={() => {
+                void handleThumbnailUpload();
+              }}
+              disabled={isUploadingThumbnail}
+              className="bg-indigo-600 text-white hover:bg-indigo-700"
+            >
+              {isUploadingThumbnail
+                ? "Uploading thumbnail..."
+                : watchedThumbnailUrl
+                  ? "Replace thumbnail"
+                  : "Upload thumbnail"}
+            </Button>
+            {selectedFileName ? (
+              <p className="text-xs text-gray-500">Selected: {selectedFileName}</p>
+            ) : null}
+          </div>
+        </div>
         {form.formState.errors.thumbnailUrl ? (
           <p className="mt-1 text-[11px] text-red-500">
             {form.formState.errors.thumbnailUrl.message}
           </p>
         ) : null}
-        {watchedThumbnailUrl ? (
-          <div className="mt-2">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+        <div className="mt-3 space-y-2">
+          <p className="text-[10px] font-semibold tracking-wider text-gray-600 uppercase">
+            Current preview
+          </p>
+          <div className="overflow-hidden rounded-md border border-gray-200 bg-gray-100">
+            <ThumbnailWithFallback
               src={watchedThumbnailUrl}
               alt="Thumbnail preview"
-              className="h-32 w-auto rounded-md border border-gray-200 object-cover"
-              onError={(event) => {
-                event.currentTarget.style.display = "none";
-              }}
+              className="h-32 w-full object-cover"
+              fallback={
+                <div className="flex h-32 items-center justify-center bg-gradient-to-tr from-indigo-100 via-white to-teal-100 text-xs font-medium text-gray-500">
+                  Thumbnail placeholder
+                </div>
+              }
             />
           </div>
-        ) : null}
+          {watchedThumbnailUrl ? (
+            <p className="break-all text-xs text-gray-500">
+              Stored asset path: {watchedThumbnailUrl}
+            </p>
+          ) : null}
+        </div>
       </div>
 
       <div className="flex items-center justify-between border-t border-gray-100 py-3">

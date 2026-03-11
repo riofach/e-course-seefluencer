@@ -5,6 +5,7 @@ import {
   createCourseWithDependencies,
   deleteCourseWithDependencies,
   toggleCoursePublishStatusWithDependencies,
+  uploadCourseThumbnailWithDependencies,
   updateCourseWithDependencies,
   type CourseActionDependencies,
 } from "./shared.ts";
@@ -17,7 +18,18 @@ function createDependencies(
     createDraftSlug: () => "draft-abc123",
     insertCourse: async () => 18,
     updateCourse: async () => undefined,
-    findCourseById: async () => ({ id: 5, isPublished: false }),
+    findCourseById: async () => ({
+      id: 5,
+      isPublished: false,
+      slug: "draft-course",
+      thumbnailUrl: null,
+    }),
+    updateCourseThumbnail: async () => undefined,
+    processThumbnailUpload: async () => new Uint8Array([1, 2, 3]),
+    storeThumbnail: async () => ({
+      thumbnailUrl: "/uploads/course-thumbnails/course-5.webp",
+    }),
+    cleanupThumbnail: async () => undefined,
     setCoursePublishState: async () => undefined,
     deleteCourse: async () => undefined,
     revalidatePaths: () => undefined,
@@ -135,4 +147,101 @@ void test("deleteCourseWithDependencies removes the course and refreshes admin p
   });
   assert.equal(receivedCourseId, 5);
   assert.deepEqual(revalidatedPaths, ["/admin/courses", "/courses"]);
+});
+
+void test("uploadCourseThumbnailWithDependencies validates file formats before processing", async () => {
+  const formData = new FormData();
+  formData.append(
+    "thumbnail",
+    new File([new Uint8Array([1, 2, 3])], "thumbnail.gif", {
+      type: "image/gif",
+    }),
+  );
+
+  const result = await uploadCourseThumbnailWithDependencies(
+    "5",
+    formData,
+    createDependencies(),
+  );
+
+  assert.deepEqual(result, {
+    success: false,
+    error: "Unsupported thumbnail format. Upload JPG, PNG, or WebP.",
+  });
+});
+
+void test("uploadCourseThumbnailWithDependencies stores the processed thumbnail and revalidates affected routes", async () => {
+  let updatedThumbnail: string | null = null;
+  let revalidatedPaths: string[] = [];
+
+  const formData = new FormData();
+  formData.append(
+    "thumbnail",
+    new File([new Uint8Array([1, 2, 3])], "thumbnail.png", {
+      type: "image/png",
+    }),
+  );
+
+  const result = await uploadCourseThumbnailWithDependencies(
+    "5",
+    formData,
+    createDependencies({
+      findCourseById: async () => ({
+        id: 5,
+        isPublished: false,
+        slug: "draft-course",
+        thumbnailUrl: "/uploads/course-thumbnails/old.webp",
+      }),
+      updateCourseThumbnail: async (_courseId, thumbnailUrl) => {
+        updatedThumbnail = thumbnailUrl;
+      },
+      revalidatePaths: (paths) => {
+        revalidatedPaths = paths;
+      },
+    }),
+  );
+
+  assert.deepEqual(result, {
+    success: true,
+    data: {
+      thumbnailUrl: "/uploads/course-thumbnails/course-5.webp",
+    },
+  });
+  assert.equal(updatedThumbnail, "/uploads/course-thumbnails/course-5.webp");
+  assert.deepEqual(revalidatedPaths, [
+    "/admin/courses",
+    "/admin/courses/5",
+    "/courses",
+    "/courses/draft-course",
+  ]);
+});
+
+void test("uploadCourseThumbnailWithDependencies returns a processing error without overwriting the current thumbnail", async () => {
+  let updatedThumbnailCallCount = 0;
+  const formData = new FormData();
+  formData.append(
+    "thumbnail",
+    new File([new Uint8Array([1, 2, 3])], "thumbnail.png", {
+      type: "image/png",
+    }),
+  );
+
+  const result = await uploadCourseThumbnailWithDependencies(
+    "5",
+    formData,
+    createDependencies({
+      processThumbnailUpload: async () => {
+        throw new Error("sharp failed");
+      },
+      updateCourseThumbnail: async () => {
+        updatedThumbnailCallCount += 1;
+      },
+    }),
+  );
+
+  assert.deepEqual(result, {
+    success: false,
+    error: "Failed to process thumbnail. Please try another image.",
+  });
+  assert.equal(updatedThumbnailCallCount, 0);
 });

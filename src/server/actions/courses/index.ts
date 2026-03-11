@@ -8,15 +8,22 @@ import { getServerAuthSession } from "~/server/auth";
 import { db } from "~/server/db";
 import { courses } from "~/server/db/schema";
 import type { ActionResponse } from "~/types";
+import type { CourseActionDependencies } from "./shared";
 
 import {
   createCourseWithDependencies,
   deleteCourseWithDependencies,
   toggleCoursePublishStatusWithDependencies,
+  uploadCourseThumbnailWithDependencies,
   updateCourseWithDependencies,
 } from "./shared";
+import {
+  cleanupCourseThumbnailFile,
+  processCourseThumbnailUpload,
+  storeCourseThumbnailLocally,
+} from "./thumbnail-storage";
 
-const dependencies = {
+const dependencies: CourseActionDependencies = {
   getSession: getServerAuthSession,
   createDraftSlug: () => `draft-${crypto.randomUUID()}`,
   insertCourse: async (values: {
@@ -52,9 +59,25 @@ const dependencies = {
       columns: {
         id: true,
         isPublished: true,
+        slug: true,
+        thumbnailUrl: true,
       },
       where: eq(courses.id, courseId),
     }),
+  updateCourseThumbnail: async (courseId: number, thumbnailUrl: string) => {
+    await db
+      .update(courses)
+      .set({
+        thumbnailUrl,
+        updatedAt: new Date(),
+      })
+      .where(eq(courses.id, courseId));
+  },
+  processThumbnailUpload: processCourseThumbnailUpload,
+  storeThumbnail: async ({ courseId, content }: { courseId: number; content: Uint8Array }) =>
+    storeCourseThumbnailLocally({ courseId, content }),
+  cleanupThumbnail: async (thumbnailUrl: string) =>
+    cleanupCourseThumbnailFile({ thumbnailUrl }),
   setCoursePublishState: async (courseId: number, isPublished: boolean) => {
     await db
       .update(courses)
@@ -89,6 +112,13 @@ export async function toggleCoursePublishStatus(
   courseId: string,
 ): Promise<ActionResponse<{ newStatus: string }>> {
   return toggleCoursePublishStatusWithDependencies(courseId, dependencies);
+}
+
+export async function uploadCourseThumbnail(
+  courseId: string,
+  formData: FormData,
+): Promise<ActionResponse<{ thumbnailUrl: string }>> {
+  return uploadCourseThumbnailWithDependencies(courseId, formData, dependencies);
 }
 
 export async function deleteCourse(

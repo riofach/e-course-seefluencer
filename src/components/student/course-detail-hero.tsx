@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, BookOpen, Clock3, PlayCircle, Sparkles } from "lucide-react";
 
+import { ThumbnailWithFallback } from "~/components/shared/thumbnail-with-fallback";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Progress } from "~/components/ui/progress";
@@ -146,29 +146,13 @@ export function CourseDetailHero({ course, cta, progressData }: CourseDetailHero
 
         <div className="order-1 lg:order-2">
           <div className="overflow-hidden rounded-[28px] border border-[#2A2A3C] bg-[#14141C] shadow-[0_16px_40px_rgba(0,0,0,0.28)]">
-            {course.thumbnailUrl ? (
-              <Image
-                src={course.thumbnailUrl}
-                alt={course.title}
-                width={960}
-                height={720}
-                className="h-full min-h-[280px] w-full object-cover lg:min-h-[420px]"
-              />
-            ) : (
-              <div className="flex min-h-[280px] items-end bg-gradient-to-br from-[#FF6B6B]/25 via-[#9B59B6]/20 to-[#1ABC9C]/15 p-6 lg:min-h-[420px]">
-                <div className="rounded-[24px] border border-white/15 bg-black/30 p-5 backdrop-blur-sm">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-300">
-                    Course preview
-                  </p>
-                  <p className="mt-2 max-w-xs font-display text-2xl font-bold tracking-tight text-white">
-                    Premium-looking landing hero even before the thumbnail is uploaded.
-                  </p>
-                  <p className="mt-3 text-sm leading-6 tracking-[-0.02em] text-slate-300">
-                    Visual placeholder keeps the page polished while content assets are still being prepared.
-                  </p>
-                </div>
-              </div>
-            )}
+            <ThumbnailWithFallback
+              src={course.thumbnailUrl}
+              alt={course.title}
+              className="h-full min-h-[280px] w-full object-cover lg:min-h-[420px]"
+              fallback={<CourseDetailHeroThumbnailFallback />}
+              testId="course-detail-thumbnail"
+            />
 
             <div className="grid gap-4 border-t border-[#2A2A3C] px-6 py-5 sm:grid-cols-2">
               <div>
@@ -194,5 +178,23 @@ export function CourseDetailHero({ course, cta, progressData }: CourseDetailHero
         </div>
       </div>
     </section>
+  );
+}
+
+function CourseDetailHeroThumbnailFallback() {
+  return (
+    <div className="flex min-h-[280px] items-end bg-gradient-to-br from-[#FF6B6B]/25 via-[#9B59B6]/20 to-[#1ABC9C]/15 p-6 lg:min-h-[420px]">
+      <div className="rounded-[24px] border border-white/15 bg-black/30 p-5 backdrop-blur-sm">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-300">
+          Course preview
+        </p>
+        <p className="mt-2 max-w-xs font-display text-2xl font-bold tracking-tight text-white">
+          Premium-looking landing hero even before the thumbnail is uploaded.
+        </p>
+        <p className="mt-3 text-sm leading-6 tracking-[-0.02em] text-slate-300">
+          Visual placeholder keeps the page polished while content assets are still being prepared.
+        </p>
+      </div>
+    </div>
   );
 }

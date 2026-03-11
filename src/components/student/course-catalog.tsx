@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
+import { ThumbnailWithFallback } from "~/components/shared/thumbnail-with-fallback";
 import type { PublishedCourseCatalogItem } from "~/server/courses/published-course-catalog";
 
 type CourseCatalogProps = {
@@ -37,16 +38,13 @@ function CourseCatalogCard({ course }: { course: PublishedCourseCatalogItem }) {
   return (
     <Card className="flex h-full flex-col overflow-hidden rounded-3xl border border-[#2A2A3C] bg-[#1A1A24] text-white shadow-[0_18px_40px_rgba(0,0,0,0.24)] transition-all duration-200 hover:border-[#3A3A4C] focus-within:ring-2 focus-within:ring-indigo-500">
       <div className="relative h-52 overflow-hidden rounded-t-3xl border-b border-[#2A2A3C] bg-[#14141C]">
-        {course.thumbnailUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={course.thumbnailUrl}
-            alt={course.title}
-            className="h-full w-full object-cover"
-          />
-        ) : (
-          <div className="h-full w-full bg-gradient-to-tr from-[#9B59B6]/30 via-[#151520] to-[#1ABC9C]/10" />
-        )}
+        <ThumbnailWithFallback
+          src={course.thumbnailUrl}
+          alt={course.title}
+          className="h-full w-full object-cover"
+          fallback={<CourseCatalogCardThumbnailFallback title={course.title} />}
+          testId={`course-thumbnail-${course.id}`}
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F14]/90 via-[#0F0F14]/25 to-transparent" />
 
         <span
@@ -94,6 +92,14 @@ function CourseCatalogCard({ course }: { course: PublishedCourseCatalogItem }) {
         </Button>
       </CardFooter>
     </Card>
+  );
+}
+
+function CourseCatalogCardThumbnailFallback({ title }: { title: string }) {
+  return (
+    <div className="h-full w-full bg-gradient-to-tr from-[#9B59B6]/30 via-[#151520] to-[#1ABC9C]/10">
+      <span className="sr-only">Thumbnail unavailable for {title}</span>
+    </div>
   );
 }
 

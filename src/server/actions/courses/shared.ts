@@ -2,6 +2,7 @@ import {
   courseCreateSchema,
   courseUpdateSchema,
   type CourseUpdateInput,
+  validateCourseThumbnailFile,
 } from "../../../lib/validations/course.ts";
 import type { ActionResponse } from "../../../types/index.ts";
 
@@ -34,7 +35,25 @@ export type CourseActionDependencies = {
   ) => Promise<void>;
   findCourseById: (
     courseId: number,
-  ) => Promise<{ id: number | string; isPublished: boolean } | undefined>;
+  ) => Promise<
+    | {
+        id: number | string;
+        isPublished: boolean;
+        slug: string;
+        thumbnailUrl: string | null;
+      }
+    | undefined
+  >;
+  updateCourseThumbnail: (
+    courseId: number,
+    thumbnailUrl: string,
+  ) => Promise<void>;
+  processThumbnailUpload: (file: File) => Promise<Uint8Array>;
+  storeThumbnail: (args: {
+    courseId: number;
+    content: Uint8Array;
+  }) => Promise<{ thumbnailUrl: string }>;
+  cleanupThumbnail: (thumbnailUrl: string) => Promise<void>;
   setCoursePublishState: (courseId: number, isPublished: boolean) => Promise<void>;
   deleteCourse: (courseId: number) => Promise<void>;
   revalidatePaths: (paths: string[]) => void;
@@ -216,6 +235,101 @@ export async function toggleCoursePublishStatusWithDependencies(
       error: "Failed to update course status.",
     };
   }
+}
+
+export async function uploadCourseThumbnailWithDependencies(
+  courseId: string,
+  formData: FormData,
+  dependencies: CourseActionDependencies,
+): Promise<ActionResponse<{ thumbnailUrl: string }>> {
+  const authorization = await requireAdminSession(dependencies.getSession);
+
+  if (!authorization.ok) {
+    return { success: false, error: authorization.error };
+  }
+
+  const parsedCourseId = parseCourseId(courseId);
+
+  if (parsedCourseId === null) {
+    return { success: false, error: "Invalid course id." };
+  }
+
+  const course = await dependencies.findCourseById(parsedCourseId);
+
+  if (!course) {
+    return { success: false, error: "Course not found." };
+  }
+
+  const thumbnailEntry = formData.get("thumbnail");
+  const file = thumbnailEntry instanceof File ? thumbnailEntry : null;
+  const validation = validateCourseThumbnailFile(file);
+
+  if (!validation.success) {
+    return { success: false, error: validation.error };
+  }
+
+  const validatedFile = validation.data;
+
+  let storedThumbnail: { thumbnailUrl: string } | null = null;
+
+  try {
+    const processedThumbnail = await dependencies.processThumbnailUpload(validatedFile);
+    storedThumbnail = await dependencies.storeThumbnail({
+      courseId: parsedCourseId,
+      content: processedThumbnail,
+    });
+  } catch (error) {
+    console.error("Failed to process course thumbnail", error);
+    return {
+      success: false,
+      error: "Failed to process thumbnail. Please try another image.",
+    };
+  }
+
+  try {
+    await dependencies.updateCourseThumbnail(
+      parsedCourseId,
+      storedThumbnail.thumbnailUrl,
+    );
+  } catch (error) {
+    console.error("Failed to persist course thumbnail", error);
+
+    try {
+      await dependencies.cleanupThumbnail(storedThumbnail.thumbnailUrl);
+    } catch (cleanupError) {
+      console.error("Failed to cleanup thumbnail after persistence error", cleanupError);
+    }
+
+    return {
+      success: false,
+      error: "Failed to update course thumbnail.",
+    };
+  }
+
+  if (
+    course.thumbnailUrl &&
+    course.thumbnailUrl !== storedThumbnail.thumbnailUrl
+  ) {
+    try {
+      await dependencies.cleanupThumbnail(course.thumbnailUrl);
+    } catch (error) {
+      console.error("Failed to cleanup previous course thumbnail", error);
+    }
+  }
+
+  dependencies.revalidatePaths([
+    "/admin/courses",
+    `/admin/courses/${parsedCourseId}`,
+    "/courses",
+    `/courses/${course.slug}`,
+  ]);
+
+  return {
+    success: true,
+    data: {
+      thumbnailUrl: storedThumbnail.thumbnailUrl,
+    },
+  };
 }
 
 export async function deleteCourseWithDependencies(
