@@ -76,7 +76,7 @@ export default async function CourseDetailPage({ params }: CourseDetailPageProps
   const outcomeItems = getCourseOutcomeItems(course);
 
   return (
-    <section className="bg-[#0F0F14] text-white">
+    <section>
       <div className="container mx-auto flex min-h-[calc(100vh-3.5rem)] flex-col gap-8 px-4 py-8 sm:py-10 lg:py-14">
         <Breadcrumb>
           <BreadcrumbList>

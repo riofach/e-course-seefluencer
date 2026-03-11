@@ -13,4 +13,8 @@ void test("lesson view skeleton mirrors the lesson layout using shadcn skeleton 
   assert.match(contents, /Skeleton/);
   assert.match(contents, /aspect-video/);
   assert.match(contents, /container mx-auto/);
+  assert.match(contents, /bg-\[#0F0F14\]/);
+  assert.match(contents, /border-\[#2A2A3C\]/);
+  assert.match(contents, /sticky bottom-0/);
+  assert.match(contents, /w-\[280px\]/);
 });

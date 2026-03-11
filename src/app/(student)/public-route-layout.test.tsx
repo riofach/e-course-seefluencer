@@ -4,6 +4,11 @@ import { cleanup, render, screen } from "@testing-library/react";
 import React from "react";
 import { afterEach, test, vi } from "vitest";
 
+vi.mock("next/font/google", () => ({
+  Inter: () => ({ variable: "font-inter-variable" }),
+  Playfair_Display: () => ({ variable: "font-playfair-variable" }),
+}));
+
 vi.mock("~/components/shared/public-navbar", () => ({
   PublicNavbar: () => <div data-testid="public-navbar">Shared Public Navbar</div>,
 }));

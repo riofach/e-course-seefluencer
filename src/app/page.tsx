@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Inter, Playfair_Display } from "next/font/google";
 
 import { HeroParallaxAccent } from "~/components/shared/hero-parallax-accent";
 import { LandingHero } from "~/components/shared/landing-hero";
@@ -17,23 +16,10 @@ export const metadata: Metadata = {
     "Discover curated online courses from trusted influencers with a polished learning experience built for modern creators.",
 };
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
-
-const playfairDisplay = Playfair_Display({
-  subsets: ["latin"],
-  weight: ["700", "900"],
-  variable: "--font-playfair-display",
-});
-
 export default async function Home() {
   return (
     <PublicNavbarShell>
-      <div
-        className={`${inter.variable} ${playfairDisplay.variable} min-h-screen bg-white font-[family-name:var(--font-inter)] tracking-[-0.02em] text-slate-900 dark:bg-[#0F0F14] dark:text-white`}
-      >
+      <div className="min-h-screen">
       <div id="main-content" className="mx-auto flex w-full max-w-7xl flex-col px-4 pt-2 sm:px-6 sm:pt-3 lg:px-8">
         <div className="relative isolate overflow-hidden rounded-[2rem]">
           <HeroParallaxAccent />

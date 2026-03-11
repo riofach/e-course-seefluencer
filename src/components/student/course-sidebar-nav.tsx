@@ -87,9 +87,9 @@ export function CourseSidebarNav({
   return (
     <nav
       aria-label="Course sidebar navigation"
-      className="bg-background flex h-full w-full flex-col border-r"
+      className="flex h-full w-full flex-col border-r border-[#2A2A3C] bg-[#1A1A24] text-slate-50"
     >
-      <div className="border-b px-4 py-4">
+      <div className="border-b border-[#2A2A3C] px-4 py-4">
         <div className="mb-2 flex items-center justify-between gap-3">
           <p className="text-sm font-semibold">Progress belajar</p>
           <span className="text-muted-foreground text-sm font-medium">
@@ -99,8 +99,8 @@ export function CourseSidebarNav({
         <div
           className={cn(
             "rounded-full transition-all duration-500",
-            glow &&
-              "ring-offset-background shadow-[0_0_15px_rgba(79,70,229,0.5)] ring-2 ring-indigo-500/50 ring-offset-1",
+              glow &&
+                "ring-offset-[#1A1A24] shadow-[0_0_15px_rgba(79,70,229,0.5)] ring-2 ring-indigo-500/50 ring-offset-1",
           )}
         >
           <Progress
@@ -118,7 +118,7 @@ export function CourseSidebarNav({
         >
           {chapters.map((chapter) => (
             <AccordionItem key={chapter.id} value={`chapter-${chapter.id}`}>
-              <AccordionTrigger className="rounded-lg px-2 text-sm hover:no-underline focus-visible:ring-[3px]">
+              <AccordionTrigger className="rounded-lg px-2 text-sm hover:bg-white/5 hover:no-underline focus-visible:ring-[3px] focus-visible:ring-indigo-500/50 focus-visible:outline-none">
                 <div className="space-y-1 text-left">
                   <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
                     Chapter {chapter.order}
@@ -151,11 +151,11 @@ export function CourseSidebarNav({
                             );
                           }}
                           className={cn(
-                            "focus-visible:ring-ring flex min-h-11 w-full items-center gap-3 rounded-xl border px-3 py-3 text-left transition-colors focus-visible:ring-[3px] focus-visible:outline-none",
-                            isActive
-                              ? "border-primary bg-primary/10 shadow-sm"
-                              : "hover:bg-accent/40 bg-background",
-                          )}
+                             "flex min-h-11 w-full items-center gap-3 rounded-xl border border-[#2A2A3C] px-3 py-3 text-left transition-colors focus-visible:ring-[3px] focus-visible:ring-indigo-500/50 focus-visible:outline-none",
+                             isActive
+                               ? "border-[#6366F1] bg-[#6366F1]/10 shadow-sm"
+                               : "bg-[#1A1A24] hover:bg-white/5",
+                           )}
                           aria-current={isActive ? "page" : undefined}
                         >
                           <LessonTypeIcon className="text-muted-foreground size-4 shrink-0" />

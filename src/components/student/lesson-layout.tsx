@@ -76,13 +76,13 @@ export function LessonLayout({
         [addOptimisticId],
       )}
     >
-      <section className="bg-background text-foreground min-h-[calc(100vh-3.5rem)]">
+      <section className="min-h-[calc(100vh-3.5rem)] bg-[#0F0F14] font-[family-name:var(--font-inter)] tracking-[-0.02em] text-slate-50">
         <div className="container mx-auto px-4 py-8 sm:py-10 lg:py-14">
           <div className="mb-4 lg:hidden">
             <Button
               type="button"
               variant="outline"
-              className="sticky top-20 z-20"
+              className="sticky top-20 z-20 min-h-11 border-[#2A2A3C] bg-[#1A1A24] text-slate-100 shadow-sm hover:bg-[#232332] hover:text-white focus-visible:border-indigo-500 focus-visible:ring-indigo-500/50"
               onClick={() => setIsSidebarOpen(true)}
               aria-label="Open sidebar"
             >
@@ -92,19 +92,22 @@ export function LessonLayout({
           </div>
 
           <div className="flex items-start gap-6">
-            <aside className="sticky top-20 hidden h-[calc(100vh-7rem)] w-[280px] shrink-0 overflow-hidden rounded-xl border lg:block">
+            <aside className="sticky top-20 hidden h-[calc(100vh-7rem)] w-[280px] shrink-0 overflow-hidden rounded-xl border border-[#2A2A3C] bg-[#1A1A24] shadow-sm lg:block">
               <CourseSidebarNav {...sidebarProps} />
             </aside>
 
-            <div className="min-w-0 flex-1">{children}</div>
+            <div className="min-w-0 flex-1 text-slate-50">{children}</div>
           </div>
         </div>
 
         <Sheet open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>
-          <SheetContent side="left" className="w-[280px] p-0 sm:max-w-[280px]">
-            <SheetHeader className="border-b px-4 py-4 text-left">
-              <SheetTitle>Course navigation</SheetTitle>
-              <SheetDescription>
+          <SheetContent
+            side="left"
+            className="w-[280px] border-r-[#2A2A3C] bg-[#1A1A24] p-0 text-slate-50 sm:max-w-[280px]"
+          >
+            <SheetHeader className="border-b border-[#2A2A3C] px-4 py-4 text-left">
+              <SheetTitle className="text-slate-50">Course navigation</SheetTitle>
+              <SheetDescription className="text-slate-400">
                 Pilih chapter dan lesson untuk lanjut belajar.
               </SheetDescription>
             </SheetHeader>

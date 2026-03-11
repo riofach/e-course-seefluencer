@@ -56,7 +56,7 @@ export function MarkCompleteButton({
       onClick={handleClick}
       disabled={isPending || isCompleted}
       className={cn(
-        "min-h-11 gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold shadow-sm transition-all duration-200",
+        "min-h-11 gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold shadow-sm transition-all duration-200 focus-visible:ring-indigo-500/50",
         !isCompleted &&
           "bg-indigo-600 text-white hover:bg-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-400",
         isCompleted &&

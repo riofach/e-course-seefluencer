@@ -131,15 +131,18 @@ export default async function LessonPage({ params }: LessonPageProps) {
     >
       <div className="space-y-6">
         <Breadcrumb>
-          <BreadcrumbList>
+          <BreadcrumbList className="text-slate-400">
             <BreadcrumbItem>
-              <BreadcrumbLink asChild>
+              <BreadcrumbLink asChild className="text-slate-400 hover:text-white">
                 <Link href="/courses">Courses</Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink asChild>
+              <BreadcrumbLink
+                asChild
+                className="text-slate-400 hover:text-white"
+              >
                 <Link href={`/courses/${lesson.course.slug}`}>
                   {lesson.course.title}
                 </Link>
@@ -147,28 +150,44 @@ export default async function LessonPage({ params }: LessonPageProps) {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>{lesson.chapter.title}</BreadcrumbPage>
+              <BreadcrumbPage className="text-slate-300">
+                {lesson.chapter.title}
+              </BreadcrumbPage>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>{lesson.title}</BreadcrumbPage>
+              <BreadcrumbPage className="text-slate-50">
+                {lesson.title}
+              </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
 
         <div className="space-y-4">
           <div className="flex flex-wrap items-center gap-3">
-            <Badge variant="outline">{toLessonTypeLabel(lesson.type)}</Badge>
-            <Badge variant={lesson.isFree ? "secondary" : "default"}>
+            <Badge
+              variant="outline"
+              className="border-[#2A2A3C] bg-[#1A1A24] text-slate-100"
+            >
+              {toLessonTypeLabel(lesson.type)}
+            </Badge>
+            <Badge
+              variant={lesson.isFree ? "secondary" : "default"}
+              className={
+                lesson.isFree
+                  ? "bg-slate-700 text-slate-100"
+                  : "bg-indigo-500 text-white"
+              }
+            >
               {lesson.isFree ? "Free" : "Premium"}
             </Badge>
           </div>
 
           <div className="space-y-2">
-            <p className="text-muted-foreground text-sm font-medium">
+            <p className="text-sm font-medium text-slate-400">
               Chapter {lesson.chapter.order} • Lesson {lesson.order}
             </p>
-            <h1 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+            <h1 className="text-balance text-3xl font-semibold tracking-tight text-slate-50 sm:text-4xl">
               {lesson.title}
             </h1>
           </div>
@@ -177,7 +196,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
         {showPaywallOverlay ? <PaywallTeaserOverlay /> : lessonContent}
 
         {!showPaywallOverlay && lesson.type !== "quiz" && (
-          <div className="bg-background/80 border-border sticky bottom-0 flex justify-end border-t py-4 backdrop-blur-sm">
+          <div className="sticky bottom-0 z-10 -mx-4 flex justify-end border-t border-[#2A2A3C] bg-[#0F0F14]/90 px-4 py-4 backdrop-blur-sm sm:-mx-6 sm:px-6 lg:mx-0 lg:px-0">
             <MarkCompleteButton
               lessonId={lesson.id}
               courseSlug={slug}

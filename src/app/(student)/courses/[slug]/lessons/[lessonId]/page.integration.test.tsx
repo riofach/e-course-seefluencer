@@ -121,8 +121,9 @@ test("lesson page keeps the mark complete CTA sticky and right aligned", () => {
   );
   const contents = readFileSync(filePath, "utf8");
 
-  assert.match(
-    contents,
-    /sticky bottom-0 flex justify-end border-t py-4 backdrop-blur-sm/,
-  );
+  assert.match(contents, /sticky bottom-0/);
+  assert.match(contents, /flex justify-end/);
+  assert.match(contents, /border-t border-\[#2A2A3C\]/);
+  assert.match(contents, /bg-\[#0F0F14\]\/90/);
+  assert.match(contents, /backdrop-blur-sm/);
 });

@@ -32,7 +32,7 @@ export function AutoNavCountdown({
 
   if (nextLesson === null) {
     return (
-      <Card>
+      <Card className="border-[#2A2A3C] bg-[#1A1A24] text-slate-50">
         <CardContent className="py-5">
           <p className="text-base font-semibold">You&apos;ve completed all lessons!</p>
           <p className="text-muted-foreground mt-1 text-sm">
@@ -44,7 +44,7 @@ export function AutoNavCountdown({
   }
 
   return (
-    <Card>
+    <Card className="border-[#2A2A3C] bg-[#1A1A24] text-slate-50">
       <CardContent className="space-y-4 py-5">
         <div className="space-y-1">
           <p className="text-sm font-medium">Up next: {nextLesson.title}</p>

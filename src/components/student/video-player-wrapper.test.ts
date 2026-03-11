@@ -41,4 +41,5 @@ void test("video player wrapper renders a lazy iframe inside an aspect-video con
   assert.match(contents, /allowFullScreen/);
   assert.match(contents, /aspect-video w-full/);
   assert.match(contents, /title=\{title\}/);
+  assert.match(contents, /border-\[#2A2A3C\]/);
 });

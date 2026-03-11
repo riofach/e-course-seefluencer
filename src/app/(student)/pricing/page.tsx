@@ -63,7 +63,7 @@ export default async function PricingPage({
   const safePlans = plans.length > 0 ? plans : fallbackPlans;
 
   return (
-    <div className="bg-[#0F0F14] font-[family-name:var(--font-inter)] tracking-[-0.02em] text-white">
+    <div>
       <section className="mx-auto flex w-full max-w-7xl flex-col gap-14 px-4 pb-16 pt-6 sm:px-6 sm:pb-20 sm:pt-8 lg:gap-18 lg:px-8 lg:pb-24">
         <div className="relative isolate overflow-hidden rounded-[32px] border border-white/10 bg-[linear-gradient(135deg,_#151520_0%,_#12121A_45%,_#102228_100%)] px-6 py-10 sm:px-10 sm:py-12 lg:px-12 lg:py-14">
           <div aria-hidden="true">

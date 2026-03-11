@@ -10,7 +10,7 @@ export function VideoPlayerWrapper({
   title,
 }: VideoPlayerWrapperProps) {
   return (
-    <div className="mx-auto w-full max-w-5xl overflow-hidden rounded-2xl border border-border/70 bg-card shadow-sm">
+    <div className="mx-auto w-full max-w-5xl overflow-hidden rounded-2xl border border-[#2A2A3C] bg-card shadow-sm">
       <div className="relative aspect-video w-full">
         <iframe
           src={normalizeYouTubeUrl(videoUrl)}

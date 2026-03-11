@@ -71,3 +71,16 @@ test("lesson navigation DB query selects isFree field", () => {
 
   assert.match(navContents, /isFree/);
 });
+
+test("course sidebar nav applies explicit learning-zone dark tokens for container and active lesson", () => {
+  const filePath = resolve(
+    process.cwd(),
+    "src/components/student/course-sidebar-nav.tsx",
+  );
+  const contents = readFileSync(filePath, "utf8");
+
+  assert.match(contents, /bg-\[#1A1A24\]/);
+  assert.match(contents, /border-\[#2A2A3C\]/);
+  assert.match(contents, /border-\[#6366F1\] bg-\[#6366F1\]\/10/);
+  assert.match(contents, /ring-indigo-500\/50/);
+});
