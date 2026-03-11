@@ -89,35 +89,37 @@ export function RegisterForm() {
   });
 
   return (
-    <Card className="shadow-md">
+    <Card className="rounded-2xl border border-slate-200 bg-white shadow-xl dark:border-[#2A2A3C] dark:bg-[#1A1A24] dark:shadow-black/40">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-bold">Create an account</CardTitle>
-        <CardDescription>
+        <CardTitle className="text-2xl text-slate-900 dark:text-white">Create an account</CardTitle>
+        <CardDescription className="text-slate-500 dark:text-slate-400">
           Enter your details below to create your account
         </CardDescription>
       </CardHeader>
       <CardContent>
         {/* Server-level error alert — also shown inline for UX (AC #4) */}
         {serverState && !serverState.success && (
-          <div
-            role="alert"
-            className="mb-4 rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
-          >
-            {serverState.error}
-          </div>
+            <div
+              role="alert"
+              className="mb-4 rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-900/50 dark:bg-red-950/20 dark:text-red-400"
+            >
+              {serverState.error}
+            </div>
         )}
 
         <form action={formAction} onSubmit={handleSubmit} noValidate>
           <div className="space-y-4">
             {/* Name field (AC #1) */}
             <div className="space-y-1">
-              <Label htmlFor="name">Full Name</Label>
+              <Label htmlFor="name" className="text-slate-700 dark:text-slate-300">
+                Full Name
+              </Label>
               <Input
                 id="name"
                 type="text"
                 placeholder="John Doe"
                 className={cn(
-                  "h-11",
+                  "h-11 border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 dark:border-white/10 dark:bg-[#0F0F14] dark:text-white dark:placeholder:text-slate-500",
                   form.formState.errors.name &&
                     "border-red-500 focus-visible:ring-red-500",
                 )}
@@ -132,13 +134,15 @@ export function RegisterForm() {
 
             {/* Email field (AC #1, #4) */}
             <div className="space-y-1">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email" className="text-slate-700 dark:text-slate-300">
+                Email
+              </Label>
               <Input
                 id="email"
                 type="email"
                 placeholder="you@example.com"
                 className={cn(
-                  "h-11",
+                  "h-11 border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 dark:border-white/10 dark:bg-[#0F0F14] dark:text-white dark:placeholder:text-slate-500",
                   form.formState.errors.email &&
                     "border-red-500 focus-visible:ring-red-500",
                 )}
@@ -153,13 +157,15 @@ export function RegisterForm() {
 
             {/* Password field (AC #1, #5) */}
             <div className="space-y-1">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password" className="text-slate-700 dark:text-slate-300">
+                Password
+              </Label>
               <Input
                 id="password"
                 type="password"
                 placeholder="Min. 8 characters"
                 className={cn(
-                  "h-11",
+                  "h-11 border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 dark:border-white/10 dark:bg-[#0F0F14] dark:text-white dark:placeholder:text-slate-500",
                   form.formState.errors.password &&
                     "border-red-500 focus-visible:ring-red-500",
                 )}
@@ -178,11 +184,11 @@ export function RegisterForm() {
         </form>
 
         {/* Link to login (AC #1 / UX spec) */}
-        <p className="text-muted-foreground mt-4 text-center text-sm">
+        <p className="mt-4 text-center text-sm text-slate-600 dark:text-slate-400">
           Already have an account?{" "}
           <Link
             href="/login"
-            className="font-medium text-indigo-600 hover:text-indigo-700 hover:underline"
+            className="font-medium text-indigo-600 hover:underline dark:text-indigo-400"
           >
             Sign in
           </Link>

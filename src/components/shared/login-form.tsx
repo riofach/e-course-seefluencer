@@ -64,23 +64,25 @@ export function LoginForm() {
   };
 
   return (
-    <Card className="mx-auto w-full max-w-sm">
+    <Card className="mx-auto w-full max-w-sm rounded-2xl border border-slate-200 bg-white shadow-xl dark:border-[#2A2A3C] dark:bg-[#1A1A24] dark:shadow-black/40">
       <CardHeader>
-        <CardTitle className="text-2xl">Sign In</CardTitle>
-        <CardDescription>
+        <CardTitle className="text-2xl text-slate-900 dark:text-white">Sign In</CardTitle>
+        <CardDescription className="text-slate-500 dark:text-slate-400">
           Enter your email and password to access your account.
         </CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="login-email">Email</Label>
+            <Label htmlFor="login-email" className="text-slate-700 dark:text-slate-300">
+              Email
+            </Label>
             <Input
               id="login-email"
               type="email"
               placeholder="m@example.com"
               className={cn(
-                "h-11",
+                "h-11 border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 dark:border-white/10 dark:bg-[#0F0F14] dark:text-white dark:placeholder:text-slate-500",
                 form.formState.errors.email && "border-red-500",
               )}
               {...form.register("email")}
@@ -93,13 +95,15 @@ export function LoginForm() {
           </div>
           <div className="space-y-2">
             <div className="flex items-center">
-              <Label htmlFor="login-password">Password</Label>
+              <Label htmlFor="login-password" className="text-slate-700 dark:text-slate-300">
+                Password
+              </Label>
             </div>
             <Input
               id="login-password"
               type="password"
               className={cn(
-                "h-11",
+                "h-11 border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 dark:border-white/10 dark:bg-[#0F0F14] dark:text-white dark:placeholder:text-slate-500",
                 form.formState.errors.password && "border-red-500",
               )}
               {...form.register("password")}
@@ -125,9 +129,12 @@ export function LoginForm() {
             {isPending ? "Signing in..." : "Sign In"}
           </Button>
         </form>
-        <div className="mt-4 text-center text-sm">
+        <div className="mt-4 text-center text-sm text-slate-600 dark:text-slate-400">
           Don&apos;t have an account?{" "}
-          <Link href="/register" className="underline underline-offset-4">
+          <Link
+            href="/register"
+            className="text-indigo-600 underline-offset-4 hover:underline dark:text-indigo-400"
+          >
             Sign up
           </Link>
         </div>

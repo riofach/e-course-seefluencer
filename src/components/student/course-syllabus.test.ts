@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import test from "node:test";
+import { test } from "vitest";
 
 void test("course syllabus links each lesson row to the lesson viewer route", () => {
   const filePath = resolve(

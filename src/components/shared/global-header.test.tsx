@@ -53,6 +53,28 @@ test("hides global header on public courses and pricing routes", () => {
   assert.equal(container.innerHTML, "");
 });
 
+test("hides global header on auth entry routes", () => {
+  usePathnameMock.mockReturnValue("/login");
+
+  const { rerender, container } = render(
+    <GlobalHeader>
+      <div>Header actions</div>
+    </GlobalHeader>,
+  );
+
+  assert.equal(container.innerHTML, "");
+
+  usePathnameMock.mockReturnValue("/register");
+
+  rerender(
+    <GlobalHeader>
+      <div>Header actions</div>
+    </GlobalHeader>,
+  );
+
+  assert.equal(container.innerHTML, "");
+});
+
 test("hides global header on admin routes", () => {
   usePathnameMock.mockReturnValue("/admin/courses");
 
@@ -82,6 +104,8 @@ test("public navbar route helper matches the intended public route set", () => {
   assert.equal(shouldUsePublicNavbar("/courses"), true);
   assert.equal(shouldUsePublicNavbar("/courses/design-basics"), true);
   assert.equal(shouldUsePublicNavbar("/pricing"), true);
+  assert.equal(shouldUsePublicNavbar("/login"), true);
+  assert.equal(shouldUsePublicNavbar("/register"), true);
   assert.equal(shouldUsePublicNavbar("/profile"), false);
   assert.equal(shouldUsePublicNavbar("/admin/courses"), false);
 });

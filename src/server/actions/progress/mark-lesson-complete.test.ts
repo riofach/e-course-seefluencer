@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import test from "node:test";
+import { test } from "vitest";
 
 import { markLessonCompleteWithDependencies } from "./mark-lesson-complete.shared.ts";
 

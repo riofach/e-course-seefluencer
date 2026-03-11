@@ -15,9 +15,5 @@ export default async function RegisterPage() {
     redirect("/courses");
   }
 
-  return (
-    <div>
-      <RegisterForm />
-    </div>
-  );
+  return <RegisterForm />;
 }

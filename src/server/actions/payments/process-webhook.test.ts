@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import test from "node:test";
+import { test } from "vitest";
 
 import type { ProcessWebhookPayload } from "./process-webhook.shared.ts";
 import { processMidtransWebhookWithDependencies } from "./process-webhook.shared.ts";
