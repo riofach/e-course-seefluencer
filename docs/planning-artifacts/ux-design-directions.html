@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>UX Design Directions - hiring-seefluencer</title>
+		<!-- Tailwind CSS for quick visualization -->
+		<script src="https://cdn.tailwindcss.com"></script>
+		<!-- Google Fonts -->
+		<link
+			href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:wght@100..900&display=swap"
+			rel="stylesheet"
+		/>
+		<script>
+			tailwind.config = {
+				darkMode: 'class',
+				theme: {
+					extend: {
+						fontFamily: {
+							sans: ['Inter', 'sans-serif'],
+							display: ['Fraunces', 'serif'],
+						},
+						colors: {
+							coral: '#FF6B6B',
+							purple: '#9B59B6',
+							teal: '#1ABC9C',
+							indigo: {
+								500: '#6366F1',
+								600: '#4F46E5',
+							},
+							bgDark: '#0F0F14',
+							cardDark: '#1A1A24',
+						},
+					},
+				},
+			};
+		</script>
+		<style>
+			.hero-gradient {
+				background: linear-gradient(135deg, #ff6b6b 0%, #9b59b6 50%, #1abc9c 100%);
+			}
+			body {
+				font-family: 'Inter', sans-serif;
+				letter-spacing: -0.01em;
+			}
+			.font-display {
+				font-family: 'Fraunces', serif;
+				letter-spacing: normal;
+			}
+			.blob-mask {
+				clip-path: polygon(10% 0, 100% 12%, 89% 100%, 0 88%);
+			}
+		</style>
+	</head>
+	<body class="bg-gray-50 text-gray-900 min-h-screen p-8">
+		<div class="max-w-6xl mx-auto">
+			<header class="mb-12 text-center">
+				<h1 class="text-3xl font-bold mb-4">hiring-seefluencer Design Directions</h1>
+				<p class="text-gray-600">Visual mapping of the "Expressive SaaS" hybrid theme</p>
+			</header>
+
+			<!-- Direction 1: The Hybrid Duality -->
+			<div class="mb-16">
+				<h2 class="text-xl font-semibold mb-6 border-b pb-2">
+					Direction 1: The Hybrid Duality (Recommended)
+				</h2>
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+					<!-- Landing Mockup -->
+					<div class="border border-gray-200 rounded-xl overflow-hidden shadow-sm bg-white">
+						<div
+							class="bg-gray-100 px-4 py-2 border-b flex items-center gap-2 text-xs text-gray-500 font-mono"
+						>
+							<div class="flex gap-1.5">
+								<div class="w-3 h-3 rounded-full bg-red-400"></div>
+								<div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+								<div class="w-3 h-3 rounded-full bg-green-400"></div>
+							</div>
+							Landing Zone (Creative Agency)
+						</div>
+						<div class="p-8 relative overflow-hidden">
+							<!-- Abstract Blob -->
+							<div
+								class="absolute -top-24 -right-24 w-64 h-64 hero-gradient opacity-20 blur-3xl rounded-full"
+							></div>
+
+							<nav class="flex justify-between items-center mb-16 relative z-10">
+								<div class="font-bold text-lg tracking-tighter">seefluencer.</div>
+								<div class="flex gap-4">
+									<button class="text-sm font-medium">Log in</button>
+									<button class="text-sm font-medium bg-gray-900 text-white px-4 py-2 rounded-full">
+										Sign up
+									</button>
+								</div>
+							</nav>
+
+							<div class="max-w-md relative z-10">
+								<h2 class="font-display font-medium text-4xl leading-tight mb-4">
+									Master your craft with
+									<span class="bg-clip-text text-transparent hero-gradient">expert courses</span>.
+								</h2>
+								<p class="text-gray-600 mb-8 max-w-sm">
+									Elevate your skills today. Join thousands of creators learning from the best in
+									the industry.
+								</p>
+								<button
+									class="hero-gradient text-white font-medium px-6 py-3 rounded-full shadow-lg shadow-purple-200 hover:opacity-90 transition-opacity"
+								>
+									Start Learning Free
+								</button>
+							</div>
+
+							<!-- Floating Card -->
+							<div
+								class="absolute bottom-8 right-8 bg-white/80 backdrop-blur-md border border-gray-100 p-4 rounded-2xl shadow-xl w-48 rotate-[-2deg]"
+							>
+								<div class="flex items-center gap-3 mb-2">
+									<div class="w-8 h-8 rounded-full hero-gradient"></div>
+									<div>
+										<div class="w-16 h-2 bg-gray-200 rounded-full mb-1"></div>
+										<div class="w-10 h-2 bg-gray-100 rounded-full"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- App Mockup -->
+					<div class="border border-gray-200 rounded-xl overflow-hidden shadow-sm bg-white">
+						<div
+							class="bg-gray-100 px-4 py-2 border-b flex items-center gap-2 text-xs text-gray-500 font-mono"
+						>
+							<div class="flex gap-1.5">
+								<div class="w-3 h-3 rounded-full bg-red-400"></div>
+								<div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+								<div class="w-3 h-3 rounded-full bg-green-400"></div>
+							</div>
+							App Zone (SaaS Productivity)
+						</div>
+						<div class="flex h-[400px]">
+							<!-- Sidebar -->
+							<div class="w-48 border-r border-gray-200 p-4 bg-gray-50 flex flex-col">
+								<div class="text-xs uppercase font-semibold text-gray-500 tracking-wider mb-4">
+									Course Progress
+								</div>
+								<div class="w-full bg-gray-200 rounded-full h-1.5 mb-6">
+									<div class="bg-indigo-500 h-1.5 rounded-full" style="width: 45%"></div>
+								</div>
+
+								<div class="space-y-4">
+									<div>
+										<div class="text-xs font-bold mb-2">1. Introduction</div>
+										<div class="space-y-1">
+											<div
+												class="text-[11px] flex items-center text-indigo-600 font-medium bg-indigo-50 px-2 py-1 rounded-md"
+											>
+												<span class="mr-1">▶</span> Getting Started
+											</div>
+											<div class="text-[11px] flex items-center text-gray-500 px-2 py-1">
+												<span class="mr-1">📄</span> Requirements
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Content -->
+							<div class="flex-1 p-6 bg-white">
+								<div class="flex items-center gap-2 text-xs text-gray-500 mb-4">
+									<span>Courses</span> <span>/</span> <span>React Mastery</span> <span>/</span>
+									<span class="text-gray-900 font-medium">Getting Started</span>
+								</div>
+								<!-- Video Placeholder -->
+								<div
+									class="w-full bg-gray-900 rounded-lg aspect-video flex items-center justify-center mb-6 relative overflow-hidden group"
+								>
+									<div
+										class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform cursor-pointer"
+									>
+										<div
+											class="w-0 h-0 border-t-8 border-t-transparent border-l-[12px] border-l-white border-b-8 border-b-transparent ml-1"
+										></div>
+									</div>
+								</div>
+								<div class="flex justify-between items-center border-t border-gray-100 pt-4">
+									<div>
+										<div class="text-sm font-semibold">1.1 Getting Started</div>
+										<div class="text-xs text-gray-500">12:45 • Video</div>
+									</div>
+									<button
+										class="bg-indigo-50 text-indigo-600 hover:bg-indigo-100 border border-indigo-100 px-4 py-2 rounded-md text-xs font-medium transition-colors flex items-center gap-2"
+									>
+										<div class="w-3 h-3 rounded-full border border-indigo-300"></div>
+										Mark Complete
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Direction 2: Dark Mode Learning -->
+			<div class="mb-16">
+				<h2 class="text-xl font-semibold mb-6 border-b pb-2">Direction 2: Global Dark Mode</h2>
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+					<!-- Dark Mode Catalog -->
+					<div
+						class="border border-gray-800 rounded-xl overflow-hidden shadow-sm bg-bgDark text-white"
+					>
+						<div
+							class="bg-[#15151A] px-4 py-2 border-b border-gray-800 flex items-center gap-2 text-xs text-gray-500 font-mono"
+						>
+							<div class="flex gap-1.5">
+								<div class="w-3 h-3 rounded-full bg-red-400/50"></div>
+								<div class="w-3 h-3 rounded-full bg-yellow-400/50"></div>
+								<div class="w-3 h-3 rounded-full bg-green-400/50"></div>
+							</div>
+							Course Catalog (Dark)
+						</div>
+						<div class="p-6 h-[400px]">
+							<div class="flex justify-between items-center mb-6">
+								<h3 class="font-semibold text-lg">Browse Courses</h3>
+								<div class="relative">
+									<input
+										type="text"
+										placeholder="Search..."
+										class="bg-cardDark border border-gray-700/50 rounded-md px-3 py-1.5 text-xs w-48 focus:outline-none focus:border-indigo-500"
+									/>
+								</div>
+							</div>
+
+							<div class="grid grid-cols-2 gap-4">
+								<!-- Course Card -->
+								<div
+									class="bg-cardDark border border-gray-800 rounded-lg p-3 hover:border-gray-700 transition-colors"
+								>
+									<div class="h-24 bg-gray-800 rounded-md mb-3 relative overflow-hidden group">
+										<div
+											class="absolute inset-0 bg-gradient-to-tr from-purple-500/20 to-transparent"
+										></div>
+										<div
+											class="absolute top-2 right-2 bg-white/10 backdrop-blur-md border border-white/10 text-[10px] px-2 py-0.5 rounded-full"
+										>
+											Premium
+										</div>
+									</div>
+									<h4 class="text-sm font-medium mb-1">Advanced State Management</h4>
+									<p class="text-[11px] text-gray-400 mb-3">Master complex UI state patterns.</p>
+									<div class="w-full bg-gray-800 rounded-full h-1 mb-1">
+										<div class="bg-indigo-500 h-1 rounded-full" style="width: 25%"></div>
+									</div>
+									<div class="text-[10px] text-gray-500 text-right">25% Complete</div>
+								</div>
+
+								<!-- Course Card -->
+								<div
+									class="bg-cardDark border border-gray-800 rounded-lg p-3 hover:border-gray-700 transition-colors"
+								>
+									<div class="h-24 bg-gray-800 rounded-md mb-3 relative overflow-hidden group">
+										<div
+											class="absolute inset-0 bg-gradient-to-tr from-teal-500/20 to-transparent"
+										></div>
+										<div
+											class="absolute top-2 right-2 bg-teal-500/20 text-teal-400 border border-teal-500/20 text-[10px] px-2 py-0.5 rounded-full"
+										>
+											Free
+										</div>
+									</div>
+									<h4 class="text-sm font-medium mb-1">Next.js App Router 101</h4>
+									<p class="text-[11px] text-gray-400 mb-3">The basics of server components.</p>
+									<button
+										class="w-full bg-indigo-600 hover:bg-indigo-500 text-white text-[11px] py-1.5 rounded-md font-medium transition-colors"
+									>
+										Start Course
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Admin Dark Mode -->
+					<div class="border border-gray-200 rounded-xl overflow-hidden shadow-sm bg-white">
+						<div
+							class="bg-gray-100 px-4 py-2 border-b flex items-center gap-2 text-xs text-gray-500 font-mono"
+						>
+							<div class="flex gap-1.5">
+								<div class="w-3 h-3 rounded-full bg-red-400"></div>
+								<div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+								<div class="w-3 h-3 rounded-full bg-green-400"></div>
+							</div>
+							Admin CMS (Always Light/Utility)
+						</div>
+						<div class="flex h-[400px]">
+							<!-- Sidebar -->
+							<div class="w-40 border-r border-gray-200 bg-gray-50 p-4">
+								<div class="text-xs font-bold text-gray-900 mb-6">Admin Panel</div>
+								<div class="space-y-1">
+									<div
+										class="text-[11px] bg-white border border-gray-200 shadow-sm rounded flex items-center px-2 py-1.5 font-medium"
+									>
+										Dashboard
+									</div>
+									<div
+										class="text-[11px] text-gray-500 hover:bg-gray-100 rounded flex items-center px-2 py-1.5"
+									>
+										Courses
+									</div>
+									<div
+										class="text-[11px] text-gray-500 hover:bg-gray-100 rounded flex items-center px-2 py-1.5"
+									>
+										Users
+									</div>
+								</div>
+							</div>
+							<!-- Content -->
+							<div class="flex-1 p-6">
+								<h3 class="text-lg font-semibold mb-4">Create Lesson</h3>
+
+								<div class="space-y-4 max-w-sm">
+									<div>
+										<label
+											class="block text-[10px] font-semibold text-gray-600 uppercase tracking-wider mb-1"
+											>Title</label
+										>
+										<input
+											type="text"
+											value="Introduction to React"
+											class="w-full border border-gray-200 rounded-md px-3 py-1.5 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"
+										/>
+									</div>
+									<div class="grid grid-cols-2 gap-3">
+										<div>
+											<label
+												class="block text-[10px] font-semibold text-gray-600 uppercase tracking-wider mb-1"
+												>Type</label
+											>
+											<select
+												class="w-full border border-gray-200 rounded-md px-3 py-1.5 text-sm bg-white outline-none"
+											>
+												<option>Video Content</option>
+												<option>Quiz</option>
+											</select>
+										</div>
+										<div>
+											<label
+												class="block text-[10px] font-semibold text-gray-600 uppercase tracking-wider mb-1"
+												>Access</label
+											>
+											<select
+												class="w-full border border-gray-200 rounded-md px-3 py-1.5 text-sm bg-white outline-none"
+											>
+												<option>Premium</option>
+												<option>Free Preview</option>
+											</select>
+										</div>
+									</div>
+									<div>
+										<label
+											class="block text-[10px] font-semibold text-gray-600 uppercase tracking-wider mb-1"
+											>Video URL (YouTube)</label
+										>
+										<input
+											type="text"
+											placeholder="https://youtube.com/..."
+											class="w-full border border-gray-200 rounded-md px-3 py-1.5 text-sm focus:border-indigo-500 outline-none"
+										/>
+									</div>
+									<div class="pt-2">
+										<button
+											class="bg-gray-900 text-white text-xs px-4 py-2 rounded-md font-medium hover:bg-gray-800 transition-colors"
+										>
+											Save Draft
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

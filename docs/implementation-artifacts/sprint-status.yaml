@@ -1,0 +1,122 @@
+# generated: 2026-03-06
+# project: hiring-seefluencer
+# project_key: NOKEY
+# tracking_system: file-system
+# story_location: _bmad-output/implementation-artifacts
+
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic not yet started
+#   - in-progress: Epic actively being worked on
+#   - done: All stories in epic completed
+#
+# Epic Status Transitions:
+#   - backlog → in-progress: Automatically when first story is created (via create-story)
+#   - in-progress → done: Manually when all stories reach 'done' status
+#
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - ready-for-dev: Story file created in stories folder
+#   - in-progress: Developer actively working on implementation
+#   - review: Ready for code review (via Dev's code-review workflow)
+#   - done: Story completed
+#
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - done: Retrospective has been completed
+#
+# WORKFLOW NOTES:
+# ===============
+# - Epic transitions to 'in-progress' automatically when first story is created
+# - Stories can be worked in parallel if team capacity allows
+# - SM typically creates next story after previous one is 'done' to incorporate learnings
+# - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
+
+generated: '2026-03-06'
+project: hiring-seefluencer
+project_key: NOKEY
+tracking_system: file-system
+story_location: _bmad-output/implementation-artifacts
+
+development_status:
+  # ─────────────────────────────────────────────
+  # Epic 1: User Authentication & Identity
+  # ─────────────────────────────────────────────
+  epic-1: done
+  1-1-project-setup-and-starter-template-initialization: done
+  1-2-user-registration: done
+  1-3-user-login-and-session-management: done
+  1-4-user-logout: done
+  1-5-profile-management: done
+  epic-1-retrospective: done
+
+  # ─────────────────────────────────────────────
+  # Epic 2: Course Catalog & Discovery
+  # ─────────────────────────────────────────────
+  epic-2: done
+  2-1-course-listing-validation: done
+  2-2-course-search-and-discovery: done
+  2-3-course-detail-and-syllabus-view: done
+  epic-2-retrospective: done
+
+  # ─────────────────────────────────────────────
+  # Epic 3: Learning Experience & Progress Tracking
+  # ─────────────────────────────────────────────
+  epic-3: done
+  3-1-multimedia-lesson-viewer: done
+  3-2-course-sidebar-and-auto-navigation: done
+  3-3-progress-tracking-mark-as-complete: done
+  3-4-interactive-quiz-execution: done
+  3-5-instant-quiz-grading: done
+  epic-3-retrospective: optional
+
+  # ─────────────────────────────────────────────
+  # Epic 4: Subscription & Access Control (Paywall)
+  # ─────────────────────────────────────────────
+  epic-4: done
+  4-1-premium-paywall-teaser: done
+  4-2-pricing-and-subscription-selection: done
+  4-3-midtrans-checkout-integration: done
+  4-4-webhook-settlement-processing: done
+  epic-4-retrospective: optional
+
+  # ─────────────────────────────────────────────
+  # Epic 5: Admin Content Management (Back-Office CMS)
+  # ─────────────────────────────────────────────
+  epic-5: done
+  5-1-admin-dashboard-and-analytics: done
+  5-2-course-management-crud: done
+  5-3-chapter-management: done
+  5-4-lesson-content-management: done
+  5-5-quiz-builder: done
+  epic-5-retrospective: optional
+
+  # ─────────────────────────────────────────────
+  # Epic 6: Public Landing Experience & Conversion
+  # ─────────────────────────────────────────────
+  epic-6: done
+  6-1-public-landing-page-shell-and-navbar: done
+  6-2-hero-section-and-primary-conversion-cta: done
+  6-3-marketing-sections-for-discovery-and-trust: done
+  6-4-smooth-navigation-and-motion-polish: done
+  6-5-landing-page-responsive-and-accessible-experience: done
+  epic-6-retrospective: optional
+
+  # ─────────────────────────────────────────────
+  # Epic 7: Public Zone Visual Alignment
+  # ─────────────────────────────────────────────
+  epic-7: done
+  7-1-courses-public-catalog-premium-surface: done
+  7-2-courses-slug-persuasive-course-landing-page: done
+  7-3-pricing-public-marketing-surface-redesign: done
+  7-4-shared-public-zone-layout-consistency: done
+  7-5-login-and-register-public-zone-alignment: done
+  epic-7-retrospective: optional
+
+  # ─────────────────────────────────────────────
+  # Epic 8: Learning Zone UX Polish
+  # ─────────────────────────────────────────────
+  epic-8: done
+  8-1-lesson-viewer-visual-and-interaction-polish: done
+  epic-8-retrospective: optional
