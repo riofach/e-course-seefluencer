@@ -1,4 +1,19 @@
+<div align="center">
+
 # Seefluencer E-Course Platform
+
+**A polished full-stack EdTech MVP built for a Full Stack Engineer hiring challenge**
+
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js&logoColor=white)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Strict-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Drizzle ORM](https://img.shields.io/badge/Drizzle_ORM-PostgreSQL-C5F74F?logo=drizzle&logoColor=black)](https://orm.drizzle.team/)
+[![NextAuth.js](https://img.shields.io/badge/Auth-NextAuth.js-4B2E83)](https://next-auth.js.org/)
+[![Vitest](https://img.shields.io/badge/Tested_with-Vitest-6E9F18?logo=vitest&logoColor=white)](https://vitest.dev/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+
+</div>
 
 Seefluencer adalah platform e-course berbasis web yang dibangun sebagai MVP EdTech full-stack untuk hiring challenge Full Stack Engineer. Aplikasi ini mencakup alur end-to-end untuk public discovery, autentikasi, katalog course, lesson viewer, quiz, progress tracking, admin CMS, pricing, dan integrasi Midtrans Sandbox untuk simulasi subscription premium.
 
@@ -20,6 +35,16 @@ Project ini dirancang dengan fokus pada dua hal utama:
 - Subscription flow dengan **Midtrans Sandbox** + webhook settlement handling
 - Dark mode dan UI polish untuk public zone dan learning zone
 - Temporary local thumbnail upload pipeline dengan WebP optimization + fallback placeholder
+
+---
+
+## Quick Links
+
+- [Documentation](./docs/)
+- [Planning Artifacts](./docs/planning-artifacts/)
+- [Implementation Artifacts](./docs/implementation-artifacts/)
+- [Scripts & Seeders](./scripts/)
+- [License](./LICENSE)
 
 ---
 
@@ -64,11 +89,13 @@ Secara fungsional, project ini mencakup domain utama berikut:
 ## Tech Stack
 
 ### Core Framework
+
 - **Next.js 15** (App Router)
 - **React 19**
 - **TypeScript** (`strict` mode)
 
 ### Styling & UI
+
 - **Tailwind CSS**
 - **shadcn/ui**-style component architecture
 - **Radix UI** primitives
@@ -76,29 +103,35 @@ Secara fungsional, project ini mencakup domain utama berikut:
 - **Lucide React** for icons
 
 ### Forms & Validation
+
 - **react-hook-form**
 - **Zod**
 - **@hookform/resolvers**
 
 ### Authentication
+
 - **NextAuth.js v4**
 - **@auth/drizzle-adapter**
 
 ### Database & ORM
+
 - **PostgreSQL**
 - **Drizzle ORM**
 - **drizzle-kit**
 - **postgres** driver
 
 ### Data Fetching / App Patterns
+
 - **React Server Components**
 - **Server Actions** as the main mutation pattern
 - **TanStack Query** (installed in the stack)
 
 ### Payments
+
 - **Midtrans Sandbox**
 
 ### Testing & Quality
+
 - **Vitest**
 - **Testing Library**
 - **ESLint**
@@ -130,20 +163,14 @@ project-e-course/
 
 ## Documentation
 
-Project documentation is available inside:
-
-```text
-project-e-course/docs/
-```
+Project documentation is available in [`docs`](./docs/).
 
 ### Planning Artifacts
-Located in:
 
-```text
-project-e-course/docs/planning-artifacts/
-```
+Located in [`planning-artifacts`](./docs/planning-artifacts/).
 
 Contains, among others:
+
 - `prd.md`
 - `architecture.md`
 - `epics.md`
@@ -151,18 +178,17 @@ Contains, among others:
 - implementation readiness and change proposal documents
 
 ### Implementation Artifacts
-Located in:
 
-```text
-project-e-course/docs/implementation-artifacts/
-```
+Located in [`implementation-artifacts`](./docs/implementation-artifacts/).
 
 Contains:
+
 - per-story implementation records
 - sprint status tracking
 - epic retrospectives
 
 These documents are useful for reviewers who want to inspect:
+
 - product direction
 - architecture decisions
 - implementation scope by story
@@ -173,12 +199,14 @@ These documents are useful for reviewers who want to inspect:
 ## Scripts
 
 ### App Lifecycle
+
 - `npm run dev` — start development server with Turbopack
 - `npm run build` — build production bundle
 - `npm run start` — run production server
 - `npm run preview` — build and start in one step
 
 ### Code Quality
+
 - `npm run lint` — run Next.js ESLint checks
 - `npm run lint:fix` — auto-fix lint issues where possible
 - `npm run typecheck` — run TypeScript type checking
@@ -187,6 +215,7 @@ These documents are useful for reviewers who want to inspect:
 - `npm exec vitest run` — run the Vitest test suite
 
 ### Database
+
 - `npm run db:generate` — generate Drizzle migration files
 - `npm run db:migrate` — run Drizzle migrations
 - `npm run db:push` — push schema changes directly to the database
@@ -195,13 +224,11 @@ These documents are useful for reviewers who want to inspect:
 - `npm run db:seed:story-2-3` — run additional story-specific seed flow
 
 ### Seeder / Utility Files
-Located in:
 
-```text
-project-e-course/scripts/
-```
+Located in [`scripts`](./scripts/).
 
 Current scripts include:
+
 - `run-db-seed.mjs`
 - `run-seed-story-2-3.mjs`
 - `seed-story-2-3.sql`
@@ -228,6 +255,7 @@ NEXT_PUBLIC_MIDTRANS_CLIENT_KEY=""
 ```
 
 ### Notes
+
 - `DATABASE_URL` must point to a PostgreSQL database
 - `NEXTAUTH_SECRET` is required for secure auth sessions
 - `NEXTAUTH_URL` should match your local or deployed app URL
@@ -340,8 +368,8 @@ This area is intentionally designed to be replaceable with **Supabase Storage** 
 This repository was prepared to be review-friendly for a hiring / technical evaluation context. In particular:
 
 - core user journeys are implemented end-to-end
-- architecture and planning docs are included in `docs/`
-- database seed scripts are included in `scripts/`
+- architecture and planning docs are included in [`./docs/`](./docs/)
+- database seed scripts are included in [`./scripts/`](./scripts/)
 - the app is structured around scalable boundaries (`app`, `components`, `lib`, `server`)
 
 ---
