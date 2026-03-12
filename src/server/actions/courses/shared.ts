@@ -5,6 +5,10 @@ import {
   validateCourseThumbnailFile,
 } from "../../../lib/validations/course.ts";
 import type { ActionResponse } from "../../../types/index.ts";
+import {
+  generateUniquePublishedCourseSlug,
+  isDraftCourseSlug,
+} from "./slug.ts";
 
 export type AdminSession = {
   user?: {
@@ -38,12 +42,14 @@ export type CourseActionDependencies = {
   ) => Promise<
     | {
         id: number | string;
+        title: string;
         isPublished: boolean;
         slug: string;
         thumbnailUrl: string | null;
       }
     | undefined
   >;
+  isCourseSlugTaken: (slug: string, excludeCourseId: number) => Promise<boolean>;
   updateCourseThumbnail: (
     courseId: number,
     thumbnailUrl: string,
@@ -54,10 +60,33 @@ export type CourseActionDependencies = {
     content: Uint8Array;
   }) => Promise<{ thumbnailUrl: string }>;
   cleanupThumbnail: (thumbnailUrl: string) => Promise<void>;
-  setCoursePublishState: (courseId: number, isPublished: boolean) => Promise<void>;
+  setCoursePublishState: (
+    courseId: number,
+    isPublished: boolean,
+    slug?: string,
+  ) => Promise<void>;
   deleteCourse: (courseId: number) => Promise<void>;
   revalidatePaths: (paths: string[]) => void;
 };
+
+async function resolvePublishSlug(args: {
+  course: {
+    id: number | string;
+    title: string;
+    slug: string;
+  };
+  dependencies: Pick<CourseActionDependencies, "isCourseSlugTaken">;
+}): Promise<string | undefined> {
+  if (!isDraftCourseSlug(args.course.slug)) {
+    return undefined;
+  }
+
+  return generateUniquePublishedCourseSlug({
+    courseId: Number(args.course.id),
+    title: args.course.title,
+    isSlugTaken: args.dependencies.isCourseSlugTaken,
+  });
+}
 
 function getValidationErrorMessage(error: unknown, fallback: string): string {
   if (typeof error === "object" && error !== null && "errors" in error) {
@@ -216,12 +245,21 @@ export async function toggleCoursePublishStatusWithDependencies(
     }
 
     const nextPublishedState = !course.isPublished;
+    const nextSlug = nextPublishedState
+      ? await resolvePublishSlug({ course, dependencies })
+      : undefined;
 
-    await dependencies.setCoursePublishState(parsedCourseId, nextPublishedState);
+    await dependencies.setCoursePublishState(
+      parsedCourseId,
+      nextPublishedState,
+      nextSlug,
+    );
     dependencies.revalidatePaths([
       "/courses",
       "/admin/courses",
       `/admin/courses/${parsedCourseId}`,
+      ...(course.isPublished ? [`/courses/${course.slug}`] : []),
+      ...(nextPublishedState ? [`/courses/${nextSlug ?? course.slug}`] : []),
     ]);
 
     return {

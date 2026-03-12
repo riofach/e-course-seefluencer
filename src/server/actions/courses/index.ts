@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { eq } from "drizzle-orm";
+import { and, eq, ne } from "drizzle-orm";
 
 import type { CourseUpdateInput } from "~/lib/validations/course";
 import { getServerAuthSession } from "~/server/auth";
@@ -58,12 +58,21 @@ const dependencies: CourseActionDependencies = {
     db.query.courses.findFirst({
       columns: {
         id: true,
+        title: true,
         isPublished: true,
         slug: true,
         thumbnailUrl: true,
       },
       where: eq(courses.id, courseId),
     }),
+  isCourseSlugTaken: async (slug: string, excludeCourseId: number) => {
+    const existingCourse = await db.query.courses.findFirst({
+      columns: { id: true },
+      where: and(eq(courses.slug, slug), ne(courses.id, excludeCourseId)),
+    });
+
+    return existingCourse !== undefined;
+  },
   updateCourseThumbnail: async (courseId: number, thumbnailUrl: string) => {
     await db
       .update(courses)
@@ -78,11 +87,16 @@ const dependencies: CourseActionDependencies = {
     storeCourseThumbnailLocally({ courseId, content }),
   cleanupThumbnail: async (thumbnailUrl: string) =>
     cleanupCourseThumbnailFile({ thumbnailUrl }),
-  setCoursePublishState: async (courseId: number, isPublished: boolean) => {
+  setCoursePublishState: async (
+    courseId: number,
+    isPublished: boolean,
+    slug?: string,
+  ) => {
     await db
       .update(courses)
       .set({
         isPublished,
+        ...(slug ? { slug } : {}),
         updatedAt: new Date(),
       })
       .where(eq(courses.id, courseId));

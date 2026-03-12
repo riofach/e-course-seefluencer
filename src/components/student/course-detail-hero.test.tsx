@@ -78,3 +78,20 @@ test("renders hero placeholder when thumbnail loading fails at runtime", () => {
     screen.getByText(/visual placeholder keeps the page polished while content assets are still being prepared/i),
   );
 });
+
+test("uses a dark background-image override on the hero shell", () => {
+  const { container } = render(
+    <CourseDetailHero
+      course={baseCourse}
+      cta={baseCta}
+      progressData={baseProgress}
+    />,
+  );
+
+  const hero = container.querySelector("section");
+
+  assert.ok(hero);
+  assert.ok(
+    hero.className.includes("dark:bg-[linear-gradient(135deg,_#151520_0%,_#12121A_45%,_#102228_100%)]"),
+  );
+});

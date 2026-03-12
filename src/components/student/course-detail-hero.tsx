@@ -39,7 +39,7 @@ export function CourseDetailHero({ course, cta, progressData }: CourseDetailHero
   const stats = getCourseStats(course);
 
   return (
-    <section className="relative overflow-hidden rounded-[32px] border border-slate-200/80 bg-[linear-gradient(135deg,_rgba(255,245,245,0.88)_0%,_rgba(255,255,255,0.96)_42%,_rgba(238,248,255,0.92)_100%)] px-6 py-8 text-slate-900 shadow-[0_24px_70px_rgba(15,23,42,0.1)] dark:border-white/10 dark:bg-[#1A1A24] dark:text-white dark:shadow-[0_24px_70px_rgba(0,0,0,0.28)] sm:px-8 lg:px-10 lg:py-10">
+    <section className="relative overflow-hidden rounded-[32px] border border-slate-200/80 bg-[linear-gradient(135deg,_rgba(255,245,245,0.88)_0%,_rgba(255,255,255,0.96)_42%,_rgba(238,248,255,0.92)_100%)] px-6 py-8 text-slate-900 shadow-[0_24px_70px_rgba(15,23,42,0.1)] dark:border-white/10 dark:bg-[linear-gradient(135deg,_#151520_0%,_#12121A_45%,_#102228_100%)] dark:text-white dark:shadow-[0_24px_70px_rgba(0,0,0,0.28)] sm:px-8 lg:px-10 lg:py-10">
       <div className="pointer-events-none absolute left-1/4 top-0 h-96 w-96 rounded-full bg-gradient-to-br from-[#FF6B6B]/10 via-[#9B59B6]/10 to-[#1ABC9C]/10 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-24 right-0 h-72 w-72 rounded-full bg-[#6366F1]/10 blur-3xl" />
 

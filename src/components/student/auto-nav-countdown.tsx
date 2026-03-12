@@ -5,6 +5,7 @@ import { useMemo } from "react";
 
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
+import { cn } from "~/lib/utils";
 
 type AutoNavCountdownProps = {
   nextLesson: { id: number; title: string } | null;
@@ -18,6 +19,10 @@ export function AutoNavCountdown({
   currentLessonType,
 }: AutoNavCountdownProps) {
   const router = useRouter();
+  const cardClassName = cn(
+    "border-slate-200/80 bg-white/95 text-slate-950 shadow-sm shadow-slate-200/70 backdrop-blur supports-[backdrop-filter]:bg-white/90",
+    "dark:border-[#2A2A3C] dark:bg-[#1A1A24] dark:text-slate-50 dark:shadow-black/20 dark:supports-[backdrop-filter]:bg-[#1A1A24]/95",
+  );
   const nextLessonHref = useMemo(() => {
     if (nextLesson === null) {
       return null;
@@ -32,7 +37,7 @@ export function AutoNavCountdown({
 
   if (nextLesson === null) {
     return (
-      <Card className="border-[#2A2A3C] bg-[#1A1A24] text-slate-50">
+      <Card className={cardClassName}>
         <CardContent className="py-5">
           <p className="text-base font-semibold">You&apos;ve completed all lessons!</p>
           <p className="text-muted-foreground mt-1 text-sm">
@@ -44,7 +49,7 @@ export function AutoNavCountdown({
   }
 
   return (
-    <Card className="border-[#2A2A3C] bg-[#1A1A24] text-slate-50">
+    <Card className={cardClassName}>
       <CardContent className="space-y-4 py-5">
         <div className="space-y-1">
           <p className="text-sm font-medium">Up next: {nextLesson.title}</p>

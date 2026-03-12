@@ -20,10 +20,12 @@ function createDependencies(
     updateCourse: async () => undefined,
     findCourseById: async () => ({
       id: 5,
+      title: "Draft Course",
       isPublished: false,
       slug: "draft-course",
       thumbnailUrl: null,
     }),
+    isCourseSlugTaken: async () => false,
     updateCourseThumbnail: async () => undefined,
     processThumbnailUpload: async () => new Uint8Array([1, 2, 3]),
     storeThumbnail: async () => ({
@@ -97,15 +99,24 @@ void test("updateCourseWithDependencies validates payloads before persisting", a
   });
 });
 
-void test("toggleCoursePublishStatusWithDependencies flips publish state and revalidates both routes", async () => {
+void test("toggleCoursePublishStatusWithDependencies publishes draft courses with a title-based slug", async () => {
   let receivedState: boolean | null = null;
+  let receivedSlug: string | undefined;
   let revalidatedPaths: string[] = [];
 
   const result = await toggleCoursePublishStatusWithDependencies(
     "5",
     createDependencies({
-      setCoursePublishState: async (_courseId, isPublished) => {
+      findCourseById: async () => ({
+        id: 5,
+        title: "Belajar Next JS",
+        isPublished: false,
+        slug: "draft-abc123",
+        thumbnailUrl: null,
+      }),
+      setCoursePublishState: async (_courseId, isPublished, slug) => {
         receivedState = isPublished;
+        receivedSlug = slug;
       },
       revalidatePaths: (paths) => {
         revalidatedPaths = paths;
@@ -118,11 +129,69 @@ void test("toggleCoursePublishStatusWithDependencies flips publish state and rev
     data: { newStatus: "published" },
   });
   assert.equal(receivedState, true);
+  assert.equal(receivedSlug, "belajar-next-js");
   assert.deepEqual(revalidatedPaths, [
     "/courses",
     "/admin/courses",
     "/admin/courses/5",
+    "/courses/belajar-next-js",
   ]);
+});
+
+void test("toggleCoursePublishStatusWithDependencies resolves draft slug collisions before publish", async () => {
+  let receivedSlug: string | undefined;
+
+  const result = await toggleCoursePublishStatusWithDependencies(
+    "5",
+    createDependencies({
+      findCourseById: async () => ({
+        id: 5,
+        title: "Belajar Next JS",
+        isPublished: false,
+        slug: "draft-abc123",
+        thumbnailUrl: null,
+      }),
+      isCourseSlugTaken: async (slug) => slug === "belajar-next-js",
+      setCoursePublishState: async (_courseId, _isPublished, slug) => {
+        receivedSlug = slug;
+      },
+    }),
+  );
+
+  assert.deepEqual(result, {
+    success: true,
+    data: { newStatus: "published" },
+  });
+  assert.equal(receivedSlug, "belajar-next-js-2");
+});
+
+void test("toggleCoursePublishStatusWithDependencies keeps existing non-draft slugs on publish toggle", async () => {
+  let receivedSlug: string | undefined = "unexpected";
+
+  const result = await toggleCoursePublishStatusWithDependencies(
+    "5",
+    createDependencies({
+      findCourseById: async () => ({
+        id: 5,
+        title: "Renamed Title",
+        isPublished: false,
+        slug: "final-course-slug",
+        thumbnailUrl: null,
+      }),
+      isCourseSlugTaken: async () => {
+        throw new Error("should not check slug uniqueness for non-draft slug");
+      },
+      setCoursePublishState: async (_courseId, _isPublished, slug) => {
+        receivedSlug = slug;
+      },
+    }),
+  );
+
+  assert.deepEqual(result, {
+    success: true,
+    data: { newStatus: "published" },
+  });
+  assert.equal(receivedSlug, undefined);
 });
 
 void test("deleteCourseWithDependencies removes the course and refreshes admin plus catalog routes", async () => {
@@ -188,6 +257,7 @@ void test("uploadCourseThumbnailWithDependencies stores the processed thumbnail 
     createDependencies({
       findCourseById: async () => ({
         id: 5,
+        title: "Draft Course",
         isPublished: false,
         slug: "draft-course",
         thumbnailUrl: "/uploads/course-thumbnails/old.webp",
