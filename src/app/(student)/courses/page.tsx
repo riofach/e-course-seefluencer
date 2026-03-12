@@ -35,7 +35,7 @@ export default async function CoursesPage(props: SearchParamProps) {
   return (
     <div>
       <section className="mx-auto flex min-h-[calc(100vh-3.5rem)] w-full max-w-7xl flex-col gap-8 px-4 pb-16 pt-6 sm:px-6 sm:pb-20 sm:pt-8 lg:gap-10 lg:px-8 lg:pb-24">
-        <div className="relative isolate overflow-hidden rounded-[32px] border border-white/10 bg-[linear-gradient(135deg,_#151520_0%,_#12121A_45%,_#102228_100%)] px-6 py-10 sm:px-10 sm:py-12 lg:px-12 lg:py-14">
+        <div className="relative isolate overflow-hidden rounded-[32px] border border-slate-200/80 bg-[linear-gradient(135deg,_rgba(255,245,245,1)_0%,_rgba(255,255,255,0.98)_42%,_rgba(238,248,255,1)_100%)] px-6 py-10 text-slate-900 shadow-[0_30px_80px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-[linear-gradient(135deg,_#151520_0%,_#12121A_45%,_#102228_100%)] dark:text-white dark:shadow-none sm:px-10 sm:py-12 lg:px-12 lg:py-14">
           <div aria-hidden="true">
             <div className="pointer-events-none absolute left-1/2 top-4 h-72 w-72 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,_rgba(255,107,107,0.22),_rgba(155,89,182,0.12)_42%,_transparent_72%)] blur-3xl" />
             <div className="pointer-events-none absolute -right-16 top-20 h-80 w-80 rounded-full bg-[radial-gradient(circle,_rgba(26,188,156,0.24),_transparent_68%)] blur-3xl" />
@@ -44,36 +44,36 @@ export default async function CoursesPage(props: SearchParamProps) {
 
           <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)] lg:items-start">
             <div className="max-w-3xl space-y-6">
-              <span className="inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-slate-200">
+              <span className="inline-flex rounded-full border border-slate-200/80 bg-white/80 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm dark:border-white/10 dark:bg-white/5 dark:text-slate-200">
                 Public catalog with premium feel
               </span>
               <div className="space-y-4">
                 <h1 className="font-[family-name:var(--font-playfair-display)] text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl">
                   Browse courses with a premium first impression.
                 </h1>
-                <p className="max-w-2xl text-base leading-7 text-slate-300 sm:text-lg">
+                <p className="max-w-2xl text-base leading-7 text-slate-600 dark:text-slate-300 sm:text-lg">
                   Explore published Seefluencer courses without signing in. Search what fits your momentum, preview the library, and only authenticate when protected lesson flow actually requires it.
                 </p>
               </div>
-              <div className="flex flex-wrap gap-3 text-sm text-slate-300">
+              <div className="flex flex-wrap gap-3 text-sm text-slate-600 dark:text-slate-300">
                 {[
                   "Published courses only",
                   "Free & Premium access badges",
                   "Guest-friendly discovery flow",
                 ].map((item) => (
-                  <span key={item} className="rounded-full border border-white/10 bg-white/5 px-4 py-2">
+                  <span key={item} className="rounded-full border border-slate-200/80 bg-white/70 px-4 py-2 shadow-sm dark:border-white/10 dark:bg-white/5">
                     {item}
                   </span>
                 ))}
               </div>
             </div>
 
-            <div className="rounded-[28px] border border-[#2A2A3C] bg-[#1A1A24] p-6 shadow-[0_30px_80px_rgba(0,0,0,0.35)]">
+            <div className="rounded-[28px] border border-slate-200/80 bg-white/80 p-6 shadow-[0_30px_80px_rgba(15,23,42,0.12)] backdrop-blur dark:border-[#2A2A3C] dark:bg-[#1A1A24] dark:shadow-[0_30px_80px_rgba(0,0,0,0.35)]">
               <div className="space-y-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
                   Catalog highlights
                 </p>
-                <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl font-bold tracking-tight">
+                <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
                   Browse courses
                 </h2>
                 <div className="space-y-3">
@@ -84,7 +84,7 @@ export default async function CoursesPage(props: SearchParamProps) {
                   ].map((bullet) => (
                     <div
                       key={bullet}
-                      className="rounded-2xl border border-white/10 bg-[#14141C] px-4 py-3 text-sm leading-6 text-slate-300"
+                      className="rounded-2xl border border-slate-200/80 bg-white/85 px-4 py-3 text-sm leading-6 text-slate-600 shadow-sm dark:border-white/10 dark:bg-[#14141C] dark:text-slate-300"
                     >
                       {bullet}
                     </div>
@@ -97,7 +97,7 @@ export default async function CoursesPage(props: SearchParamProps) {
 
         <Suspense
           fallback={
-            <div className="min-h-[56px] w-full rounded-3xl border border-[#2A2A3C] bg-[#1A1A24]" />
+            <div className="min-h-[56px] w-full rounded-3xl border border-slate-200/80 bg-white/80 dark:border-[#2A2A3C] dark:bg-[#1A1A24]" />
           }
         >
           <CourseSearchInput defaultValue={query} />

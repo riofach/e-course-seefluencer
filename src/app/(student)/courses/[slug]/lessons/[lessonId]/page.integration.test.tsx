@@ -123,7 +123,9 @@ test("lesson page keeps the mark complete CTA sticky and right aligned", () => {
 
   assert.match(contents, /sticky bottom-0/);
   assert.match(contents, /flex justify-end/);
-  assert.match(contents, /border-t border-\[#2A2A3C\]/);
-  assert.match(contents, /bg-\[#0F0F14\]\/90/);
+  assert.match(contents, /border-t border-slate-200/);
+  assert.match(contents, /dark:border-\[#2A2A3C\]/);
+  assert.match(contents, /bg-slate-50\/90/);
+  assert.match(contents, /dark:bg-\[#0F0F14\]\/90/);
   assert.match(contents, /backdrop-blur-sm/);
 });

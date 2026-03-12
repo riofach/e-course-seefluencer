@@ -87,9 +87,9 @@ export function CourseSearchInput({
       <label htmlFor="course-search" className="sr-only">
         Cari kursus berdasarkan judul
       </label>
-      <div className="relative flex min-h-[56px] items-center gap-3 rounded-3xl border border-[#2A2A3C] bg-[#1A1A24] px-4 py-2 shadow-[0_18px_40px_rgba(0,0,0,0.2)] transition-colors focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500">
+      <div className="relative flex min-h-[56px] items-center gap-3 rounded-3xl border border-slate-200/80 bg-white/85 px-4 py-2 shadow-[0_18px_40px_rgba(15,23,42,0.08)] transition-colors focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 dark:border-[#2A2A3C] dark:bg-[#1A1A24] dark:shadow-[0_18px_40px_rgba(0,0,0,0.2)]">
         <Search
-          className="size-5 shrink-0 text-gray-500"
+          className="size-5 shrink-0 text-slate-400 dark:text-gray-500"
           aria-hidden="true"
         />
         <Input
@@ -100,7 +100,7 @@ export function CourseSearchInput({
           onChange={(event) => setValue(event.target.value)}
           placeholder="Search courses..."
           aria-label="Cari kursus berdasarkan judul"
-          className="min-h-[44px] flex-1 border-0 bg-transparent px-2 text-sm text-white placeholder:text-gray-500 shadow-none focus-visible:ring-0"
+          className="min-h-[44px] flex-1 border-0 bg-transparent px-2 text-sm text-slate-900 placeholder:text-slate-400 shadow-none focus-visible:ring-0 dark:text-white dark:placeholder:text-gray-500"
         />
         {normalizeCourseSearchTerm(value) ? (
           <Button
@@ -109,7 +109,7 @@ export function CourseSearchInput({
             size="icon"
             onClick={handleClear}
             aria-label="Hapus pencarian kursus"
-            className="min-h-[44px] min-w-[44px] shrink-0 rounded-full text-gray-500 hover:bg-white/5 hover:text-white"
+            className="min-h-[44px] min-w-[44px] shrink-0 rounded-full text-slate-400 hover:bg-slate-100 hover:text-slate-900 dark:text-gray-500 dark:hover:bg-white/5 dark:hover:text-white"
           >
             <X className="size-4" aria-hidden="true" />
           </Button>

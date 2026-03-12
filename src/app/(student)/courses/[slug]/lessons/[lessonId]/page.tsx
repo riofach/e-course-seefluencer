@@ -131,32 +131,32 @@ export default async function LessonPage({ params }: LessonPageProps) {
     >
       <div className="space-y-6">
         <Breadcrumb>
-          <BreadcrumbList className="text-slate-400">
+          <BreadcrumbList className="text-slate-500 dark:text-slate-400">
             <BreadcrumbItem>
-              <BreadcrumbLink asChild className="text-slate-400 hover:text-white">
+              <BreadcrumbLink asChild className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white">
                 <Link href="/courses">Courses</Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink
-                asChild
-                className="text-slate-400 hover:text-white"
-              >
-                <Link href={`/courses/${lesson.course.slug}`}>
+                <BreadcrumbLink
+                  asChild
+                  className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+                >
+                  <Link href={`/courses/${lesson.course.slug}`}>
                   {lesson.course.title}
                 </Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage className="text-slate-300">
+              <BreadcrumbPage className="text-slate-600 dark:text-slate-300">
                 {lesson.chapter.title}
               </BreadcrumbPage>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage className="text-slate-50">
+              <BreadcrumbPage className="text-slate-900 dark:text-slate-50">
                 {lesson.title}
               </BreadcrumbPage>
             </BreadcrumbItem>
@@ -165,17 +165,17 @@ export default async function LessonPage({ params }: LessonPageProps) {
 
         <div className="space-y-4">
           <div className="flex flex-wrap items-center gap-3">
-            <Badge
-              variant="outline"
-              className="border-[#2A2A3C] bg-[#1A1A24] text-slate-100"
-            >
-              {toLessonTypeLabel(lesson.type)}
-            </Badge>
+              <Badge
+                variant="outline"
+               className="border-slate-200 bg-white text-slate-700 dark:border-[#2A2A3C] dark:bg-[#1A1A24] dark:text-slate-100"
+             >
+               {toLessonTypeLabel(lesson.type)}
+             </Badge>
             <Badge
               variant={lesson.isFree ? "secondary" : "default"}
               className={
                 lesson.isFree
-                  ? "bg-slate-700 text-slate-100"
+                  ? "bg-slate-200 text-slate-800 dark:bg-slate-700 dark:text-slate-100"
                   : "bg-indigo-500 text-white"
               }
             >
@@ -184,10 +184,10 @@ export default async function LessonPage({ params }: LessonPageProps) {
           </div>
 
           <div className="space-y-2">
-            <p className="text-sm font-medium text-slate-400">
+            <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
               Chapter {lesson.chapter.order} • Lesson {lesson.order}
             </p>
-            <h1 className="text-balance text-3xl font-semibold tracking-tight text-slate-50 sm:text-4xl">
+            <h1 className="text-balance text-3xl font-semibold tracking-tight text-slate-900 dark:text-slate-50 sm:text-4xl">
               {lesson.title}
             </h1>
           </div>
@@ -196,7 +196,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
         {showPaywallOverlay ? <PaywallTeaserOverlay /> : lessonContent}
 
         {!showPaywallOverlay && lesson.type !== "quiz" && (
-          <div className="sticky bottom-0 z-10 -mx-4 flex justify-end border-t border-[#2A2A3C] bg-[#0F0F14]/90 px-4 py-4 backdrop-blur-sm sm:-mx-6 sm:px-6 lg:mx-0 lg:px-0">
+          <div className="sticky bottom-0 z-10 -mx-4 flex justify-end border-t border-slate-200 bg-slate-50/90 px-4 py-4 backdrop-blur-sm dark:border-[#2A2A3C] dark:bg-[#0F0F14]/90 sm:-mx-6 sm:px-6 lg:mx-0 lg:px-0">
             <MarkCompleteButton
               lessonId={lesson.id}
               courseSlug={slug}

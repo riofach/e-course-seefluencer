@@ -65,7 +65,7 @@ export default async function PricingPage({
   return (
     <div>
       <section className="mx-auto flex w-full max-w-7xl flex-col gap-14 px-4 pb-16 pt-6 sm:px-6 sm:pb-20 sm:pt-8 lg:gap-18 lg:px-8 lg:pb-24">
-        <div className="relative isolate overflow-hidden rounded-[32px] border border-white/10 bg-[linear-gradient(135deg,_#151520_0%,_#12121A_45%,_#102228_100%)] px-6 py-10 sm:px-10 sm:py-12 lg:px-12 lg:py-14">
+        <div className="relative isolate overflow-hidden rounded-[32px] border border-slate-200/80 bg-[linear-gradient(135deg,_#FFF8F7_0%,_#F7F4FF_45%,_#EEFDFC_100%)] px-6 py-10 text-slate-900 shadow-[0_28px_80px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-[linear-gradient(135deg,_#151520_0%,_#12121A_45%,_#102228_100%)] dark:text-slate-50 dark:shadow-none sm:px-10 sm:py-12 lg:px-12 lg:py-14">
           <div aria-hidden="true">
             <div className="pointer-events-none absolute left-1/2 top-4 h-72 w-72 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,_rgba(255,107,107,0.22),_rgba(155,89,182,0.12)_42%,_transparent_72%)] blur-3xl" />
             <div className="pointer-events-none absolute -right-16 top-20 h-80 w-80 rounded-full bg-[radial-gradient(circle,_rgba(26,188,156,0.24),_transparent_68%)] blur-3xl" />
@@ -74,7 +74,7 @@ export default async function PricingPage({
 
           <div className="relative grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)] lg:items-start">
             <div className="max-w-3xl space-y-6">
-              <span className="inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-slate-200">
+              <span className="inline-flex rounded-full border border-slate-200/80 bg-white/80 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm dark:border-white/10 dark:bg-white/5 dark:text-slate-200">
                 Premium access, public clarity
               </span>
 
@@ -82,13 +82,13 @@ export default async function PricingPage({
                 <h1 className="font-[family-name:var(--font-playfair-display)] text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl">
                   Pricing that feels like momentum, not friction.
                 </h1>
-                <p className="max-w-2xl text-base leading-7 text-slate-300 sm:text-lg">
+                <p className="max-w-2xl text-base leading-7 text-slate-600 dark:text-slate-300 sm:text-lg">
                   Compare plans, understand the value, and decide on your own timeline.
                   You only need to sign in when you are ready to complete checkout.
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-3 text-sm text-slate-300">
+              <div className="flex flex-wrap gap-3 text-sm text-slate-600 dark:text-slate-300">
                 {[
                   "Cancel anytime",
                   "Premium lessons + quizzes",
@@ -96,14 +96,14 @@ export default async function PricingPage({
                 ].map((item) => (
                   <span
                     key={item}
-                    className="rounded-full border border-white/10 bg-white/5 px-4 py-2"
+                    className="rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 shadow-sm dark:border-white/10 dark:bg-white/5 dark:shadow-none"
                   >
                     {item}
                   </span>
                 ))}
               </div>
 
-              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-white/10 pt-4 text-sm text-slate-300">
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-slate-200/80 pt-4 text-sm text-slate-600 dark:border-white/10 dark:text-slate-300">
                 {[
                   "Transparent pricing",
                   "Access activates after payment",
@@ -117,9 +117,9 @@ export default async function PricingPage({
               </div>
             </div>
 
-            <div className="rounded-[28px] border border-[#2A2A3C] bg-[#1A1A24] p-6 shadow-[0_30px_80px_rgba(0,0,0,0.35)]">
+            <div className="rounded-[28px] border border-slate-200/80 bg-white/85 p-6 text-slate-900 shadow-[0_30px_80px_rgba(15,23,42,0.12)] backdrop-blur-sm dark:border-[#2A2A3C] dark:bg-[#1A1A24] dark:text-slate-50 dark:shadow-[0_30px_80px_rgba(0,0,0,0.35)]">
               <div className="space-y-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
                   Why learners upgrade
                 </p>
                 <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl font-bold tracking-tight">
@@ -133,7 +133,7 @@ export default async function PricingPage({
                   ].map((bullet) => (
                     <div
                       key={bullet}
-                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm leading-6 text-slate-300"
+                      className="rounded-2xl border border-slate-200/80 bg-slate-50/90 px-4 py-3 text-sm leading-6 text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300"
                     >
                       {bullet}
                     </div>
@@ -153,10 +153,10 @@ export default async function PricingPage({
 
         <section
           aria-labelledby="pricing-trust-section"
-          className="grid gap-6 rounded-[32px] border border-[#2A2A3C] bg-[#1A1A24] p-6 sm:p-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-8 lg:p-10"
+          className="grid gap-6 rounded-[32px] border border-slate-200/80 bg-white/80 p-6 text-slate-900 shadow-[0_24px_70px_rgba(15,23,42,0.08)] backdrop-blur-sm dark:border-[#2A2A3C] dark:bg-[#1A1A24] dark:text-slate-50 dark:shadow-none sm:p-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-8 lg:p-10"
         >
           <div className="space-y-4">
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-indigo-300">
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-indigo-600 dark:text-indigo-300">
               Trust & conversion layer
             </p>
             <h2
@@ -165,7 +165,7 @@ export default async function PricingPage({
             >
               Built to earn confidence before asking for commitment.
             </h2>
-            <p className="max-w-xl text-base leading-7 text-slate-300">
+            <p className="max-w-xl text-base leading-7 text-slate-600 dark:text-slate-300">
               The premium path is designed to feel clear, trustworthy, and reversible.
               Browse first, buy when ready, and keep your plan context after sign-in.
             </p>
@@ -178,18 +178,18 @@ export default async function PricingPage({
               ].map((item) => (
                 <div
                   key={item.value}
-                  className="rounded-[24px] border border-[#2A2A3C] bg-[#14141C] p-4"
+                  className="rounded-[24px] border border-slate-200/80 bg-slate-50/90 p-4 dark:border-[#2A2A3C] dark:bg-[#14141C]"
                 >
-                  <p className="font-[family-name:var(--font-playfair-display)] text-2xl font-bold text-white">
+                  <p className="font-[family-name:var(--font-playfair-display)] text-2xl font-bold text-slate-900 dark:text-white">
                     {item.value}
                   </p>
-                  <p className="mt-2 text-sm leading-6 text-slate-400">{item.label}</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">{item.label}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="space-y-4 rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,_rgba(255,255,255,0.05)_0%,_rgba(255,255,255,0.02)_100%)] p-5 sm:p-6">
+          <div className="space-y-4 rounded-[28px] border border-slate-200/80 bg-[linear-gradient(180deg,_rgba(255,255,255,0.92)_0%,_rgba(248,250,252,0.96)_100%)] p-5 shadow-[0_20px_55px_rgba(15,23,42,0.06)] dark:border-white/10 dark:bg-[linear-gradient(180deg,_rgba(255,255,255,0.05)_0%,_rgba(255,255,255,0.02)_100%)] dark:shadow-none sm:p-6">
             <h3 className="font-[family-name:var(--font-playfair-display)] text-2xl font-bold tracking-tight">
               Quick answers before checkout
             </h3>
@@ -213,10 +213,10 @@ export default async function PricingPage({
               ].map((item) => (
                 <div
                   key={item.question}
-                  className="rounded-2xl border border-white/10 bg-[#14141C] px-4 py-4"
+                  className="rounded-2xl border border-slate-200/80 bg-white px-4 py-4 dark:border-white/10 dark:bg-[#14141C]"
                 >
-                  <p className="text-sm font-semibold text-white">{item.question}</p>
-                  <p className="mt-2 text-sm leading-6 text-slate-400">{item.answer}</p>
+                  <p className="text-sm font-semibold text-slate-900 dark:text-white">{item.question}</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">{item.answer}</p>
                 </div>
               ))}
             </div>

@@ -3,7 +3,7 @@ import { Skeleton } from "~/components/ui/skeleton";
 export function CourseDetailSkeleton() {
   return (
     <div className="space-y-8" data-testid="course-detail-skeleton">
-      <section className="rounded-[32px] border border-[#2A2A3C] bg-[#1A1A24] p-6 sm:p-8">
+      <section className="rounded-[32px] border border-slate-200/80 bg-white/90 p-6 dark:border-[#2A2A3C] dark:bg-[#1A1A24] sm:p-8">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center">
           <div className="order-2 space-y-4 lg:order-1">
             <Skeleton className="h-6 w-28 rounded-full bg-white/10" />
@@ -27,7 +27,7 @@ export function CourseDetailSkeleton() {
         </div>
       </section>
 
-      <section className="space-y-4 rounded-[28px] border border-[#2A2A3C] bg-[#1A1A24] p-6">
+      <section className="space-y-4 rounded-[28px] border border-slate-200/80 bg-white/90 p-6 dark:border-[#2A2A3C] dark:bg-[#1A1A24]">
         <Skeleton className="h-8 w-52 bg-white/10" />
         <Skeleton className="h-5 w-80 bg-white/10" />
 
@@ -49,8 +49,8 @@ export function CourseDetailSkeleton() {
       </section>
 
       <section className="grid gap-6 lg:grid-cols-2">
-        <Skeleton className="h-[320px] rounded-[28px] border border-[#2A2A3C] bg-[#1A1A24]" />
-        <Skeleton className="h-[320px] rounded-[28px] border border-[#2A2A3C] bg-[#1A1A24]" />
+        <Skeleton className="h-[320px] rounded-[28px] border border-slate-200/80 bg-white/90 dark:border-[#2A2A3C] dark:bg-[#1A1A24]" />
+        <Skeleton className="h-[320px] rounded-[28px] border border-slate-200/80 bg-white/90 dark:border-[#2A2A3C] dark:bg-[#1A1A24]" />
       </section>
     </div>
   );

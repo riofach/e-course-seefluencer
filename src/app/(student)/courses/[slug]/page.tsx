@@ -82,14 +82,14 @@ export default async function CourseDetailPage({ params }: CourseDetailPageProps
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link href="/courses" className="text-slate-400 hover:text-white">
+                <Link href="/courses" className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white">
                   Courses
                 </Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage className="text-slate-200">{course.title}</BreadcrumbPage>
+              <BreadcrumbPage className="text-slate-700 dark:text-slate-200">{course.title}</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -102,21 +102,21 @@ export default async function CourseDetailPage({ params }: CourseDetailPageProps
         <CourseSyllabus courseSlug={course.slug} chapters={course.chapters} />
         <CourseOutcomes title={course.title} outcomes={outcomeItems} />
 
-        <section className="rounded-[32px] border border-[#2A2A3C] bg-[#1A1A24] px-6 py-8 text-center sm:px-8">
-          <p className="text-sm font-semibold tracking-[0.18em] text-slate-400 uppercase">
+        <section className="rounded-[32px] border border-slate-200/80 bg-white/80 px-6 py-8 text-center shadow-[0_24px_70px_rgba(15,23,42,0.08)] backdrop-blur dark:border-[#2A2A3C] dark:bg-[#1A1A24] dark:shadow-none sm:px-8">
+          <p className="text-sm font-semibold tracking-[0.18em] text-slate-500 uppercase dark:text-slate-400">
             Ready to start?
           </p>
-          <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
             Join the learning flow without scrolling back to the top.
           </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 tracking-[-0.02em] text-slate-300 sm:text-base">
+          <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 tracking-[-0.02em] text-slate-600 dark:text-slate-300 sm:text-base">
             Choose the next step that matches your access level. The same primary CTA is repeated here to preserve momentum after the syllabus and trust section.
           </p>
           <div className="mt-6 flex flex-col items-center gap-3">
             <Button asChild className="min-h-[44px] rounded-full bg-indigo-600 px-6 text-white hover:bg-indigo-500">
               <Link href={primaryCta.href}>{primaryCta.label}</Link>
             </Button>
-            <p className="text-sm leading-6 tracking-[-0.02em] text-slate-400">
+            <p className="text-sm leading-6 tracking-[-0.02em] text-slate-500 dark:text-slate-400">
               {primaryCta.helperText}
             </p>
           </div>

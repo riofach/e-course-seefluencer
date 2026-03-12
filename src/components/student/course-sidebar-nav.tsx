@@ -87,9 +87,9 @@ export function CourseSidebarNav({
   return (
     <nav
       aria-label="Course sidebar navigation"
-      className="flex h-full w-full flex-col border-r border-[#2A2A3C] bg-[#1A1A24] text-slate-50"
+      className="flex h-full w-full flex-col border-r border-slate-200 bg-white text-slate-900 dark:border-[#2A2A3C] dark:bg-[#1A1A24] dark:text-slate-50"
     >
-      <div className="border-b border-[#2A2A3C] px-4 py-4">
+      <div className="border-b border-slate-200 px-4 py-4 dark:border-[#2A2A3C]">
         <div className="mb-2 flex items-center justify-between gap-3">
           <p className="text-sm font-semibold">Progress belajar</p>
           <span className="text-muted-foreground text-sm font-medium">
@@ -98,9 +98,9 @@ export function CourseSidebarNav({
         </div>
         <div
           className={cn(
-            "rounded-full transition-all duration-500",
+              "rounded-full transition-all duration-500",
               glow &&
-                "ring-offset-[#1A1A24] shadow-[0_0_15px_rgba(79,70,229,0.5)] ring-2 ring-indigo-500/50 ring-offset-1",
+                "ring-offset-white shadow-[0_0_15px_rgba(79,70,229,0.35)] ring-2 ring-indigo-500/50 ring-offset-1 dark:ring-offset-[#1A1A24] dark:shadow-[0_0_15px_rgba(79,70,229,0.5)]",
           )}
         >
           <Progress
@@ -118,7 +118,7 @@ export function CourseSidebarNav({
         >
           {chapters.map((chapter) => (
             <AccordionItem key={chapter.id} value={`chapter-${chapter.id}`}>
-              <AccordionTrigger className="rounded-lg px-2 text-sm hover:bg-white/5 hover:no-underline focus-visible:ring-[3px] focus-visible:ring-indigo-500/50 focus-visible:outline-none">
+              <AccordionTrigger className="rounded-lg px-2 text-sm hover:bg-slate-100 hover:no-underline focus-visible:ring-[3px] focus-visible:ring-indigo-500/50 focus-visible:outline-none dark:hover:bg-white/5">
                 <div className="space-y-1 text-left">
                   <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
                     Chapter {chapter.order}
@@ -144,20 +144,20 @@ export function CourseSidebarNav({
                             if (isActive) activeLessonRef.current = el;
                           }}
                           type="button"
-                          onClick={() => {
-                            onLessonSelected?.();
-                            router.push(
+                            onClick={() => {
+                              onLessonSelected?.();
+                              router.push(
                               `/courses/${courseSlug}/lessons/${lesson.id}`,
                             );
                           }}
-                          className={cn(
-                             "flex min-h-11 w-full items-center gap-3 rounded-xl border border-[#2A2A3C] px-3 py-3 text-left transition-colors focus-visible:ring-[3px] focus-visible:ring-indigo-500/50 focus-visible:outline-none",
-                             isActive
-                               ? "border-[#6366F1] bg-[#6366F1]/10 shadow-sm"
-                               : "bg-[#1A1A24] hover:bg-white/5",
-                           )}
-                          aria-current={isActive ? "page" : undefined}
-                        >
+                           className={cn(
+                              "flex min-h-11 w-full items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-3 text-left transition-colors focus-visible:ring-[3px] focus-visible:ring-indigo-500/50 focus-visible:outline-none dark:border-[#2A2A3C] dark:bg-[#1A1A24]",
+                              isActive
+                                ? "border-indigo-500 bg-indigo-50 shadow-sm dark:border-[#6366F1] dark:bg-[#6366F1]/10"
+                                : "hover:bg-slate-100 dark:hover:bg-white/5",
+                            )}
+                           aria-current={isActive ? "page" : undefined}
+                         >
                           <LessonTypeIcon className="text-muted-foreground size-4 shrink-0" />
 
                           <div className="min-w-0 flex-1 space-y-1">

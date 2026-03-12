@@ -120,13 +120,13 @@ export function PricingPageClient({
 
   if (plans.length === 0) {
     return (
-      <Card className="border-[#2A2A3C] bg-[#1A1A24] text-center text-white">
+      <Card className="border-slate-200 bg-white text-center text-slate-900 shadow-[0_18px_40px_rgba(15,23,42,0.08)] dark:border-[#2A2A3C] dark:bg-[#1A1A24] dark:text-white dark:shadow-[0_18px_40px_rgba(0,0,0,0.24)]">
         <CardHeader className="items-center text-center">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/5">
-            <PackageOpen className="size-8 text-slate-400" />
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-slate-100 dark:bg-white/5">
+            <PackageOpen className="size-8 text-slate-500 dark:text-slate-400" />
           </div>
           <CardTitle>No plans available yet</CardTitle>
-          <CardDescription className="text-slate-300">
+          <CardDescription className="text-slate-600 dark:text-slate-300">
             Paket langganan belum tersedia. Sementara itu, kamu masih bisa lanjut eksplor kursus gratis.
           </CardDescription>
         </CardHeader>
@@ -173,7 +173,7 @@ export function PricingPageClient({
             <Card
               key={plan.id}
               className={cn(
-                "flex rounded-[28px] border border-[#2A2A3C] bg-[#1A1A24] text-white shadow-[0_18px_40px_rgba(0,0,0,0.24)] transition-all duration-200",
+                "flex rounded-[28px] border border-slate-200 bg-white text-slate-900 shadow-[0_18px_40px_rgba(15,23,42,0.08)] transition-all duration-200 dark:border-[#2A2A3C] dark:bg-[#1A1A24] dark:text-white dark:shadow-[0_18px_40px_rgba(0,0,0,0.24)]",
                 isHighlighted &&
                   "shadow-[0_0_0_1px_rgba(99,102,241,0.45),0_24px_55px_rgba(99,102,241,0.18)]",
                 isCurrentPlan &&
@@ -188,43 +188,43 @@ export function PricingPageClient({
                         {plan.name}
                       </CardTitle>
                       {isHighlighted ? (
-                        <Badge className="border border-indigo-400/30 bg-indigo-500/10 text-indigo-200">
+                        <Badge className="border border-indigo-400/30 bg-indigo-500/10 text-indigo-700 dark:text-indigo-200">
                           Recommended
                         </Badge>
                       ) : null}
                     </div>
                     {isCurrentPlan ? (
-                      <p className="text-sm leading-6 text-slate-300">
+                      <p className="text-sm leading-6 text-slate-600 dark:text-slate-300">
                         Paketmu aktif dan siap dipakai untuk akses semua lesson premium.
                       </p>
                     ) : null}
                   </div>
                   {isCurrentPlan ? (
-                    <Badge className="border border-emerald-400/30 bg-emerald-500/10 px-3 py-1 text-emerald-300">
-                      Active Plan
-                    </Badge>
+                     <Badge className="border border-emerald-400/30 bg-emerald-500/10 px-3 py-1 text-emerald-700 dark:text-emerald-300">
+                       Active Plan
+                     </Badge>
                   ) : null}
                 </div>
-                <CardDescription className="text-sm leading-7 tracking-[-0.02em] text-slate-300">
+                <CardDescription className="text-sm leading-7 tracking-[-0.02em] text-slate-600 dark:text-slate-300">
                   Premium access for focused learners who want structure, momentum, and a polished creator-led experience.
                 </CardDescription>
               </CardHeader>
 
               <CardContent className="space-y-5">
                 <div className="space-y-1">
-                  <p className="font-[family-name:var(--font-playfair-display)] text-5xl font-bold tracking-tight text-white">
+                  <p className="font-[family-name:var(--font-playfair-display)] text-5xl font-bold tracking-tight text-slate-950 dark:text-white">
                     {formatIDR(plan.price)}
                   </p>
-                  <p className="text-sm font-medium tracking-[-0.02em] text-slate-400">
+                  <p className="text-sm font-medium tracking-[-0.02em] text-slate-500 dark:text-slate-400">
                     / plan • {formatDuration(plan.durationDays)}
                   </p>
                 </div>
 
-                <div className="rounded-[24px] border border-[#2A2A3C] bg-[#14141C] p-4">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                <div className="rounded-[24px] border border-slate-200 bg-slate-50 p-4 dark:border-[#2A2A3C] dark:bg-[#14141C]">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
                     What you get
                   </p>
-                  <ul className="mt-3 space-y-2 text-sm leading-6 tracking-[-0.02em] text-slate-300">
+                  <ul className="mt-3 space-y-2 text-sm leading-6 tracking-[-0.02em] text-slate-600 dark:text-slate-300">
                     {benefits.map((item) => (
                       <li key={item}>• {item}</li>
                     ))}
@@ -269,7 +269,7 @@ export function PricingPageClient({
                 )}
 
                 {!isAuthenticated ? (
-                  <p className="text-center text-xs leading-5 tracking-[-0.02em] text-slate-400">
+                  <p className="text-center text-xs leading-5 tracking-[-0.02em] text-slate-500 dark:text-slate-400">
                     Auth is only required to complete checkout. After login, you&apos;ll return here with this plan context.
                   </p>
                 ) : null}
