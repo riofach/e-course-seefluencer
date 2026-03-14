@@ -58,6 +58,13 @@ const plans: Plan[] = [
     durationDays: 30,
     createdAt: new Date("2026-03-01T00:00:00.000Z"),
   },
+  {
+    id: 2,
+    name: "Creator Sprint",
+    price: 399000,
+    durationDays: 90,
+    createdAt: new Date("2026-03-02T00:00:00.000Z"),
+  },
 ];
 
 describe("PricingPageClient", () => {
@@ -79,11 +86,11 @@ describe("PricingPageClient", () => {
   });
 
   function getSubscribeButton() {
-    return screen.getByRole("button", { name: /subscribe with midtrans/i });
+    return screen.getAllByRole("button", { name: /subscribe with midtrans/i })[0];
   }
 
   function getLoginToSubscribeLink() {
-    return screen.getByRole("link", { name: /login to subscribe/i });
+    return screen.getAllByRole("link", { name: /login to subscribe/i })[0];
   }
 
   function getSnapOptionsFromCall(mockFn: { mock: { calls: unknown[][] } }) {
@@ -96,18 +103,31 @@ describe("PricingPageClient", () => {
     return firstCall[1] as SnapPayOptions | undefined;
   }
 
-  test("disables subscribe button when user is already subscribed", () => {
+  test("marks only the matching active plan card as current and disables all subscribed-state buttons", () => {
     render(
       <PricingPageClient
         plans={plans}
         isAuthenticated
         isSubscribed
+        activePlanId={2}
       />,
     );
 
-    const button = screen.getByRole("button", { name: /current plan active/i });
+    const currentPlanButton = screen.getByRole("button", {
+      name: /current plan active/i,
+    });
+    const subscribeButtons = screen.getAllByRole("button", {
+      name: /subscribe with midtrans/i,
+    });
 
-    assert.equal(button.hasAttribute("disabled"), true);
+    assert.equal(screen.getAllByText(/active plan/i).length, 1);
+    assert.equal(screen.getAllByText(/paketmu aktif dan siap dipakai/i).length, 1);
+    assert.equal(screen.queryByText("Pro Monthly", { selector: "p" }), null);
+    assert.equal(currentPlanButton.hasAttribute("disabled"), true);
+
+    for (const button of subscribeButtons) {
+      assert.equal(button.hasAttribute("disabled"), true);
+    }
   });
 
   test("shows error toast when checkout action returns failure", async () => {
@@ -309,7 +329,7 @@ describe("PricingPageClient", () => {
     });
 
     await waitFor(() => {
-      assert.ok(screen.getByRole("button", { name: /subscribe with midtrans/i }));
+      assert.ok(screen.getAllByRole("button", { name: /subscribe with midtrans/i }).length > 0);
     });
 
     assert.equal(getSubscribeButton().hasAttribute("disabled"), false);
@@ -333,8 +353,9 @@ describe("PricingPageClient", () => {
       link.getAttribute("href"),
       "/login?callbackUrl=%2Fpricing%3Fplan%3D1",
     );
-    assert.ok(
-      screen.getByText(/auth is only required to complete checkout/i),
+    assert.equal(
+      screen.getAllByText(/auth is only required to complete checkout/i).length,
+      plans.length,
     );
   });
 });

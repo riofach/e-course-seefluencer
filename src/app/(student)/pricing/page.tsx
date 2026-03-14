@@ -148,6 +148,7 @@ export default async function PricingPage({
           plans={safePlans}
           isAuthenticated={isAuthenticated}
           isSubscribed={activeSubscription !== null}
+          activePlanId={activeSubscription?.planId ?? null}
           highlightedPlanId={Number.isNaN(highlightedPlanId) ? null : highlightedPlanId}
         />
 

@@ -14,6 +14,7 @@ import type { CourseDetailItem } from "~/server/courses/course-detail";
 type CourseSyllabusProps = {
   courseSlug: CourseDetailItem["slug"];
   chapters: CourseDetailItem["chapters"];
+  hasActiveSubscription?: boolean;
 };
 
 function toLessonTypeLabel(type: string) {
@@ -42,7 +43,11 @@ function getLessonTypeIcon(type: string) {
   }
 }
 
-export function CourseSyllabus({ courseSlug, chapters }: CourseSyllabusProps) {
+export function CourseSyllabus({
+  courseSlug,
+  chapters,
+  hasActiveSubscription = false,
+}: CourseSyllabusProps) {
   const defaultOpenItems = chapters.map((chapter) => `chapter-${chapter.id}`);
   const hasPremiumLessons = chapters.some((chapter) =>
     chapter.lessons.some((lesson) => !lesson.isFree),
@@ -151,11 +156,19 @@ export function CourseSyllabus({ courseSlug, chapters }: CourseSyllabusProps) {
                     <div className="mt-4 rounded-[20px] border border-indigo-500/20 bg-indigo-500/10 p-4">
                       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                         <p className="text-sm leading-6 tracking-[-0.02em] text-indigo-100">
-                          Unlock with Premium — subscribe for full access to every lesson in this chapter.
+                          {hasActiveSubscription
+                            ? "Premium unlocked — your subscription already includes every lesson in this chapter."
+                            : "Unlock with Premium — subscribe for full access to every lesson in this chapter."}
                         </p>
-                        <Button asChild className="min-h-[44px] rounded-full bg-indigo-600 text-white hover:bg-violet-500">
-                          <Link href="/pricing">Unlock with Premium</Link>
-                        </Button>
+                        {hasActiveSubscription ? (
+                          <Badge className="w-fit border border-emerald-500/20 bg-emerald-500/20 px-3 py-2 text-emerald-300">
+                            Premium unlocked
+                          </Badge>
+                        ) : (
+                          <Button asChild className="min-h-[44px] rounded-full bg-indigo-600 text-white hover:bg-violet-500">
+                            <Link href="/pricing">Unlock with Premium</Link>
+                          </Button>
+                        )}
                       </div>
                     </div>
                   ) : null}

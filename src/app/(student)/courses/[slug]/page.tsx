@@ -99,7 +99,11 @@ export default async function CourseDetailPage({ params }: CourseDetailPageProps
           cta={primaryCta}
           progressData={progressData}
         />
-        <CourseSyllabus courseSlug={course.slug} chapters={course.chapters} />
+        <CourseSyllabus
+          courseSlug={course.slug}
+          chapters={course.chapters}
+          hasActiveSubscription={activeSubscription !== null}
+        />
         <CourseOutcomes title={course.title} outcomes={outcomeItems} />
 
         <section className="rounded-[32px] border border-slate-200/80 bg-white/80 px-6 py-8 text-center shadow-[0_24px_70px_rgba(15,23,42,0.08)] backdrop-blur dark:border-[#2A2A3C] dark:bg-[#1A1A24] dark:shadow-none sm:px-8">

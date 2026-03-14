@@ -25,6 +25,7 @@ type PricingPageClientProps = {
   plans: Plan[];
   isAuthenticated: boolean;
   isSubscribed: boolean;
+  activePlanId?: number | null;
   highlightedPlanId?: number | null;
 };
 
@@ -47,6 +48,7 @@ export function PricingPageClient({
   plans,
   isAuthenticated,
   isSubscribed,
+  activePlanId = null,
   highlightedPlanId = null,
 }: PricingPageClientProps) {
   const router = useRouter();
@@ -164,7 +166,8 @@ export function PricingPageClient({
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
         {plans.map((plan) => {
           const isLoading = isPending && pendingPlanId === plan.id;
-          const isCurrentPlan = isSubscribed;
+          const isCurrentPlan = activePlanId === plan.id;
+          const isPlanDisabled = isSubscribed || isLoading;
           const isHighlighted = highlightedPlanId === plan.id;
           const unauthenticatedHref = `/login?callbackUrl=${encodeURIComponent(`/pricing?plan=${plan.id}`)}`;
           const benefits = getPlanBenefits(plan);
@@ -243,7 +246,7 @@ export function PricingPageClient({
                         : "bg-[#6366F1] text-white hover:bg-[#8B5CF6]",
                     )}
                     onClick={() => handleCheckout(plan.id)}
-                    disabled={isCurrentPlan || isLoading}
+                    disabled={isPlanDisabled}
                   >
                     {isLoading ? (
                       <>

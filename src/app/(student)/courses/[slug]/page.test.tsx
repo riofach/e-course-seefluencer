@@ -16,8 +16,17 @@ vi.mock("~/components/student/course-detail-hero", () => ({
 }));
 
 vi.mock("~/components/student/course-syllabus", () => ({
-  CourseSyllabus: ({ courseSlug }: { courseSlug: string }) => (
-    <div data-testid="course-syllabus">{courseSlug}</div>
+  CourseSyllabus: ({
+    courseSlug,
+    hasActiveSubscription,
+  }: {
+    courseSlug: string;
+    hasActiveSubscription?: boolean;
+  }) => (
+    <div data-testid="course-syllabus">
+      <span>{courseSlug}</span>
+      <span>{hasActiveSubscription ? "subscriber" : "non-subscriber"}</span>
+    </div>
   ),
 }));
 
@@ -132,5 +141,32 @@ test("premium course resolves pricing CTA for authenticated non-subscribers", as
 
   assert.equal(screen.getAllByText(/get premium access/i).length, 2);
   assert.ok(screen.getByText("/pricing"));
+  assert.ok(screen.getByText("non-subscriber"));
+  assert.equal(vi.mocked(getUserActiveSubscription).mock.calls.length, 1);
+});
+
+test("active subscribers pass subscription awareness into the syllabus section", async () => {
+  vi.mocked(getServerAuthSession).mockResolvedValue({
+    user: { id: "user-1", role: "student", name: "Rio", email: "rio@example.com" },
+    expires: "2999-01-01T00:00:00.000Z",
+  });
+  vi.mocked(resolveCoursePageData).mockResolvedValue({
+    ...sampleCourse,
+    isFree: false,
+  });
+  vi.mocked(getCourseSidebarData).mockResolvedValue(null);
+  vi.mocked(getUserActiveSubscription).mockResolvedValue({
+    id: "sub-1",
+    userId: "user-1",
+    status: "active",
+  } as Awaited<ReturnType<typeof getUserActiveSubscription>>);
+
+  const PageComponent = await CourseDetailPage({
+    params: Promise.resolve({ slug: "react-foundations" }),
+  });
+
+  render(PageComponent);
+
+  assert.ok(screen.getByText("subscriber"));
   assert.equal(vi.mocked(getUserActiveSubscription).mock.calls.length, 1);
 });
